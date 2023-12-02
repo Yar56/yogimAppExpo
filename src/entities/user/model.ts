@@ -35,7 +35,7 @@ export const updateUserThunk = createAsyncThunk(
 );
 
 interface UserModelState {
-    user: fireBaseApi.models.User | null;
+    user: fireBaseApi.models.IUser | null;
     cachedDisplayName: string | null;
 }
 const initialState: UserModelState = { user: null, cachedDisplayName: null };
@@ -43,7 +43,7 @@ export const userModel = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, { payload }: PayloadAction<fireBaseApi.models.User | null>) => {
+        setUser: (state, { payload }: PayloadAction<fireBaseApi.models.IUser | null>) => {
             state.user = payload;
         },
         setCachedDisplayName: (state, { payload }: PayloadAction<string | null>) => {

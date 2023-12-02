@@ -1,13 +1,15 @@
 // import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
+import { User } from 'firebase/auth';
+
 export interface SignUpUserParams {
     email: string;
     password: string;
 }
 export type SignInUserParams = SignUpUserParams;
 
-// export type User = FirebaseAuthTypes.User;
-export type User = { displayName: string; email: string };
+export type IUser = User;
+// export type User = { displayName: string; email: string };
 
 export interface UpdateUserParams {
     displayName: string | null;

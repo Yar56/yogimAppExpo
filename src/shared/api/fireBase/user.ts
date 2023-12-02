@@ -1,21 +1,25 @@
-// import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { SignInUserParams, SignUpUserParams, UpdateUserParams } from './models';
+import { UserCredential } from '@firebase/auth';
+import {
+    User,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+} from 'firebase/auth';
 
-//Promise<FirebaseAuthTypes.UserCredential>
-export const signUpUser = ({ email, password }: SignUpUserParams): Promise<void> => {
-    // return auth().createUserWithEmailAndPassword(email, password);
-    return Promise.resolve();
+import { SignInUserParams, SignUpUserParams, UpdateUserParams } from './models';
+import { FIREBASE_AUTH } from '../../lib/baas/firebase';
+
+export const signUpUser = ({ email, password }: SignUpUserParams): Promise<UserCredential> => {
+    return createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
 };
 
-//Promise<FirebaseAuthTypes.UserCredential>
-export const signInUser = ({ email, password }: SignInUserParams): Promise<void> => {
-    // return auth().signInWithEmailAndPassword(email, password);
-    return Promise.resolve();
+export const signInUser = ({ email, password }: SignInUserParams): Promise<UserCredential> => {
+    return signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
 };
 
 export const signOutUser = (): Promise<void> => {
-    return Promise.resolve();
-    // auth().signOut();
+    return signOut(FIREBASE_AUTH);
 };
 
 export const updateUser = ({ displayName }: UpdateUserParams): Promise<void> | undefined => {
@@ -27,7 +31,6 @@ export const updateUser = ({ displayName }: UpdateUserParams): Promise<void> | u
 };
 
 //onChanged: FirebaseAuthTypes.AuthListenerCallback
-export const checkAuthUser = (onChanged: void) => {
-    return Promise.resolve();
-    // auth().onAuthStateChanged(onChanged);
+export const checkAuthUser = (onChanged: (user: User | null) => void) => {
+    onAuthStateChanged(FIREBASE_AUTH, onChanged);
 };
