@@ -5,18 +5,11 @@ import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './CourseCardStylesheet';
+import { fireBaseApi } from '../../../../shared/api';
 import { PRODUCT_CARD_1 } from '../../../../shared/constants/resourses';
 
-export interface Course {
-    id: string;
-    title: string;
-    description: string;
-    time: string;
-    lessonNumber: string;
-    disabled: boolean;
-}
 interface CourseCardProps {
-    course: Course;
+    course: fireBaseApi.models.Course;
 }
 export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
     const navigation = useNavigation();

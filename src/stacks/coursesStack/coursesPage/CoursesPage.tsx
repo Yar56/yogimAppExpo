@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Card, Modal, Text } from 'react-native-paper';
 import { EdgeInsets, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import styles from './CoursesPageStylesheet';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { courseModel } from '../../../entities/course';
 import {
     COURSES_SCROLL_IMAGE_1,
     COURSES_SCROLL_IMAGE_2,
@@ -13,12 +15,19 @@ import {
 } from '../../../shared/constants/resourses';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import { CoursesList } from '../../../widgets/coursesList/CoursesList';
-import { courses } from '../../../widgets/coursesList/config';
 
 export const CoursesPage = () => {
+    const dispatch = useAppDispatch();
     const safeAreaInsets = useSafeAreaInsets();
     const navigation = useNavigation();
     const [visible, setVisible] = React.useState(false);
+
+    useEffect(() => {
+        dispatch(courseModel.fetchAllCourses());
+    }, []);
+
+    const courses = useAppSelector((state) => state.courseState.courses);
+    const loadingStatus = useAppSelector((state) => state.courseState.coursesLoadingStatus);
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
@@ -69,8 +78,8 @@ export const CoursesPage = () => {
                         </ScrollView>
                     </View>
                     <Spacer size={30} />
-                    <CoursesList courses={courses} />
-                    <Spacer size={100} />
+                    <CoursesList loadingStatus={loadingStatus} courses={courses} />
+                    <Spacer size={160} />
                 </SafeAreaView>
             </ScrollView>
             <Modal

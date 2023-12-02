@@ -9,12 +9,28 @@ export interface SignUpUserParams {
 export type SignInUserParams = SignUpUserParams;
 
 export type IUser = User;
-// export type User = { displayName: string; email: string };
+
+export enum LoadingStatus {
+    IDLE = 'idle',
+    LOADING = 'loading',
+    SUCCEEDED = 'succeeded',
+    FAILED = 'failed',
+}
 
 export interface UpdateUserParams {
     displayName: string | null;
     photoURL?: string;
 }
+
+export interface Course {
+    id: string;
+    description: string;
+    disabled: boolean;
+    lessonNumber: string;
+    time: string;
+    title: string;
+}
+export type CourseList = Course[];
 
 // export interface AuthStateChangesResponse {
 //     kind: string;
