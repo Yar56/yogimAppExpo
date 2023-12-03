@@ -7,9 +7,9 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as yup from 'yup';
 
 import styles from './AuthStylesheet';
+import { useAppDispatch } from '../../../app/store/hooks';
+import { userModel } from '../../../entities/user';
 import { PROFILE_BACKGROUND_DARK } from '../../../shared/constants/resourses';
-
-// import auth from '@react-native-firebase/auth';
 import { LoadingWrapper } from '../../../shared/ui/layouts/loading/LoadingWrapper';
 import commonStyles from '../registrationPage/RegistrationPageStylesheet';
 
@@ -18,28 +18,9 @@ const schema = yup.object().shape({
     password: yup.string().required('Заполните поле с паролем').min(8, 'Пароль слишком короткий - минимум 8 символов'),
 });
 
-const handleSignIn = ({ email, password }: { email: string; password: string }) => {
-    // return auth()
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then((respone) => {
-    //         console.log(respone);
-    //         console.log('User signed in!');
-    //     })
-    //     .catch((error) => {
-    //         if (error.code === 'auth/email-already-in-use') {
-    //             console.log('That email address is already in use!');
-    //         }
-    //
-    //         if (error.code === 'auth/invalid-email') {
-    //             console.log('That email address is invalid!');
-    //         }
-    //
-    //         console.error(error);
-    //     });
-};
-
 export const AuthPage = () => {
     const insets = useSafeAreaInsets();
+    const dispatch = useAppDispatch();
 
     // const { theme, toggleTheme } = usePreferencesContext();
     const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -67,8 +48,11 @@ export const AuthPage = () => {
             setIsLoading(true);
 
             try {
-                await handleSignIn({ email, password });
+                await dispatch(userModel.signInUserThunk({ email, password }));
             } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
                 // const typedError = error as FirebaseError;
                 // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
                 //     setApiError('Такого email не существует');

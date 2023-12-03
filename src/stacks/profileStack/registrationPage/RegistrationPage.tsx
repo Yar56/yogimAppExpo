@@ -1,9 +1,7 @@
-import { FirebaseError } from '@firebase/util';
 import { useNavigation } from '@react-navigation/native';
-import { AuthError } from 'firebase/auth';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
-import { ImageBackground, KeyboardAvoidingView, View, Platform } from 'react-native';
+import { ImageBackground, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Button, IconButton, MD3Colors, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
