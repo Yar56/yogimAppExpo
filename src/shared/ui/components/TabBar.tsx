@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     routine: {
         position: 'relative',
         right: -5,
-        top: -20,
+        top: -2,
         backgroundColor: 'rgba(104,81,126,0.84)',
         padding: 10,
         borderRadius: 20,

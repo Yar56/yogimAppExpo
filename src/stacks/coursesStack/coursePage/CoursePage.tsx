@@ -1,10 +1,10 @@
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { FontAwesome5, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FunctionComponent } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Avatar, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styles from './CoursePageStylesheet';
@@ -18,7 +18,7 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
     const courseId = route.params.courseId;
 
     const navigation = useNavigation();
-    const course = useAppSelector((state) => state.courseState.courses.find((course) => course.id === courseId));
+    const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
 
     const handleBack = () => navigation.goBack();
 
@@ -26,16 +26,39 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
         <LinearGradient colors={['#21244A', '#736688', '#C37686']} style={{ flex: 1 }}>
             <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                 <SafeAreaView edges={['bottom', 'top']} style={styles.container}>
-                    <TouchableOpacity activeOpacity={0.5} onPress={handleBack}>
-                        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <MaterialCommunityIcons name="chevron-left" size={25} color="#F0FAFB" />
-                            <Text>Назад</Text>
+                    <View style={styles.header}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={handleBack}>
+                            <View>
+                                <FontAwesome5 name="long-arrow-alt-left" size={25} color="#E7E1E5" />
+                            </View>
+                        </TouchableOpacity>
+                        <Spacer size={60} horizontal />
+                        <View>
+                            <Text variant="headlineMedium">{course?.title}</Text>
                         </View>
-                    </TouchableOpacity>
-
+                    </View>
                     <Spacer size={20} />
-                    <View>
-                        <Text variant="headlineMedium">{course?.title}</Text>
+                    <View style={styles.video} />
+                    <Spacer size={20} />
+                    <View style={styles.infoWrapper}>
+                        <View>
+                            <View style={styles.tutor}>
+                                <Avatar.Icon size={30} icon="folder" />
+                                <Spacer size={15} horizontal />
+                                <View>
+                                    <Text variant="titleLarge">Юлия</Text>
+                                </View>
+                            </View>
+                            <Spacer size={10} />
+                            <View style={styles.time}>
+                                <Text variant="bodyLarge">15 часов</Text>
+                                <Entypo name="dot-single" size={24} color="#E7E1E5" />
+                                <Text variant="bodyLarge">20 уроков</Text>
+                            </View>
+                        </View>
+                        <View style={styles.price}>
+                            <Text variant="headlineSmall">1200Р</Text>
+                        </View>
                     </View>
                 </SafeAreaView>
             </ScrollView>
