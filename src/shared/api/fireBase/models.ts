@@ -8,6 +8,18 @@ export interface SignUpUserParams {
 }
 export type SignInUserParams = SignUpUserParams;
 
+export interface SetToDBUserParams {
+    userData: {
+        email: string | null;
+        isAnonymous: boolean;
+        emailVerified: boolean;
+        displayName: string | null;
+        uid: string;
+    };
+    lastLoginTime: Date;
+    buyingCoursesId: string[];
+}
+
 export type IUser = User;
 
 export enum LoadingStatus {
@@ -18,7 +30,8 @@ export enum LoadingStatus {
 }
 
 export interface UpdateUserParams {
-    displayName: string | null;
+    user: IUser;
+    displayName?: string | null;
     photoURL?: string;
 }
 

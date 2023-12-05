@@ -34,6 +34,16 @@ export const updateUserThunk = createAsyncThunk(
     }
 );
 
+// export const setUserToDBThunk = createAsyncThunk('course/setUserToDBThunk', async (user, { dispatch, getState }) => {
+//     try {
+//         const querySnapshot = await fireBaseApi.user.setToDBUser(user);
+//         console.log(querySnapshot, 'setUserToDBThunk');
+//         // return transformSnapshotCollection<fireBaseApi.models.Course>(querySnapshot);
+//     } catch (e) {
+//         console.error(e);
+//     }
+// });
+
 interface UserModelState {
     user: fireBaseApi.models.IUser | null;
     cachedDisplayName: string | null;

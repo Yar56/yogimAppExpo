@@ -2,6 +2,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { FunctionComponent, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
 import { userModel } from '../../entities/user';
+import { fireBaseApi } from '../../shared/api';
 import { IUser } from '../../shared/api/fireBase/models';
 import { checkAuthUser } from '../../shared/api/fireBase/user';
 import { SplashScreenComponent } from '../../shared/ui/components/splashScreen/SplashScreen';
@@ -22,10 +23,27 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
 
             // syntetic waiting
             await new Promise((resolve) => setTimeout(resolve, 2000));
-            if (!userDisplayName && cachedDisplayName) {
-                dispatch(userModel.updateUserThunk({ displayName: cachedDisplayName }));
-                dispatch(userModel.setCachedDisplayName(null));
+
+            // todo перенести в Регистрацию и Авторизацию??
+            if (user !== null) {
+                const uid = user.uid;
+                const userData = {
+                    userData: {
+                        email: user.email,
+                        isAnonymous: user.isAnonymous,
+                        emailVerified: user.emailVerified,
+                        displayName: user.displayName,
+                        uid,
+                    },
+                    lastLoginTime: new Date(),
+                    buyingCoursesId: ['1'],
+                };
+
+                await fireBaseApi.user.setToDBUser(userData).then(() => {
+                    dispatch(userModel.updateUserThunk({ user, displayName: user.displayName }));
+                });
             }
+            //
 
             if (!initializing) {
                 setInitializing(true);
