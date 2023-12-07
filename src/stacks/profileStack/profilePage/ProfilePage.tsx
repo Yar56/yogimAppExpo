@@ -40,9 +40,10 @@ export const ProfilePage = () => {
                 {user ? (
                     <>
                         <Card
+                            mode="contained"
                             style={{
                                 // backgroundColor: theme === 'dark' ? 'rgba(31,43,83,0.6)' : 'rgba(228,107,80, 0.5)',
-                                backgroundColor: 'rgba(31,43,83,0.4)',
+                                backgroundColor: 'rgba(31,43,83,0.8)',
                                 borderRadius: 20,
                                 paddingHorizontal: 10,
                                 paddingVertical: 10,
