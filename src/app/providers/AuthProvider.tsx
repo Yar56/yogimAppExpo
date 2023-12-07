@@ -36,7 +36,7 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
                         uid,
                     },
                     lastLoginTime: new Date(),
-                    buyingCoursesId: ['1'],
+                    // buyingCoursesId: ['1'],
                 };
 
                 await fireBaseApi.user.setToDBUser(userData).then(() => {
