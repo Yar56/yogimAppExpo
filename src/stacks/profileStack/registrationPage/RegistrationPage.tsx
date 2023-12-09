@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
+import { AuthResponse, AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
-import { ImageBackground, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Alert, ImageBackground, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Button, IconButton, MD3Colors, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
@@ -50,12 +51,20 @@ export const RegistrationPage = () => {
             setIsLoading(true);
 
             try {
-                await dispatch(userModel.signUpUserThunk({ email, password }));
-                dispatch(userModel.setCachedDisplayName(displayName));
+                const response = await dispatch(userModel.signUpUserThunk({ email, password }));
+                const payload = response.payload as AuthResponse;
+
+                if (payload.error?.message.length !== 0) {
+                    throw payload.error;
+                }
+
+                navigation.navigate('Profile');
+                // dispatch(userModel.setCachedDisplayName(displayName));
             } catch (error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                if (error instanceof Error) {
+                    const errorMessage = error.message;
+                    Alert.alert(errorMessage);
+                }
                 // const typedError = error as FirebaseError;
                 // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
                 //     setApiError('Такого email не существует');
@@ -70,7 +79,6 @@ export const RegistrationPage = () => {
             } finally {
                 setIsLoading(false);
                 resetForm();
-                navigation.navigate('Profile');
             }
         },
     };

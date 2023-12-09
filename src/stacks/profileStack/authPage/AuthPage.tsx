@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
+import { AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
-import { ImageBackground, View } from 'react-native';
+import { Alert, ImageBackground, View } from 'react-native';
 import { Button, IconButton, MD3Colors, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
@@ -48,11 +49,21 @@ export const AuthPage = () => {
             setIsLoading(true);
 
             try {
-                await dispatch(userModel.signInUserThunk({ email, password }));
+                const response = await dispatch(userModel.signInUserThunk({ email, password }));
+
+                const payload = response.payload as AuthTokenResponse;
+
+                if (payload.error?.message.length !== 0) {
+                    throw payload.error;
+                }
+
+                navigation.navigate('Profile');
             } catch (error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                if (error instanceof Error) {
+                    const errorMessage = error.message;
+                    Alert.alert(errorMessage);
+                }
+
                 // const typedError = error as FirebaseError;
                 // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
                 //     setApiError('Такого email не существует');
@@ -67,7 +78,6 @@ export const AuthPage = () => {
             } finally {
                 setIsLoading(false);
                 resetForm();
-                navigation.navigate('Profile');
             }
         },
     };
@@ -135,6 +145,7 @@ export const AuthPage = () => {
                             isSubmitting,
                             dirty,
                             isValid,
+                            errors,
                         }) => (
                             <View style={styles.formContainer}>
                                 <TextInput
@@ -145,6 +156,7 @@ export const AuthPage = () => {
                                     value={email}
                                     onBlur={handleBlur('email')}
                                     onChangeText={handleChange('email')}
+                                    error={Boolean(errors.email)}
                                 />
                                 <TextInput
                                     disabled={isSubmitting}
@@ -163,6 +175,7 @@ export const AuthPage = () => {
                                     value={password}
                                     onBlur={handleBlur('password')}
                                     onChangeText={handleChange('password')}
+                                    error={Boolean(errors.password)}
                                 />
                                 <Button
                                     contentStyle={styles.button}

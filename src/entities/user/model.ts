@@ -1,24 +1,27 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthResponse, AuthTokenResponse } from '@supabase/supabase-js';
 
-import { fireBaseApi } from '../../shared/api';
+import { fireBaseApi, supaBaseApi } from '../../shared/api';
 
 export const signUpUserThunk = createAsyncThunk(
     'user/signUpUserThunk',
-    async (userData: fireBaseApi.models.SignUpUserParams, thunkAPI) => {
+    async (userData: supaBaseApi.models.SignUpUserParams, thunkAPI): Promise<AuthResponse> => {
         try {
-            const response = await fireBaseApi.user.signUpUser(userData);
-            return response;
+            return await supaBaseApi.user.signUpUser(userData);
         } catch (error) {
-            console.error(error);
-            return { user: null, additionalUserInfo: null };
+            throw error;
         }
     }
 );
 
 export const signInUserThunk = createAsyncThunk(
     'user/signInUserThunk',
-    async (userData: fireBaseApi.models.SignInUserParams, thunkAPI) => {
-        return await fireBaseApi.user.signInUser(userData);
+    async (userData: supaBaseApi.models.SignInUserParams, thunkAPI): Promise<AuthTokenResponse> => {
+        try {
+            return await supaBaseApi.user.signInUser(userData);
+        } catch (error) {
+            throw error;
+        }
     }
 );
 
@@ -45,7 +48,7 @@ export const updateUserThunk = createAsyncThunk(
 // });
 
 interface UserModelState {
-    user: fireBaseApi.models.IUser | null;
+    user: supaBaseApi.models.IUser | null;
     cachedDisplayName: string | null;
 }
 const initialState: UserModelState = { user: null, cachedDisplayName: null };
@@ -53,7 +56,7 @@ export const userModel = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, { payload }: PayloadAction<fireBaseApi.models.IUser | null>) => {
+        setUser: (state, { payload }: PayloadAction<supaBaseApi.models.IUser | null>) => {
             state.user = payload;
         },
         setCachedDisplayName: (state, { payload }: PayloadAction<string | null>) => {
@@ -62,10 +65,10 @@ export const userModel = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(signUpUserThunk.fulfilled, (state, action) => {
-            state.user = action.payload.user;
+            state.user = action.payload.data.user;
         });
         builder.addCase(signInUserThunk.fulfilled, (state, action) => {
-            state.user = action.payload.user;
+            state.user = action.payload.data.user;
         });
         builder.addCase(updateUserThunk.fulfilled, (state, action) => {
             if (state.user && action.payload) {
