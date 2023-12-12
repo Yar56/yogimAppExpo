@@ -8,11 +8,12 @@ import {
 } from '@supabase/supabase-js';
 import { Alert } from 'react-native';
 
-import { SignInUserParams, SignUpUserParams, UpdateProfileDBParams } from './models';
+import { SignInUserParams, SignUpUserParams } from './models';
+import { supaBaseApi } from '..';
 import { supabase } from '../../lib/baas/supabase';
 
-export const signUpUser = ({ email, password }: SignUpUserParams): Promise<AuthResponse> => {
-    return supabase.auth.signUp({ email, password });
+export const signUpUser = ({ email, password, name }: SignUpUserParams): Promise<AuthResponse> => {
+    return supabase.auth.signUp({ email, password, options: { data: { name } } });
 };
 
 export const signInUser = ({ email, password }: SignInUserParams): Promise<AuthTokenResponse> => {
@@ -27,14 +28,14 @@ export const updateUser = (data: UserAttributes): Promise<UserResponse> => {
     return supabase.auth.updateUser(data);
 };
 
-export const getProfileDB = (session: Session) => {
+export const getProfileDB = (session: supaBaseApi.models.ISession) => {
     return supabase
         .from('profiles')
         .select(`username, website, avatar_url`)
         .eq('id', session?.user.id)
         .single();
 };
-export const updateProfileDB = async (session: Session, updates: UpdateProfileDBParams) => {
+export const updateProfileDB = async (session: Session, updates: supaBaseApi.dbModels.Tables<'profiles'>) => {
     if (!session?.user) {
         throw new Error('No user on the session!');
     }

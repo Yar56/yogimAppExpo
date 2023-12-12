@@ -51,12 +51,14 @@ export const AuthPage = () => {
             try {
                 const response = await dispatch(userModel.signInUserThunk({ email, password }));
 
-                const payload = response.payload as AuthTokenResponse;
+                const payload = response.payload as AuthTokenResponse | undefined;
+                console.log(payload, 'AuthPage');
 
-                if (payload.error?.message.length !== 0) {
-                    throw payload.error;
+                if (payload?.error?.message && payload.error.message.length !== 0) {
+                    throw payload?.error;
                 }
 
+                console.log('to profile');
                 navigation.navigate('Profile');
             } catch (error) {
                 if (error instanceof Error) {

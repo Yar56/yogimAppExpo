@@ -1,66 +1,58 @@
+import { Session } from '@supabase/supabase-js';
 import * as SplashScreen from 'expo-splash-screen';
-import { FunctionComponent, PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 
 import { userModel } from '../../entities/user';
-import { fireBaseApi } from '../../shared/api';
-import { IUser } from '../../shared/api/fireBase/models';
-import { checkAuthUser } from '../../shared/api/fireBase/user';
-import { SplashScreenComponent } from '../../shared/ui/components/splashScreen/SplashScreen';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { supabase } from '../../shared/lib/baas/supabase';
+import { useAppDispatch } from '../store/hooks';
 
 SplashScreen.preventAutoHideAsync();
 
 export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
+    const [session, setSession] = useState<Session | null>(null);
+
     const dispatch = useAppDispatch();
     const [initializing, setInitializing] = useState(false);
-    const userDisplayName = useAppSelector((state) => state.userState.user?.displayName);
-    const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
-
-    // Handle user state changes
-    const onAuthStateChanged = useCallback(
-        async (user: IUser | null) => {
-            dispatch(userModel.setUser(user));
-
-            // syntetic waiting
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-
-            // todo перенести в Регистрацию и Авторизацию??
-            if (user !== null) {
-                const uid = user.uid;
-                const userData = {
-                    userData: {
-                        email: user.email,
-                        isAnonymous: user.isAnonymous,
-                        emailVerified: user.emailVerified,
-                        displayName: user.displayName,
-                        uid,
-                    },
-                    lastLoginTime: new Date(),
-                    // buyingCoursesId: ['1'],
-                };
-
-                await fireBaseApi.user.setToDBUser(userData).then(() => {
-                    dispatch(userModel.updateUserThunk({ user, displayName: user.displayName }));
-                });
-            }
-            //
-
-            if (!initializing) {
-                setInitializing(true);
-                await SplashScreen.hideAsync();
-            }
-        },
-        [cachedDisplayName, dispatch, initializing, userDisplayName]
-    );
+    // const userDisplayName = useAppSelector((state) => state.userState.user?.displayName);
+    // const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
 
     useEffect(() => {
-        const subscriber = checkAuthUser(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
-    }, [onAuthStateChanged]);
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+        });
 
-    if (!initializing) {
-        return <SplashScreenComponent />;
-    }
+        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log(event, session);
+
+            if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user) {
+                dispatch(userModel.setUser(session.user));
+            }
+
+            if (event === 'SIGNED_OUT') {
+                dispatch(userModel.setUser(null));
+            }
+
+            if (session) {
+                dispatch(userModel.setSession(session));
+            }
+
+            setSession(session);
+            setInitializing(true);
+        });
+
+        return () => {
+            authListener.subscription;
+        };
+    }, []);
+
+    useEffect(() => {
+        // syntetic waiting
+        if (initializing) {
+            new Promise((resolve) => setTimeout(resolve, 2000)).then(async () => {
+                await SplashScreen.hideAsync();
+            });
+        }
+    }, [initializing]);
 
     return <>{children}</>;
 };

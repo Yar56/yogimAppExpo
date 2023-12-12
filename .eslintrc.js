@@ -12,7 +12,7 @@ module.exports = {
     rules: {
         'no-console': 'off',
         'no-debugger': 'warn',
-        '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/ban-ts-ignore': 'off',
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',

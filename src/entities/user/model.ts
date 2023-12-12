@@ -49,9 +49,9 @@ export const updateUserThunk = createAsyncThunk(
 
 interface UserModelState {
     user: supaBaseApi.models.IUser | null;
-    cachedDisplayName: string | null;
+    session: supaBaseApi.models.ISession | null;
 }
-const initialState: UserModelState = { user: null, cachedDisplayName: null };
+const initialState: UserModelState = { user: null, session: null };
 export const userModel = createSlice({
     name: 'user',
     initialState,
@@ -59,8 +59,8 @@ export const userModel = createSlice({
         setUser: (state, { payload }: PayloadAction<supaBaseApi.models.IUser | null>) => {
             state.user = payload;
         },
-        setCachedDisplayName: (state, { payload }: PayloadAction<string | null>) => {
-            state.cachedDisplayName = payload;
+        setSession: (state, { payload }: PayloadAction<supaBaseApi.models.ISession | null>) => {
+            state.session = payload;
         },
     },
     extraReducers: (builder) => {
@@ -78,6 +78,6 @@ export const userModel = createSlice({
     },
 });
 
-export const { setUser, setCachedDisplayName } = userModel.actions;
+export const { setUser, setSession } = userModel.actions;
 
 export const userReducer = userModel.reducer;

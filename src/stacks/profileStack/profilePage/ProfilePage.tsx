@@ -1,12 +1,13 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Avatar, Button, Card, List, MD3Colors, ProgressBar, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
 import { useAppSelector } from '../../../app/store/hooks';
-import { fireBaseApi } from '../../../shared/api';
+import { supaBaseApi } from '../../../shared/api';
 import { PROFILE_DEFAULT_AVATAR } from '../../../shared/constants/resourses';
 import { noop } from '../../../shared/lib/helpers/noop';
 import ProfileWrapper from '../../../shared/ui/layouts/profile/ProfileWrapper';
@@ -14,12 +15,22 @@ import ProfileWrapper from '../../../shared/ui/layouts/profile/ProfileWrapper';
 export const ProfilePage = () => {
     // const authContext = useContext(AuthContext);
     const user = useAppSelector((state) => state.userState.user);
-    const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
+    // const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
+    const session = useAppSelector((state) => state.userState.session);
+    // const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleLogout = () => fireBaseApi.user.signOutUser();
+    const [profile, setProfile] = useState<PostgrestSingleResponse<{ username: any; website: any; avatar_url: any }>>();
+
+    useEffect(() => {
+        if (session?.user) {
+            supaBaseApi.user.getProfileDB(session).then((res) => setProfile(res));
+        }
+    }, []);
+
+    const handleLogout = () => supaBaseApi.user.signOutUser();
 
     const isAuth = Boolean(user);
-    const userName = user ? user?.displayName ?? user?.email : cachedDisplayName;
+    const userName = isAuth ? profile?.data?.username ?? user?.email : 'Я';
 
     // const { theme, toggleTheme } = usePreferencesContext();
     const navigation = useNavigation();
@@ -30,14 +41,14 @@ export const ProfilePage = () => {
                     size={90}
                     // style={{ backgroundColor: theme === 'dark' ? '#323D5F' : '#6E4066' }}
                     style={{ backgroundColor: '#323D5F' }}
-                    source={PROFILE_DEFAULT_AVATAR}
+                    source={profile ? { uri: profile.data?.avatar_url } : PROFILE_DEFAULT_AVATAR}
                 />
                 <Text style={styles.headTitle} variant="titleLarge" onPress={noop}>
                     {isAuth ? userName : 'Я'}
                 </Text>
             </View>
             <View style={styles.mainContainer}>
-                {user ? (
+                {profile ? (
                     <>
                         <Card
                             mode="contained"

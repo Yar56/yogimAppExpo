@@ -1,18 +1,22 @@
 // import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-import { User } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 
 export interface SignUpUserParams {
     email: string;
     password: string;
+    name?: string;
 }
 export type SignInUserParams = SignUpUserParams;
 
-export interface UpdateProfileDBParams {
-    username: string;
-    website: string;
-    avatar_url: string;
-}
+// export interface UpdateProfileDBParams {
+//     avatar_url?: string | null | undefined;
+//     full_name?: string | null | undefined;
+//     id: string;
+//     updated_at?: string | null | undefined;
+//     username?: string | null | undefined;
+//     website?: string | null | undefined;
+// }
 
 export interface SetToDBUserParams {
     userData: {
@@ -27,6 +31,7 @@ export interface SetToDBUserParams {
 }
 
 export type IUser = User;
+export type ISession = Session;
 
 export enum LoadingStatus {
     IDLE = 'idle',

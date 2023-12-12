@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { AuthResponse, AuthTokenResponse } from '@supabase/supabase-js';
+import { AuthResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
 import { Alert, ImageBackground, KeyboardAvoidingView, Platform, View } from 'react-native';
@@ -51,11 +51,11 @@ export const RegistrationPage = () => {
             setIsLoading(true);
 
             try {
-                const response = await dispatch(userModel.signUpUserThunk({ email, password }));
-                const payload = response.payload as AuthResponse;
+                const response = await dispatch(userModel.signUpUserThunk({ email, password, name: displayName }));
+                const payload = response.payload as AuthResponse | undefined;
 
-                if (payload.error?.message.length !== 0) {
-                    throw payload.error;
+                if (payload?.error?.message && payload.error.message.length !== 0) {
+                    throw payload?.error;
                 }
 
                 navigation.navigate('Profile');
@@ -159,6 +159,7 @@ export const RegistrationPage = () => {
                                         onBlur={handleBlur('displayName')}
                                         onChangeText={handleChange('displayName')}
                                         error={Boolean(errors.displayName)}
+                                        autoCapitalize="none"
                                     />
                                     {/*<HelperText type="error" visible={Boolean(errors.displayName)} padding="normal">*/}
                                     {/*    {errors.displayName}*/}
