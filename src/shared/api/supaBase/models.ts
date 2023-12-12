@@ -5,18 +5,18 @@ import { Session, User } from '@supabase/supabase-js';
 export interface SignUpUserParams {
     email: string;
     password: string;
-    name?: string;
+    username?: string;
 }
 export type SignInUserParams = SignUpUserParams;
 
-// export interface UpdateProfileDBParams {
-//     avatar_url?: string | null | undefined;
-//     full_name?: string | null | undefined;
-//     id: string;
-//     updated_at?: string | null | undefined;
-//     username?: string | null | undefined;
-//     website?: string | null | undefined;
-// }
+export interface UpdateProfileDBParams {
+    avatar_url?: string | null | undefined;
+    full_name?: string | null | undefined;
+    id: string;
+    updated_at?: string | null | undefined;
+    username?: string | null | undefined;
+    website?: string | null | undefined;
+}
 
 export interface SetToDBUserParams {
     userData: {

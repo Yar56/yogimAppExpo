@@ -51,10 +51,11 @@ export const RegistrationPage = () => {
             setIsLoading(true);
 
             try {
-                const response = await dispatch(userModel.signUpUserThunk({ email, password, name: displayName }));
+                const response = await dispatch(userModel.signUpUserThunk({ email, password, username: displayName }));
                 const payload = response.payload as AuthResponse | undefined;
 
                 if (payload?.error?.message && payload.error.message.length !== 0) {
+                    console.error(payload?.error?.message);
                     throw payload?.error;
                 }
 

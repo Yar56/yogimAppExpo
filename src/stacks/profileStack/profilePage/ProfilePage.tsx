@@ -3,10 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Avatar, Button, Card, List, MD3Colors, ProgressBar, Text } from 'react-native-paper';
+import { Button, Card, List, MD3Colors, ProgressBar, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
 import { useAppSelector } from '../../../app/store/hooks';
+import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
 import { PROFILE_DEFAULT_AVATAR } from '../../../shared/constants/resourses';
 import { noop } from '../../../shared/lib/helpers/noop';
@@ -37,6 +38,12 @@ export const ProfilePage = () => {
         }
     }, [session]);
 
+    const handleUpdatePhoto = (url: string) => {
+        if (session) {
+            supaBaseApi.user.updateProfileDB(session, { id: session.user.id, avatar_url: url });
+        }
+    };
+
     const handleLogout = () => supaBaseApi.user.signOutUser();
 
     const userName = isAuth ? profile?.data?.username ?? user?.email : 'Я';
@@ -46,11 +53,11 @@ export const ProfilePage = () => {
     return (
         <ProfileWrapper externalStyles={styles.container}>
             <View style={styles.head}>
-                <Avatar.Image
+                <AvatarComponent
                     size={90}
-                    // style={{ backgroundColor: theme === 'dark' ? '#323D5F' : '#6E4066' }}
-                    style={{ backgroundColor: '#323D5F' }}
-                    source={profile ? { uri: profile.data?.avatar_url } : PROFILE_DEFAULT_AVATAR}
+                    url={profile?.data?.avatar_url}
+                    onUpload={(url) => handleUpdatePhoto(url)}
+                    isAuth={isAuth}
                 />
                 <Text style={styles.headTitle} variant="titleLarge" onPress={noop}>
                     {isAuth ? userName : 'Я'}

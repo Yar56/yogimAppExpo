@@ -12,8 +12,8 @@ import { SignInUserParams, SignUpUserParams } from './models';
 import { supaBaseApi } from '..';
 import { supabase } from '../../lib/baas/supabase';
 
-export const signUpUser = ({ email, password, name }: SignUpUserParams): Promise<AuthResponse> => {
-    return supabase.auth.signUp({ email, password, options: { data: { name } } });
+export const signUpUser = ({ email, password, username }: SignUpUserParams): Promise<AuthResponse> => {
+    return supabase.auth.signUp({ email, password, options: { data: { username } } });
 };
 
 export const signInUser = ({ email, password }: SignInUserParams): Promise<AuthTokenResponse> => {
@@ -35,7 +35,7 @@ export const getProfileDB = (session: supaBaseApi.models.ISession) => {
         .eq('id', session?.user.id)
         .single();
 };
-export const updateProfileDB = async (session: Session, updates: supaBaseApi.dbModels.Tables<'profiles'>) => {
+export const updateProfileDB = async (session: Session, updates: supaBaseApi.models.UpdateProfileDBParams) => {
     if (!session?.user) {
         throw new Error('No user on the session!');
     }
