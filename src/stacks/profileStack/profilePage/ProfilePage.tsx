@@ -19,17 +19,26 @@ export const ProfilePage = () => {
     const session = useAppSelector((state) => state.userState.session);
     // const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [profile, setProfile] = useState<PostgrestSingleResponse<{ username: any; website: any; avatar_url: any }>>();
+    const [profile, setProfile] = useState<PostgrestSingleResponse<{
+        username: any;
+        website: any;
+        avatar_url: any;
+    }> | null>();
+
+    const isAuth = Boolean(user);
 
     useEffect(() => {
-        if (session?.user) {
+        if (session) {
             supaBaseApi.user.getProfileDB(session).then((res) => setProfile(res));
         }
-    }, []);
+
+        if (!session && !isAuth) {
+            setProfile(null);
+        }
+    }, [session]);
 
     const handleLogout = () => supaBaseApi.user.signOutUser();
 
-    const isAuth = Boolean(user);
     const userName = isAuth ? profile?.data?.username ?? user?.email : 'Я';
 
     // const { theme, toggleTheme } = usePreferencesContext();

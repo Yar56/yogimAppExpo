@@ -30,6 +30,7 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
 
             if (event === 'SIGNED_OUT') {
                 dispatch(userModel.setUser(null));
+                dispatch(userModel.setSession(null));
             }
 
             if (session) {
