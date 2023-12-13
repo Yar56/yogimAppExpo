@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { fireBaseApi } from '../../../shared/api/';
-import { transformSnapshotCollection } from '../../../shared/api/fireBase/courses';
+import { supaBaseApi } from '../../../shared/api/';
 
 export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async (arg, { dispatch, getState }) => {
     try {
-        const querySnapshot = await fireBaseApi.courses.getAllCourses();
-        return transformSnapshotCollection<fireBaseApi.models.Course>(querySnapshot);
+        const { data } = await supaBaseApi.courses.getAllCourses();
+        return data;
     } catch (e) {
         console.error(e);
     }
@@ -25,11 +24,11 @@ export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async 
 // );
 
 interface CourseModelState {
-    courses?: fireBaseApi.models.CourseList;
-    coursesLoadingStatus: fireBaseApi.models.LoadingStatus;
+    courses?: supaBaseApi.models.CourseList | null;
+    coursesLoadingStatus: supaBaseApi.models.LoadingStatus;
 }
 const initialState: CourseModelState = {
-    coursesLoadingStatus: fireBaseApi.models.LoadingStatus.IDLE,
+    coursesLoadingStatus: supaBaseApi.models.LoadingStatus.IDLE,
 };
 export const courseModel = createSlice({
     name: 'course',
@@ -37,14 +36,14 @@ export const courseModel = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllCourses.fulfilled, (state, action) => {
-            state.coursesLoadingStatus = fireBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
             state.courses = action.payload;
         });
         builder.addCase(fetchAllCourses.pending, (state) => {
-            state.coursesLoadingStatus = fireBaseApi.models.LoadingStatus.LOADING;
+            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllCourses.rejected, (state) => {
-            state.coursesLoadingStatus = fireBaseApi.models.LoadingStatus.FAILED;
+            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
         });
     },
 });

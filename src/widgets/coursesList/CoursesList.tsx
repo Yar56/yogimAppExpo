@@ -34,9 +34,17 @@ export const CoursesList: FunctionComponent<CoursesListProps> = ({ loadingStatus
     if (loadingStatus === loadingStatuses.FAILED) {
         return (
             <View>
-                <Text variant="displaySmall">
+                <Text variant="bodyLarge">
                     Во время загрузки курсов произошла ошибка! Пожалуйста смахните приложение
                 </Text>
+            </View>
+        );
+    }
+
+    if (loadingStatus === loadingStatuses.SUCCEEDED && courses.length === 0) {
+        return (
+            <View>
+                <Text variant="bodyLarge">Кажется курсы не загрузились! Пожалуйста смахните приложение</Text>
             </View>
         );
     }

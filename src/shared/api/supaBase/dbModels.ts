@@ -9,6 +9,44 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      courses: {
+        Row: {
+          description: string
+          disabled: boolean
+          id: string
+          isPaid: boolean
+          lessonNumber: string
+          time: string
+          title: string
+        }
+        Insert: {
+          description: string
+          disabled: boolean
+          id: string
+          isPaid?: boolean
+          lessonNumber: string
+          time: string
+          title: string
+        }
+        Update: {
+          description?: string
+          disabled?: boolean
+          id?: string
+          isPaid?: boolean
+          lessonNumber?: string
+          time?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
