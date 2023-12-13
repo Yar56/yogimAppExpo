@@ -10,7 +10,7 @@
     "typescript:validate": "tsc --noEmit -p tsconfig.validation.json",
     "lint": "eslint src --max-warnings=0",
     "eslint:fix": "eslint --fix src",
-    "generateDbTypes": "supabase gen types typescript --db-url postgres://postgres.uygnzyjcbktsizgevjky:lW0Rj0s0ZzrNRhtp@aws-0-eu-central-1.pooler.supabase.com:6543/postgres > src/shared/api/supabase/dbModels.ts"
+    "generateDbTypes": "supabase gen types typescript --db-url postgres://postgres.fbvevpiuizcrgrgvmefy:yarikobab5697@aws-0-eu-central-1.pooler.supabase.com:6543/postgres > src/shared/api/supabase/dbModels.ts"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.2",

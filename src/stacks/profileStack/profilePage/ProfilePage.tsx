@@ -9,7 +9,6 @@ import styles from './ProfilePageStylesheet';
 import { useAppSelector } from '../../../app/store/hooks';
 import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
-import { PROFILE_DEFAULT_AVATAR } from '../../../shared/constants/resourses';
 import { noop } from '../../../shared/lib/helpers/noop';
 import ProfileWrapper from '../../../shared/ui/layouts/profile/ProfileWrapper';
 
@@ -22,7 +21,6 @@ export const ProfilePage = () => {
 
     const [profile, setProfile] = useState<PostgrestSingleResponse<{
         username: any;
-        website: any;
         avatar_url: any;
     }> | null>();
 

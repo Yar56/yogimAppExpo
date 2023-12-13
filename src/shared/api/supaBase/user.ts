@@ -31,7 +31,7 @@ export const updateUser = (data: UserAttributes): Promise<UserResponse> => {
 export const getProfileDB = (session: supaBaseApi.models.ISession) => {
     return supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, avatar_url`)
         .eq('id', session?.user.id)
         .single();
 };
