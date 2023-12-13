@@ -27,7 +27,9 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
     }, [url]);
     async function downloadImage(path: string) {
         try {
-            const { data, error } = await supabase.storage.from('avatars').download(path);
+            const [, originalpath] = path.split('avatars/');
+
+            const { data, error } = await supabase.storage.from('avatars').download(originalpath);
 
             if (error) {
                 throw error;
