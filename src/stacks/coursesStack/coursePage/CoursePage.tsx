@@ -38,8 +38,6 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                         </View>
                     </View>
                     <Spacer size={20} />
-                    <View style={styles.video} />
-                    <Spacer size={20} />
                     <View style={styles.infoWrapper}>
                         <View>
                             <View style={styles.tutor}>

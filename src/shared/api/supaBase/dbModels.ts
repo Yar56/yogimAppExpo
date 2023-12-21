@@ -18,6 +18,7 @@ export interface Database {
           lessonNumber: string
           time: string
           title: string
+          welcomeVideoUrl: string
         }
         Insert: {
           description: string
@@ -27,6 +28,7 @@ export interface Database {
           lessonNumber: string
           time: string
           title: string
+          welcomeVideoUrl?: string
         }
         Update: {
           description?: string
@@ -36,6 +38,7 @@ export interface Database {
           lessonNumber?: string
           time?: string
           title?: string
+          welcomeVideoUrl?: string
         }
         Relationships: [
           {

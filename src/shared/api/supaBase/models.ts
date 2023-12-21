@@ -47,5 +47,6 @@ export interface Course {
     lessonNumber: string;
     time: string;
     title: string;
+    welcomeVideoUrl?: string;
 }
 export type CourseList = Course[];

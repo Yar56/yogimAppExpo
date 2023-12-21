@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     video: {
-        backgroundColor: '#000',
-        height: 225,
+        height: 400,
         borderRadius: 20,
     },
     infoWrapper: {
