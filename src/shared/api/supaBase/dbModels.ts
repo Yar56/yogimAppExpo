@@ -16,6 +16,7 @@ export interface Database {
           id: string
           isPaid: boolean
           lessonNumber: string
+          lessons: Json[] | null
           time: string
           title: string
           welcomeVideoUrl: string
@@ -26,6 +27,7 @@ export interface Database {
           id: string
           isPaid?: boolean
           lessonNumber: string
+          lessons?: Json[] | null
           time: string
           title: string
           welcomeVideoUrl?: string
@@ -36,6 +38,7 @@ export interface Database {
           id?: string
           isPaid?: boolean
           lessonNumber?: string
+          lessons?: Json[] | null
           time?: string
           title?: string
           welcomeVideoUrl?: string
@@ -46,6 +49,48 @@ export interface Database {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      lessons: {
+        Row: {
+          courseId: string
+          description: string
+          id: string
+          order: number
+          time: string
+          title: string
+        }
+        Insert: {
+          courseId: string
+          description: string
+          id: string
+          order?: number
+          time: string
+          title: string
+        }
+        Update: {
+          courseId?: string
+          description?: string
+          id?: string
+          order?: number
+          time?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_courseId_fkey"
+            columns: ["courseId"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lessons_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "lessons"
             referencedColumns: ["id"]
           }
         ]
@@ -84,6 +129,27 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
+      }
+      purchases: {
+        Row: {
+          courseId: string
+          purchaseDate: string
+          purchaseId: string
+          userId: string
+        }
+        Insert: {
+          courseId: string
+          purchaseDate: string
+          purchaseId?: string
+          userId: string
+        }
+        Update: {
+          courseId?: string
+          purchaseDate?: string
+          purchaseId?: string
+          userId?: string
+        }
+        Relationships: []
       }
     }
     Views: {

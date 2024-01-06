@@ -1,21 +1,32 @@
-import { FontAwesome5, Entypo } from '@expo/vector-icons';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Avatar, Text } from 'react-native-paper';
+import { Avatar, Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styles from './CoursePageStylesheet';
-import { useAppSelector } from '../../../app/store/hooks';
+import LessonList from './components/lessonList/LessonList';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { lessonModel } from '../../../entities/lesson';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Course'>;
 
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
+    const dispatch = useAppDispatch();
     // const safeAreaInsets = useSafeAreaInsets();
     const courseId = route.params.courseId;
+
+    useEffect(() => {
+        if (!courseId) {
+            console.error('courseId is empty');
+            return;
+        }
+        dispatch(lessonModel.fetchAllLessonsByCourseId(courseId));
+    }, [courseId]);
 
     const navigation = useNavigation();
     const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
@@ -58,6 +69,10 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                             <Text variant="headlineSmall">1200Р</Text>
                         </View>
                     </View>
+                    <Spacer size={20} />
+                    <Button mode="contained">Вступить</Button>
+                    <Spacer size={20} />
+                    <LessonList />
                 </SafeAreaView>
             </ScrollView>
         </LinearGradient>

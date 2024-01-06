@@ -1,13 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { courseReducer } from '../../entities/course/model';
+import { lessonReducer } from '../../entities/lesson/model';
 import { userReducer } from '../../entities/user/model';
-import counterReducer from '../../features/counter/counterSlice';
 
 export const store = configureStore({
     reducer: {
         userState: userReducer,
         courseState: courseReducer,
+        lessonState: lessonReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });

@@ -2,6 +2,8 @@
 
 import { Session, User } from '@supabase/supabase-js';
 
+import { Tables } from './dbModels';
+
 export interface SignUpUserParams {
     email: string;
     password: string;
@@ -49,4 +51,5 @@ export interface Course {
     title: string;
     welcomeVideoUrl?: string;
 }
-export type CourseList = Course[];
+export type CourseList = Tables<'courses'>[];
+export type LessonList = Tables<'lessons'>[];
