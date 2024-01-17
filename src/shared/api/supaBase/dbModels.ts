@@ -9,12 +9,51 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      articles: {
+        Row: {
+          content: string
+          id: string
+          imageUrl: string
+          isFavorite: boolean
+          time: string
+          title: string
+          type: Database["public"]["Enums"]["ArticleType"]
+        }
+        Insert: {
+          content?: string
+          id: string
+          imageUrl?: string
+          isFavorite?: boolean
+          time: string
+          title: string
+          type?: Database["public"]["Enums"]["ArticleType"]
+        }
+        Update: {
+          content?: string
+          id?: string
+          imageUrl?: string
+          isFavorite?: boolean
+          time?: string
+          title?: string
+          type?: Database["public"]["Enums"]["ArticleType"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "articles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       courses: {
         Row: {
           description: string
           disabled: boolean
           id: string
           isPaid: boolean
+          isStarted: boolean
           lessonNumber: string
           lessons: Json[] | null
           time: string
@@ -26,6 +65,7 @@ export interface Database {
           disabled: boolean
           id: string
           isPaid?: boolean
+          isStarted?: boolean
           lessonNumber: string
           lessons?: Json[] | null
           time: string
@@ -37,6 +77,7 @@ export interface Database {
           disabled?: boolean
           id?: string
           isPaid?: boolean
+          isStarted?: boolean
           lessonNumber?: string
           lessons?: Json[] | null
           time?: string
@@ -159,7 +200,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ArticleType: "YOGA" | "ENERGY" | "MEAL"
     }
     CompositeTypes: {
       [_ in never]: never

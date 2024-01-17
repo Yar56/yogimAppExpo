@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { routineRoutes } from '../../shared/routing/routes';
+import HeaderTitle from '../../shared/ui/components/HeaderTitle';
 
 const RoutineStack = createNativeStackNavigator();
 
 export const RoutineStackScreen = () => {
     return (
-        <RoutineStack.Navigator>
+        <RoutineStack.Navigator screenOptions={{ headerTitle: HeaderTitle }}>
             {routineRoutes.map((route) => {
-                return <RoutineStack.Screen options={{ headerShown: false }} key={route.name} {...route} />;
+                return <RoutineStack.Screen options={{ title: route.title }} key={route.name} {...route} />;
             })}
         </RoutineStack.Navigator>
     );

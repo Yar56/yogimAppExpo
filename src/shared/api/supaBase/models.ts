@@ -2,7 +2,7 @@
 
 import { Session, User } from '@supabase/supabase-js';
 
-import { Tables } from './dbModels';
+import { Database, Tables } from './dbModels';
 
 export interface SignUpUserParams {
     email: string;
@@ -53,3 +53,11 @@ export interface Course {
 }
 export type CourseList = Tables<'courses'>[];
 export type LessonList = Tables<'lessons'>[];
+export type ArticleList = Tables<'articles'>[];
+export type Article = Database['public']['Tables']['articles']['Row'];
+
+export enum ArticleType {
+    ENERGY = 'ENERGY',
+    YOGA = 'YOGA',
+    MEAL = 'MEAL',
+}

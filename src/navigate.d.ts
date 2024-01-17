@@ -11,6 +11,7 @@ declare global {
         Registration: undefined;
         Home: undefined;
         Courses: undefined;
+        Articles: undefined;
         Routine: undefined;
         Events: undefined;
         Profile: undefined;
@@ -22,6 +23,7 @@ declare global {
         Payment: undefined;
         Premium: undefined;
         Course: { courseId?: string };
+        Article: { articleId?: string };
     }
 
     interface AppRoute {

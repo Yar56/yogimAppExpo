@@ -2,12 +2,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from 'react-native-paper';
 
-import { Spacer } from '../../shared/ui/components/Spacer';
 import { TabBar } from '../../shared/ui/components/TabBar';
-import { CoursesStackScreen } from '../../stacks/coursesStack/CoursesStackScreen';
+import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
 import { EventsStackScreen } from '../../stacks/eventsStack/EventsStackScreen';
 import { HomeStackScreen } from '../../stacks/homeStack/HomeStackScreen';
 import { ProfileStackScreen } from '../../stacks/profileStack/ProfileStackScreen';
@@ -23,7 +20,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
     // const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
     // const iconColor = theme.dark ? '#CB7E84' : '#8F4E73';
     const navigationTheme = DarkTheme;
-    const iconColor = '#CB7E84';
+    const iconColor = '#b97a7f';
 
     return (
         <NavigationContainer theme={navigationTheme}>
@@ -43,9 +40,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                     />
                     <Tab2.Screen
                         name="CoursesTab"
-                        component={CoursesStackScreen}
+                        component={ArticlesStackScreen}
                         options={{
-                            tabBarLabel: 'Курсы',
+                            tabBarLabel: 'Статьи',
                             tabBarIcon: () => {
                                 return <MaterialCommunityIcons name="book" color={iconColor} size={25} />;
                             },
