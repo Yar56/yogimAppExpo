@@ -26,24 +26,10 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         paddingRight: 15,
         paddingLeft: 15,
-    },
-    icons: {
-        paddingRight: 15,
-        paddingLeft: 18,
-        marginBottom: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 20,
-    },
-    iconItem: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
     },
 });
 export default styles;

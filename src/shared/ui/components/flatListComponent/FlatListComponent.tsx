@@ -13,7 +13,7 @@ const FlatListComponent = <T extends Item>({ items, renderItem }: FlatListCompon
     return (
         <FlatList
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator
             contentContainerStyle={styles.wrapper}
             data={items}
             keyExtractor={(item) => item.id}
@@ -26,7 +26,8 @@ const FlatListComponent = <T extends Item>({ items, renderItem }: FlatListCompon
 const styles = StyleSheet.create({
     wrapper: {
         display: 'flex',
-        gap: 10,
+        gap: 20,
+        paddingBottom: 120,
     },
 });
 export default FlatListComponent;

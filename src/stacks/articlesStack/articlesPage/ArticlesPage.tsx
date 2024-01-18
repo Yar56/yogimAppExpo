@@ -60,7 +60,7 @@ export const ArticlesPage = () => {
                             backgroundColor: 'transparent',
                             marginHorizontal: 14,
                             overflow: 'visible',
-                            marginBottom: 20,
+                            marginBottom: 15,
                             marginTop: 10,
                         }}
                     >
