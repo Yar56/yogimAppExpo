@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     wrapper: {
         display: 'flex',
         gap: 20,
-        paddingBottom: 120,
+        paddingBottom: 70,
     },
 });
 export default FlatListComponent;

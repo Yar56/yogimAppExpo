@@ -22,15 +22,15 @@ export const ArticlesStackScreen = () => {
                                 flexDirection: 'row',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                height: 100,
+                                height: 105,
                                 backgroundColor: '#022B42',
-                                paddingTop: 30,
+                                paddingTop: 40,
                                 position: 'relative',
                             }}
                         >
                             {props.navigation.canGoBack() && props.navigation.getState().index !== 0 && (
                                 <TouchableOpacity
-                                    style={{ position: 'absolute', left: 5, bottom: 25 }}
+                                    style={{ position: 'absolute', left: 5, bottom: '25%' }}
                                     onPress={() => {
                                         props.navigation.goBack();
                                     }}
@@ -38,7 +38,7 @@ export const ArticlesStackScreen = () => {
                                     <AntDesign name="left" size={25} color="#006da4" style={{ paddingLeft: 10 }} />
                                 </TouchableOpacity>
                             )}
-                            <Image source={LOGO} style={{ width: 50, height: 50, marginRight: 20 }} />
+                            <Image source={LOGO} style={{ width: 70, height: 70, marginRight: 0 }} />
                             <Text variant="headlineSmall" onPress={() => props.navigation.goBack()}>
                                 Йожим
                             </Text>

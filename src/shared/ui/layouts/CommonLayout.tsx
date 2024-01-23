@@ -1,5 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface CommonLayoutProps {
     externalStyles?: ViewStyle;
@@ -7,7 +8,11 @@ interface CommonLayoutProps {
 }
 
 const CommonLayout: FunctionComponent<CommonLayoutProps & PropsWithChildren> = ({ children, externalStyles }) => {
-    return <View style={[styles.container, externalStyles]}>{children}</View>;
+    return (
+        <SafeAreaView edges={['bottom']} style={[styles.container, externalStyles]}>
+            {children}
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
