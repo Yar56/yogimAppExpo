@@ -1,9 +1,10 @@
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { Platform, StyleSheet } from 'react-native';
 
-import { TabBar } from '../../shared/ui/components/TabBar';
+import CustomTabBarIcon from '../../shared/ui/components/CustomTabBarIcon';
 import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
 import { EventsStackScreen } from '../../stacks/eventsStack/EventsStackScreen';
 import { HomeStackScreen } from '../../stacks/homeStack/HomeStackScreen';
@@ -20,14 +21,42 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
     // const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
     // const iconColor = theme.dark ? '#CB7E84' : '#8F4E73';
     const navigationTheme = DarkTheme;
-    const iconColor = '#b97a7f';
+    // const iconColor = '#b97a7f';
+    const isIos = Platform.OS === 'ios';
 
     return (
         <NavigationContainer theme={navigationTheme}>
             <>
                 <Tab2.Navigator
-                    screenOptions={{ headerShown: false }}
-                    tabBar={(props) => <TabBar {...props} />}
+                    screenOptions={{
+                        headerShown: false,
+                        tabBarShowLabel: false,
+                        // tabBarIconStyle: {},
+                        tabBarActiveTintColor: '#b97a7f',
+                        tabBarInactiveTintColor: 'rgba(4,115,171,0.8)',
+                        tabBarStyle: {
+                            position: 'absolute',
+                            height: isIos ? 80 : 65,
+                            borderTopRightRadius: 30,
+                            borderTopLeftRadius: 30,
+                            elevation: 0,
+                            shadowOpacity: 0,
+                        },
+                        tabBarBackground: () => (
+                            <BlurView
+                                intensity={80}
+                                tint="dark"
+                                style={{
+                                    ...StyleSheet.absoluteFillObject,
+                                    borderTopRightRadius: 30,
+                                    borderTopLeftRadius: 30,
+                                    overflow: 'hidden',
+                                    backgroundColor: 'rgba(0,77,116, 0.1)',
+                                }}
+                            />
+                        ),
+                    }}
+                    // tabBar={(props) => <TabBar {...props} />}
                     initialRouteName="HomeTab"
                 >
                     <Tab2.Screen
@@ -35,7 +64,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                         component={HomeStackScreen}
                         options={{
                             tabBarLabel: 'Домой',
-                            tabBarIcon: () => <MaterialCommunityIcons name="home" color={iconColor} size={25} />,
+                            tabBarIcon: ({ focused, color }) => (
+                                <CustomTabBarIcon iconName="home" focused={focused} color={color} />
+                            ),
                         }}
                     />
                     <Tab2.Screen
@@ -43,9 +74,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                         component={ArticlesStackScreen}
                         options={{
                             tabBarLabel: 'Статьи',
-                            tabBarIcon: () => {
-                                return <MaterialCommunityIcons name="book" color={iconColor} size={25} />;
-                            },
+                            tabBarIcon: ({ focused, color }) => (
+                                <CustomTabBarIcon iconName="book" focused={focused} color={color} />
+                            ),
                         }}
                     />
                     <Tab2.Screen
@@ -53,12 +84,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                         component={RoutineStackScreen}
                         options={() => ({
                             tabBarLabel: 'Йожить',
-                            tabBarIcon: () => {
-                                return <MaterialCommunityIcons name="yoga" color={iconColor} size={25} />;
-                            },
-                            // tabBarButton: (props) => {
-                            //     return <CustomTabBatButton {...props} onPress={() => console.log('wa')} />;
-                            // },
+                            tabBarIcon: ({ focused, color }) => (
+                                <CustomTabBarIcon iconName="yoga" focused={focused} color={color} />
+                            ),
                         })}
                     />
                     <Tab2.Screen
@@ -66,15 +94,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                         component={EventsStackScreen}
                         options={{
                             tabBarLabel: 'События',
-                            tabBarIcon: () => {
-                                return (
-                                    <MaterialCommunityIcons
-                                        name="hexagon-multiple-outline"
-                                        color={iconColor}
-                                        size={25}
-                                    />
-                                );
-                            },
+                            tabBarIcon: ({ focused, color }) => (
+                                <CustomTabBarIcon iconName="hexagon-multiple-outline" focused={focused} color={color} />
+                            ),
                         }}
                     />
                     <Tab2.Screen
@@ -82,7 +104,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                         component={ProfileStackScreen}
                         options={{
                             tabBarLabel: 'Профиль',
-                            tabBarIcon: () => <MaterialCommunityIcons name="account" color={iconColor} size={25} />,
+                            tabBarIcon: ({ focused, color }) => (
+                                <CustomTabBarIcon iconName="account" focused={focused} color={color} />
+                            ),
                         }}
                     />
                 </Tab2.Navigator>
