@@ -136,6 +136,46 @@ export interface Database {
           }
         ]
       }
+      likedArticles: {
+        Row: {
+          articleId: string
+          id: string
+          profileId: string
+        }
+        Insert: {
+          articleId: string
+          id: string
+          profileId: string
+        }
+        Update: {
+          articleId?: string
+          id?: string
+          profileId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likedArticles_articleId_fkey"
+            columns: ["articleId"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likedArticles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "likedArticles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likedArticles_profileId_fkey"
+            columns: ["profileId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null

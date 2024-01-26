@@ -20,6 +20,7 @@ export const ArticlesPage = () => {
 
     useEffect(() => {
         dispatch(articleModel.fetchAllArticles());
+        dispatch(articleModel.fetchAllLikedArticles());
     }, []);
 
     const articlesByType = useAppSelector((state) => state.articleState.articleByType);

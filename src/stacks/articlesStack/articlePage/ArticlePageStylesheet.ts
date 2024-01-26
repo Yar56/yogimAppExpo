@@ -16,6 +16,19 @@ const styles = StyleSheet.create({
     textContainer: {
         marginTop: -23,
     },
+
+    titleWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+        maxWidth: screenWidth * 0.8,
+    },
+    iconWrapper: {
+        width: 50,
+    },
 });
 
 export default styles;
