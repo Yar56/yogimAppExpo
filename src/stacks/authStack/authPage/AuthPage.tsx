@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
-import { Alert, ImageBackground, View } from 'react-native';
-import { Button, IconButton, MD3Colors, Text, TextInput } from 'react-native-paper';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Alert, ImageBackground, Platform, View } from 'react-native';
+import { Button, Text, TextInput } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import styles from './AuthStylesheet';
@@ -20,7 +20,8 @@ const schema = yup.object().shape({
 });
 
 export const AuthPage = () => {
-    const insets = useSafeAreaInsets();
+    const isIos = Platform.OS === 'ios';
+
     const dispatch = useAppDispatch();
 
     // const { theme, toggleTheme } = usePreferencesContext();
@@ -35,7 +36,7 @@ export const AuthPage = () => {
     };
     const handleRecoveryPage = () => {
         // todo
-        navigation.navigate('Profile');
+        // navigation.navigate('Profile');
     };
 
     const formik: FormikConfig<{ email: string; password: string }> = {
@@ -85,23 +86,12 @@ export const AuthPage = () => {
     };
 
     return (
-        <ImageBackground
-            // source={theme === 'light' ? PROFILE_BACKGROUND_LIGHT : PROFILE_BACKGROUND_DARK}
-            source={PROFILE_BACKGROUND_DARK}
-            style={commonStyles.backgroundContainer}
-        >
+        <ImageBackground source={PROFILE_BACKGROUND_DARK} style={commonStyles.backgroundContainer}>
             <LoadingWrapper isLoading={isLoading}>
                 <SafeAreaView
                     edges={['bottom', 'top']}
                     style={[styles.container, isLoading ? styles.containerLoading : null]}
                 >
-                    <IconButton
-                        icon="close"
-                        iconColor={MD3Colors.primary80}
-                        size={35}
-                        style={{ position: 'absolute', top: insets.top - 10, left: styles.container.paddingLeft }}
-                        onPress={() => navigation.navigate('Profile')}
-                    />
                     <View>
                         <Text style={styles.socialAuthTitle} variant="titleLarge">
                             Добро пожаловать в Йожим!
@@ -109,28 +99,31 @@ export const AuthPage = () => {
                     </View>
 
                     <View style={styles.buttonsSocialAuth}>
-                        <Button
-                            buttonColor="#f3f2f2"
-                            contentStyle={styles.button}
-                            icon="google"
-                            mode="contained"
-                            onPress={() => console.log('Pressed')}
-                        >
-                            <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#111C1E' }}>
-                                Войти с Google
-                            </Text>
-                        </Button>
-                        <Button
-                            buttonColor="#749cf3"
-                            contentStyle={styles.button}
-                            icon="apple"
-                            mode="contained"
-                            onPress={() => console.log('Pressed')}
-                        >
-                            <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#FAFFFF' }}>
-                                Войти с Apple
-                            </Text>
-                        </Button>
+                        {isIos ? (
+                            <Button
+                                buttonColor="#749cf3"
+                                contentStyle={styles.button}
+                                icon="apple"
+                                mode="contained"
+                                onPress={() => console.log('Pressed')}
+                            >
+                                <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#FAFFFF' }}>
+                                    Войти с Apple
+                                </Text>
+                            </Button>
+                        ) : (
+                            <Button
+                                buttonColor="#f3f2f2"
+                                contentStyle={styles.button}
+                                icon="google"
+                                mode="contained"
+                                onPress={() => console.log('Pressed')}
+                            >
+                                <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#111C1E' }}>
+                                    Войти с Google
+                                </Text>
+                            </Button>
+                        )}
                     </View>
                     <View>
                         <Text style={styles.emailText} variant="bodyLarge">

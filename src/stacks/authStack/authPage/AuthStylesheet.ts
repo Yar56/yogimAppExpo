@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { screenWidth } from '../../../shared/constants/screenSize';
+import { screenHeight, screenWidth } from '../../../shared/constants/screenSize';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 60,
+        paddingTop: screenHeight * 0.05,
         paddingRight: 20,
         paddingLeft: 20,
     },
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: screenWidth,
+        height: screenHeight * 0.1,
         padding: 14,
         backgroundColor: 'rgba(255,255,255, 0.1)',
     },

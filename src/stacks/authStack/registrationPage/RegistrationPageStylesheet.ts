@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { screenHeight } from '../../../shared/constants/screenSize';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
+        paddingTop: screenHeight * 0.05,
         paddingRight: 20,
         paddingLeft: 20,
     },
