@@ -1,51 +1,55 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { PostgrestSingleResponse } from '@supabase/supabase-js';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Button, Divider, List, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, Divider, List, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
-import { useAppSelector } from '../../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { fetchProfileDB } from '../../../entities/user/model';
 import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
+import { LoadingStatus } from '../../../shared/api/supaBase/models';
 import { screenHeight } from '../../../shared/constants/screenSize';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const ProfilePage = () => {
-    const user = useAppSelector((state) => state.userState.user);
+    // const { theme, toggleTheme } = usePreferencesContext();
+
+    const dispatch = useAppDispatch();
     const session = useAppSelector((state) => state.userState.session);
-
-    const [profile, setProfile] = useState<PostgrestSingleResponse<{
-        username: any;
-        avatar_url: any;
-    }> | null>();
-
-    const isAuth = Boolean(user);
+    const profile = useAppSelector((state) => state.userState.profile);
+    const profileLoadingStatus = useAppSelector((state) => state.userState.profileLoadingStatus);
 
     useEffect(() => {
-        if (session) {
-            supaBaseApi.user.getProfileDB(session).then((res) => setProfile(res));
+        if (!session) {
+            // log sentry error
+            throw new Error('Сессия не активна');
         }
-
-        if (!session && !isAuth) {
-            setProfile(null);
-        }
-    }, [session]);
-
-    const handleUpdatePhoto = (url: string) => {
-        if (session) {
-            supaBaseApi.user.updateProfileDB(session, { id: session.user.id, avatar_url: url });
-        }
-    };
+        dispatch(fetchProfileDB(session));
+    }, []);
 
     const handleLogout = () => supaBaseApi.user.signOutUser();
 
-    const userName = isAuth ? profile?.data?.username ?? user?.email : 'Я';
-
-    // const { theme, toggleTheme } = usePreferencesContext();
     const navigation = useNavigation();
+
+    if (profileLoadingStatus === LoadingStatus.LOADING) {
+        return (
+            <CommonLayout>
+                <ActivityIndicator size="large" />
+            </CommonLayout>
+        );
+    }
+
+    if (profileLoadingStatus === LoadingStatus.FAILED || !profile) {
+        return (
+            <CommonLayout>
+                <Text>Произошла ошибка при получении профиля! Пожалуйста смахните приложение.</Text>
+            </CommonLayout>
+        );
+    }
+
     return (
         <CommonLayout>
             <TouchableOpacity
@@ -56,12 +60,12 @@ export const ProfilePage = () => {
             >
                 <View style={styles.head}>
                     <View style={styles.headInfo}>
-                        <AvatarComponent url={profile?.data?.avatar_url} onUpload={(url) => handleUpdatePhoto(url)} />
+                        <AvatarComponent url={profile.avatar_url} />
                         <View style={styles.userNameWrapper}>
                             <Text style={styles.userName} variant="titleLarge">
-                                {userName}
+                                {profile.username}
                             </Text>
-                            {user?.email && <Text variant="bodyLarge">{user.email}</Text>}
+                            {profile.email && <Text variant="bodyLarge">{profile.email}</Text>}
                         </View>
                     </View>
                     <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />

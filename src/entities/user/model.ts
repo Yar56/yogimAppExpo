@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthResponse, AuthTokenResponse } from '@supabase/supabase-js';
+import { AuthResponse, AuthTokenResponse, Session } from '@supabase/supabase-js';
 
 import { fireBaseApi, supaBaseApi } from '../../shared/api';
+import { LoadingStatus } from '../../shared/api/supaBase/models';
 
 export const signUpUserThunk = createAsyncThunk(
     'user/signUpUserThunk',
@@ -37,21 +38,25 @@ export const updateUserThunk = createAsyncThunk(
     }
 );
 
-// export const setUserToDBThunk = createAsyncThunk('course/setUserToDBThunk', async (user, { dispatch, getState }) => {
-//     try {
-//         const querySnapshot = await fireBaseApi.user.setToDBUser(user);
-//         console.log(querySnapshot, 'setUserToDBThunk');
-//         // return transformSnapshotCollection<fireBaseApi.models.Course>(querySnapshot);
-//     } catch (e) {
-//         console.error(e);
-//     }
-// });
+export const fetchProfileDB = createAsyncThunk(
+    'course/fetchProfileDB',
+    async (session: Session, { dispatch, getState }) => {
+        try {
+            const { data } = await supaBaseApi.user.getProfileDB(session);
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+);
 
 interface UserModelState {
     user: supaBaseApi.models.IUser | null;
     session: supaBaseApi.models.ISession | null;
+    profile?: supaBaseApi.models.Profile | null;
+    profileLoadingStatus: LoadingStatus;
 }
-const initialState: UserModelState = { user: null, session: null };
+const initialState: UserModelState = { user: null, session: null, profileLoadingStatus: LoadingStatus.IDLE };
 export const userModel = createSlice({
     name: 'user',
     initialState,
@@ -74,6 +79,17 @@ export const userModel = createSlice({
             if (state.user && action.payload) {
                 // state.user.displayName = action.payload.displayName;
             }
+        });
+        builder.addCase(fetchProfileDB.fulfilled, (state, { payload }) => {
+            state.profile = payload;
+            state.profileLoadingStatus = LoadingStatus.IDLE;
+        });
+        builder.addCase(fetchProfileDB.pending, (state) => {
+            state.profileLoadingStatus = LoadingStatus.LOADING;
+        });
+        builder.addCase(fetchProfileDB.rejected, (state) => {
+            state.profileLoadingStatus = LoadingStatus.FAILED;
+            state.profile = null;
         });
     },
 });

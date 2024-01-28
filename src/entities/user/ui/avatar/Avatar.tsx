@@ -9,10 +9,10 @@ import { supabase } from '../../../../shared/lib/baas/supabase';
 interface AvatarProps {
     size?: number;
     url: string | null;
-    onUpload: (filePath: string) => void;
+    onUpload?: (filePath: string) => void;
 }
 
-export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size }) => {
+export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size = 64 }) => {
     const [uploading, setUploading] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const avatarSize = { height: size, width: size };
@@ -73,7 +73,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                 throw error;
             }
 
-            onUpload(filePath);
+            onUpload?.(filePath);
         } catch (error) {
             if (isCancel(error)) {
                 console.warn('cancelled');
@@ -91,7 +91,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
     }
 
     return (
-        <View>
+        <View style={{ width: avatarSize.width }}>
             {avatarUrl ? (
                 <Avatar.Image
                     size={size}

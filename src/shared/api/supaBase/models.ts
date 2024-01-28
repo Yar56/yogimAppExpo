@@ -55,6 +55,7 @@ export type CourseList = Tables<'courses'>[];
 export type LessonList = Tables<'lessons'>[];
 export type ArticleList = Tables<'articles'>[];
 export type Article = Database['public']['Tables']['articles']['Row'];
+export type Profile = Tables<'profiles'>;
 
 export enum ArticleType {
     ENERGY = 'ENERGY',
