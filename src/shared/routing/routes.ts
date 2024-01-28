@@ -11,8 +11,8 @@ import PaymentPage from '../../stacks/profileStack/paymentPage/PaymentPage';
 import PremiumPage from '../../stacks/profileStack/premiumPage/PremiumPage';
 import ProfileEvents from '../../stacks/profileStack/profileEvents/ProfileEvents';
 import { ProfilePage } from '../../stacks/profileStack/profilePage/ProfilePage';
+import ProfileSettings from '../../stacks/profileStack/profileSettings/ProfileSettings';
 import SchedulePage from '../../stacks/profileStack/schedulePage/SchedulePage';
-import SettingsPage from '../../stacks/profileStack/settingsPage/SettingsPage';
 import SupportPage from '../../stacks/profileStack/supportPage/SupportPage';
 import PurchasePage from '../../stacks/routineStack/PurchasePage';
 import { RoutinePage } from '../../stacks/routineStack/routinePage/RoutinePage';
@@ -30,9 +30,9 @@ export const routineRoutes: AppRoute[] = [
 export const eventsRoutes: AppRoute[] = [{ name: 'Events', component: EventsPage, title: '' }];
 export const profileRoutes: AppRoute[] = [
     { name: 'Profile', component: ProfilePage, title: '' },
+    { name: 'ProfileSettings', component: ProfileSettings, title: '' },
     { name: 'Intentions', component: IntentionsPage, title: '' },
     { name: 'ProfileEvents', component: ProfileEvents, title: '' },
-    { name: 'Settings', component: SettingsPage, title: '' },
     { name: 'Support', component: SupportPage, title: '' },
     { name: 'Schedule', component: SchedulePage, title: '' },
     { name: 'Payment', component: PaymentPage, title: '' },

@@ -1,16 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Title } from 'react-native-paper';
 
-import ProfileWrapper from '../../../shared/ui/layouts/profile/ProfileWrapper';
+import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 const PaymentPage = () => {
     return (
-        <ProfileWrapper showBackButton>
-            <View>
-                <Title>Оплата</Title>
-            </View>
-        </ProfileWrapper>
+        <CommonLayout>
+            <Title>Оплата</Title>
+        </CommonLayout>
     );
 };
 

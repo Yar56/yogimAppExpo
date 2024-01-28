@@ -6,8 +6,7 @@ import CustomHeader from '../../shared/ui/components/CustomHeader';
 
 const ProfileStack = createNativeStackNavigator();
 
-export const ProfileStackScreen = ({ navigation }) => {
-    // navigation?.setOptions({ tabBarVisible: false });
+export const ProfileStackScreen = () => {
     return (
         <ProfileStack.Navigator
             screenOptions={{
@@ -16,7 +15,7 @@ export const ProfileStackScreen = ({ navigation }) => {
             }}
         >
             {profileRoutes.map((route) => {
-                return <ProfileStack.Screen options={{ title: route.title }} key={route.name} {...route} />;
+                return <ProfileStack.Screen key={route.name} {...route} />;
             })}
         </ProfileStack.Navigator>
     );

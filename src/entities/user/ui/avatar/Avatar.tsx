@@ -1,21 +1,18 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Alert, Image, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import DocumentPicker, { isCancel, isInProgress, types } from 'react-native-document-picker';
-import { Avatar, IconButton } from 'react-native-paper';
+import { Avatar } from 'react-native-paper';
 
-import styles from './AvatarStylesheet';
 import { PROFILE_DEFAULT_AVATAR } from '../../../../shared/constants/resourses';
 import { supabase } from '../../../../shared/lib/baas/supabase';
 
 interface AvatarProps {
-    size: number;
+    size?: number;
     url: string | null;
-    isAuth: boolean;
     onUpload: (filePath: string) => void;
 }
 
-export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size, isAuth }) => {
+export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size }) => {
     const [uploading, setUploading] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const avatarSize = { height: size, width: size };
@@ -94,34 +91,31 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
     }
 
     return (
-        <View style={styles.avatarWrapper}>
+        <View>
             {avatarUrl ? (
-                <Image
+                <Avatar.Image
+                    size={size}
                     source={{ uri: avatarUrl }}
                     accessibilityLabel="Avatar"
-                    style={[avatarSize, styles.avatar, styles.image]}
+                    style={[avatarSize]}
                 />
             ) : (
                 <Avatar.Image
-                    size={90}
                     // style={{ backgroundColor: theme === 'dark' ? '#323D5F' : '#6E4066' }}
-                    style={styles.noImage}
                     source={PROFILE_DEFAULT_AVATAR}
                 />
             )}
-            {isAuth && (
-                <View style={styles.buttonUpload}>
-                    <IconButton
-                        disabled={uploading}
-                        icon={() => {
-                            return <MaterialIcons name="add-a-photo" size={20} color="#E7E1E5" />;
-                        }}
-                        style={{ backgroundColor: '#00A4F9' }}
-                        size={23}
-                        onPress={uploadAvatar}
-                    />
-                </View>
-            )}
+            {/*<View style={styles.buttonUpload}>*/}
+            {/*    <IconButton*/}
+            {/*        disabled={uploading}*/}
+            {/*        icon={() => {*/}
+            {/*            return <MaterialIcons name="add-a-photo" size={20} color="#E7E1E5" />;*/}
+            {/*        }}*/}
+            {/*        style={{ backgroundColor: '#00A4F9' }}*/}
+            {/*        size={23}*/}
+            {/*        onPress={uploadAvatar}*/}
+            {/*    />*/}
+            {/*</View>*/}
         </View>
     );
 };

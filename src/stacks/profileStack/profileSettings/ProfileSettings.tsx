@@ -3,12 +3,12 @@ import { Title } from 'react-native-paper';
 
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
-const ProfileEvents = () => {
+const ProfileSettings = () => {
     return (
         <CommonLayout>
-            <Title>Прошедшие события</Title>
+            <Title>Настройки</Title>
         </CommonLayout>
     );
 };
 
-export default ProfileEvents;
+export default ProfileSettings;

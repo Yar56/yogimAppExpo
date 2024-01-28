@@ -1,16 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Title } from 'react-native-paper';
 
-import ProfileWrapper from '../../../shared/ui/layouts/profile/ProfileWrapper';
+import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 const SchedulePage = () => {
     return (
-        <ProfileWrapper showBackButton>
-            <View>
-                <Title>Расписание уведомлений</Title>
-            </View>
-        </ProfileWrapper>
+        <CommonLayout>
+            <Title>Расписание уведомлений</Title>
+        </CommonLayout>
     );
 };
 
