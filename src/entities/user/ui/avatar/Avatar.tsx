@@ -1,8 +1,10 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import DocumentPicker, { isCancel, isInProgress, types } from 'react-native-document-picker';
-import { Avatar } from 'react-native-paper';
+import { Avatar, IconButton } from 'react-native-paper';
 
+import styles from './AvatarStylesheet';
 import { PROFILE_DEFAULT_AVATAR } from '../../../../shared/constants/resourses';
 import { supabase } from '../../../../shared/lib/baas/supabase';
 
@@ -91,7 +93,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
     }
 
     return (
-        <View style={{ width: avatarSize.width }}>
+        <View style={{ width: avatarSize.width, position: 'relative' }}>
             {avatarUrl ? (
                 <Avatar.Image
                     size={size}
@@ -105,17 +107,19 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                     source={PROFILE_DEFAULT_AVATAR}
                 />
             )}
-            {/*<View style={styles.buttonUpload}>*/}
-            {/*    <IconButton*/}
-            {/*        disabled={uploading}*/}
-            {/*        icon={() => {*/}
-            {/*            return <MaterialIcons name="add-a-photo" size={20} color="#E7E1E5" />;*/}
-            {/*        }}*/}
-            {/*        style={{ backgroundColor: '#00A4F9' }}*/}
-            {/*        size={23}*/}
-            {/*        onPress={uploadAvatar}*/}
-            {/*    />*/}
-            {/*</View>*/}
+            {onUpload && (
+                <View style={styles.buttonUpload}>
+                    <IconButton
+                        disabled={uploading}
+                        icon={() => {
+                            return <Ionicons name="camera-outline" size={20} color="#E7E1E5" />;
+                        }}
+                        style={{ backgroundColor: '#156392' }}
+                        size={12}
+                        onPress={uploadAvatar}
+                    />
+                </View>
+            )}
         </View>
     );
 };

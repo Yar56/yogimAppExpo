@@ -1,14 +1,16 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
+import styles from './ProfileSettingsStylesheet';
 import { useAppSelector } from '../../../app/store/hooks';
 import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
+import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import styles from '../../authStack/authPage/AuthStylesheet';
 
 const schema = yup.object().shape({
     email: yup.string().email('Email некорректен').required('Заполните поле с email'),
@@ -19,7 +21,7 @@ const ProfileSettings = () => {
     const session = useAppSelector((state) => state.userState.session);
     const profile = useAppSelector((state) => state.userState.profile);
 
-    // const user = useAppSelector((state) => state.userState.user);
+    const user = useAppSelector((state) => state.userState.user);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>('');
@@ -30,13 +32,15 @@ const ProfileSettings = () => {
         }
     };
 
-    const formik: FormikConfig<{ email: string }> = {
+    const formik: FormikConfig<{ email: string; userName: string; sex: string }> = {
         initialValues: {
-            email: '',
+            email: user?.email ?? '',
+            userName: user?.user_metadata.username ?? '',
+            sex: '',
         },
         validationSchema: schema,
         onSubmit: async (values, { resetForm }) => {
-            const { email } = values;
+            const { email, userName, sex } = values;
             setIsLoading(true);
 
             try {
@@ -80,16 +84,17 @@ const ProfileSettings = () => {
 
     return (
         <CommonLayout>
-            <View>
+            <View style={styles.avatar}>
                 <AvatarComponent url={profile.avatar_url} onUpload={(url) => handleUpdatePhoto(url)} />
             </View>
+            <Spacer size={20} />
             <View>
                 <Formik {...formik}>
                     {({
                         handleChange,
                         handleBlur,
                         handleSubmit,
-                        values: { email },
+                        values: { email, userName, sex },
                         isSubmitting,
                         dirty,
                         isValid,
@@ -106,7 +111,34 @@ const ProfileSettings = () => {
                                 onChangeText={handleChange('email')}
                                 error={Boolean(errors.email)}
                             />
-
+                            <TextInput
+                                disabled={isSubmitting}
+                                mode="outlined"
+                                autoCapitalize="none"
+                                label="Имя пользователя"
+                                value={userName}
+                                onBlur={handleBlur('userName')}
+                                onChangeText={handleChange('userName')}
+                                error={Boolean(errors.userName)}
+                            />
+                            <TextInput
+                                disabled={isSubmitting}
+                                mode="outlined"
+                                autoCapitalize="none"
+                                label="Пол"
+                                value={sex}
+                                onBlur={handleBlur('sex')}
+                                onChangeText={handleChange('sex')}
+                                error={Boolean(errors.sex)}
+                            />
+                            <View style={styles.authType}>
+                                <View>
+                                    <Text>Способ входа</Text>
+                                </View>
+                                <View>
+                                    <MaterialCommunityIcons name="email-outline" size={25} color="#186DA4" />
+                                </View>
+                            </View>
                             <Button
                                 contentStyle={styles.button}
                                 buttonColor="#f3f2f2"
@@ -117,7 +149,7 @@ const ProfileSettings = () => {
                                 onPress={handleSubmit}
                             >
                                 <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#111C1E' }}>
-                                    Войти
+                                    Сохранить
                                 </Text>
                             </Button>
                             {apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}
