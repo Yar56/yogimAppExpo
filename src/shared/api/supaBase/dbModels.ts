@@ -182,6 +182,7 @@ export interface Database {
           created_at: string | null
           email: string | null
           id: string
+          sex: string | null
           updated_at: string | null
           username: string | null
         }
@@ -190,6 +191,7 @@ export interface Database {
           created_at?: string | null
           email?: string | null
           id: string
+          sex?: string | null
           updated_at?: string | null
           username?: string | null
         }
@@ -198,6 +200,7 @@ export interface Database {
           created_at?: string | null
           email?: string | null
           id?: string
+          sex?: string | null
           updated_at?: string | null
           username?: string | null
         }

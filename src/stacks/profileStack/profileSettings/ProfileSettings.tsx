@@ -1,30 +1,21 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikConfig } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
-import * as yup from 'yup';
 
 import styles from './ProfileSettingsStylesheet';
-import { useAppSelector } from '../../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { fetchProfileDB } from '../../../entities/user/model';
 import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
-const schema = yup.object().shape({
-    email: yup.string().email('Email некорректен').required('Заполните поле с email'),
-    password: yup.string().required('Заполните поле с паролем').min(8, 'Пароль слишком короткий - минимум 8 символов'),
-});
-
 const ProfileSettings = () => {
+    const dispatch = useAppDispatch();
     const session = useAppSelector((state) => state.userState.session);
     const profile = useAppSelector((state) => state.userState.profile);
-
-    const user = useAppSelector((state) => state.userState.user);
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [apiError, setApiError] = useState<string>('');
 
     const handleUpdatePhoto = (url: string) => {
         if (session) {
@@ -33,42 +24,28 @@ const ProfileSettings = () => {
     };
 
     const formik: FormikConfig<{ email: string; userName: string; sex: string }> = {
+        enableReinitialize: true,
         initialValues: {
-            email: user?.email ?? '',
-            userName: user?.user_metadata.username ?? '',
-            sex: '',
+            email: profile?.email ?? '',
+            userName: profile?.username ?? '',
+            sex: profile?.sex ?? '',
         },
-        validationSchema: schema,
+
         onSubmit: async (values, { resetForm }) => {
-            const { email, userName, sex } = values;
-            setIsLoading(true);
+            const { userName, sex } = values;
 
             try {
-                // const response = await dispatch(userModel.signInUserThunk({ email, password }));
-                // const payload = response.payload as AuthTokenResponse | undefined;
-                // console.log(payload, 'AuthPage');
-                // if (payload?.error?.message && payload.error.message.length !== 0) {
-                //     throw payload?.error;
-                // }
+                if (session) {
+                    supaBaseApi.user
+                        .updateProfileDB(session, { id: session.user.id, sex, username: userName })
+                        .then(() => dispatch(fetchProfileDB(session)));
+                }
             } catch (error) {
                 if (error instanceof Error) {
                     const errorMessage = error.message;
                     Alert.alert(errorMessage);
                 }
-
-                // const typedError = error as FirebaseError;
-                // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
-                //     setApiError('Такого email не существует');
-                // } else if (typedError.message === AuthErrorMessages.INVALID_PASSWORD) {
-                //     setApiError('Неверный пароль');
-                // } else if (typedError.message === AuthErrorMessages.USER_DISABLED) {
-                //     setApiError('Юзер был отключен');
-                // } else {
-                //     setApiError('Непредвиденная ошибка!');
-                //     console.error('Unknown Error', error);
-                // }
             } finally {
-                setIsLoading(false);
                 resetForm();
             }
         },
@@ -102,7 +79,7 @@ const ProfileSettings = () => {
                     }) => (
                         <View style={styles.formContainer}>
                             <TextInput
-                                disabled={isSubmitting}
+                                disabled
                                 mode="outlined"
                                 autoCapitalize="none"
                                 label="Адресс эл. почты"
@@ -152,7 +129,7 @@ const ProfileSettings = () => {
                                     Сохранить
                                 </Text>
                             </Button>
-                            {apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}
+                            {/*{apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}*/}
                         </View>
                     )}
                 </Formik>

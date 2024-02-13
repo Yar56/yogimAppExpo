@@ -28,7 +28,7 @@ export const ProfilePage = () => {
             throw new Error('Сессия не активна');
         }
         dispatch(fetchProfileDB(session));
-    }, []);
+    }, [dispatch, session]);
 
     const handleLogout = () => supaBaseApi.user.signOutUser();
 
