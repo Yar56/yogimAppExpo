@@ -2,35 +2,30 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 10,
-        paddingRight: 20,
-        paddingLeft: 20,
+        paddingRight: 0,
+        paddingLeft: 0,
+    },
+    courses: {
+        paddingHorizontal: 20,
+    },
+    card: { backgroundColor: '#022b42', height: 200, borderRadius: 20 },
+    imageContainer: {
+        borderRadius: 20,
+        backgroundColor: 'rgba(0,0,0,0.56)',
+        height: '100%',
+    },
+    image: {
+        borderRadius: 20,
+        opacity: 0.5,
+    },
+    controls: {
+        marginTop: 'auto',
+        margin: 20,
         display: 'flex',
-        flexDirection: 'column',
-    },
-    infoContainer: {
-        marginTop: 20,
-    },
-    infoTitle: {
-        fontWeight: 'bold',
-    },
-    scrollView: { overflow: 'visible' },
-    scrollViewContentContainer: {
-        marginTop: 10,
-        display: 'flex',
+        justifyContent: 'space-between',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        gap: 12,
-    },
-    card: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        width: 150,
-        minHeight: 200,
-        gap: 10,
+        alignItems: 'baseline',
+        gap: 20,
     },
 });
 

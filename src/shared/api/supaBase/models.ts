@@ -35,15 +35,7 @@ export enum LoadingStatus {
     FAILED = 'failed',
 }
 
-export interface Course {
-    id: string;
-    description: string;
-    disabled: boolean;
-    lessonNumber: string;
-    time: string;
-    title: string;
-    welcomeVideoUrl?: string;
-}
+export type Course = Database['public']['Tables']['courses']['Row'];
 export type CourseList = Tables<'courses'>[];
 export type LessonList = Tables<'lessons'>[];
 export type ArticleList = Tables<'articles'>[];
