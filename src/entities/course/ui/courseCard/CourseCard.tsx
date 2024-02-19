@@ -31,7 +31,7 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
 
                 <View style={styles.buttons}>
                     <TouchableOpacity activeOpacity={0.5} onPress={handleCoursePage}>
-                        <Button mode="contained-tonal" dark buttonColor="rgba(99, 89, 124, 0.7)">
+                        <Button mode="contained-tonal" dark buttonColor="#156494">
                             {course.disabled ? 'Скоро' : 'Подробнее'}
                         </Button>
                     </TouchableOpacity>
@@ -39,12 +39,12 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
 
                 <View style={styles.icons}>
                     <View style={styles.iconItem}>
-                        <MaterialCommunityIcons name="text" size={30} color="#A893BF" />
+                        <MaterialCommunityIcons name="text" size={30} color="#156494" />
                         <Text variant="bodyMedium">{course.lessonNumber}</Text>
                     </View>
 
                     <View style={styles.iconItem}>
-                        <MaterialCommunityIcons name="clock" size={30} color="#A893BF" />
+                        <MaterialCommunityIcons name="clock" size={30} color="#156494" />
                         <Text variant="bodyMedium">{course.time}</Text>
                     </View>
                 </View>

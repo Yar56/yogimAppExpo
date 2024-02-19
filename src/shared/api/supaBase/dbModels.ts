@@ -58,6 +58,7 @@ export interface Database {
           lessons: Json[] | null
           time: string
           title: string
+          type: Database["public"]["Enums"]["CourseType"]
           welcomeVideoUrl: string
         }
         Insert: {
@@ -70,6 +71,7 @@ export interface Database {
           lessons?: Json[] | null
           time: string
           title: string
+          type?: Database["public"]["Enums"]["CourseType"]
           welcomeVideoUrl?: string
         }
         Update: {
@@ -82,6 +84,7 @@ export interface Database {
           lessons?: Json[] | null
           time?: string
           title?: string
+          type?: Database["public"]["Enums"]["CourseType"]
           welcomeVideoUrl?: string
         }
         Relationships: [
@@ -244,6 +247,7 @@ export interface Database {
     }
     Enums: {
       ArticleType: "YOGA" | "ENERGY" | "MEAL"
+      CourseType: "YOGA" | "RECOVERY" | "MEDITATION"
     }
     CompositeTypes: {
       [_ in never]: never

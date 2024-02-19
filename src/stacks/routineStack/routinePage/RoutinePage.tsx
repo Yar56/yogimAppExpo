@@ -1,26 +1,18 @@
 import { AntDesign } from '@expo/vector-icons';
-import React, { useEffect } from 'react';
-import { ImageBackground, View } from 'react-native';
-import { Card, IconButton, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
+import { Card, Text } from 'react-native-paper';
 
 import styles from './RoutinePageStylesheet';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { courseModel } from '../../../entities/course';
 import { ROUTINE_CARD } from '../../../shared/constants/resourses';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const RoutinePage = () => {
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(courseModel.fetchAllCourses());
-    }, [dispatch]);
-    const courses = useAppSelector((state) => state.courseState.courses);
-    const loadingStatus = useAppSelector((state) => state.courseState.coursesLoadingStatus);
+    const navigation = useNavigation();
 
-    // const isLoading = loadingStatus === LoadingStatus.LOADING;
-    // const isError = loadingStatus === LoadingStatus.FAILED;
+    const handleNavigate = () => navigation.navigate('PopularCourses');
 
-    console.log(courses, loadingStatus);
     return (
         <CommonLayout externalStyles={styles.container}>
             <View style={styles.courses}>
@@ -34,13 +26,21 @@ export const RoutinePage = () => {
                     >
                         <View style={styles.controls}>
                             <Text variant="headlineSmall">Популярные курсы</Text>
-                            <IconButton
-                                mode="contained"
-                                containerColor="#052B42"
-                                icon={() => <AntDesign name="arrowright" size={20} color="#6383cb" />}
-                                size={23}
-                                onPress={() => console.log('Pressed')}
-                            />
+
+                            <TouchableOpacity
+                                activeOpacity={0.5}
+                                onPress={handleNavigate}
+                                style={{
+                                    backgroundColor: '#052B42',
+                                    borderRadius: 50,
+                                    padding: 6,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <AntDesign name="right" size={23} color="#6383cb" />
+                            </TouchableOpacity>
                         </View>
                     </ImageBackground>
                 </Card>

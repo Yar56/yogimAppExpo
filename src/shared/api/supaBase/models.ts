@@ -47,3 +47,9 @@ export enum ArticleType {
     YOGA = 'YOGA',
     MEAL = 'MEAL',
 }
+
+export enum CourseType {
+    RECOVERY = 'RECOVERY',
+    YOGA = 'YOGA',
+    MEDITATION = 'MEDITATION',
+}

@@ -60,7 +60,7 @@ export const AuthPage = () => {
                 }
 
                 console.log('to profile');
-                navigation.navigate('Profile');
+                navigation.navigate('ProfileTab', { screen: 'Profile' });
             } catch (error) {
                 if (error instanceof Error) {
                     const errorMessage = error.message;

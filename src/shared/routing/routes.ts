@@ -16,6 +16,7 @@ import SchedulePage from '../../stacks/profileStack/schedulePage/SchedulePage';
 import SupportPage from '../../stacks/profileStack/supportPage/SupportPage';
 import PurchasePage from '../../stacks/routineStack/PurchasePage';
 import { CoursePage } from '../../stacks/routineStack/coursePage/CoursePage';
+import PopularCoursesPage from '../../stacks/routineStack/popularCoursesPage/PopularCoursesPage';
 import { RoutinePage } from '../../stacks/routineStack/routinePage/RoutinePage';
 
 export const articlesRoutes: AppRoute[] = [
@@ -26,6 +27,7 @@ export const articlesRoutes: AppRoute[] = [
 export const homeRoutes: AppRoute[] = [{ name: 'Home', component: HomePage, title: '' }];
 export const routineRoutes: AppRoute[] = [
     { name: 'Routine', component: RoutinePage },
+    { name: 'PopularCourses', component: PopularCoursesPage },
     { name: 'Course', component: CoursePage },
     { name: 'Purchase', component: PurchasePage },
 ];

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { supaBaseApi } from '../../../shared/api/';
+import { CourseType } from '../../../shared/api/supaBase/models';
 
 export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async (arg, { dispatch, getState }) => {
     try {
@@ -23,8 +24,10 @@ export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async 
 //     }
 // );
 
+type CourseList = supaBaseApi.models.CourseList;
 interface CourseModelState {
-    courses?: supaBaseApi.models.CourseList | null;
+    courses?: CourseList | null;
+    coursesByType?: Record<CourseType, CourseList>;
     coursesLoadingStatus: supaBaseApi.models.LoadingStatus;
 }
 const initialState: CourseModelState = {
@@ -38,6 +41,18 @@ export const courseModel = createSlice({
         builder.addCase(fetchAllCourses.fulfilled, (state, action) => {
             state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
             state.courses = action.payload;
+            state.coursesByType = action?.payload?.reduce(
+                (acc) => {
+                    // @ts-ignore
+                    acc.RECOVERY = action.payload?.filter((item) => item.type === CourseType.RECOVERY);
+                    // @ts-ignore
+                    acc.YOGA = action.payload?.filter((item) => item.type === CourseType.YOGA);
+                    // @ts-ignore
+                    acc.MEDITATION = action.payload?.filter((item) => item.type === CourseType.MEDITATION);
+                    return acc;
+                },
+                {} as Record<CourseType, CourseList>
+            );
         });
         builder.addCase(fetchAllCourses.pending, (state) => {
             state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
