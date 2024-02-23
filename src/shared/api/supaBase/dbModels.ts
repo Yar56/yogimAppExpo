@@ -56,6 +56,7 @@ export interface Database {
           isStarted: boolean
           lessonNumber: string
           lessons: Json[] | null
+          photoUrl: string
           time: string
           title: string
           type: Database["public"]["Enums"]["CourseType"]
@@ -69,6 +70,7 @@ export interface Database {
           isStarted?: boolean
           lessonNumber: string
           lessons?: Json[] | null
+          photoUrl?: string
           time: string
           title: string
           type?: Database["public"]["Enums"]["CourseType"]
@@ -82,6 +84,7 @@ export interface Database {
           isStarted?: boolean
           lessonNumber?: string
           lessons?: Json[] | null
+          photoUrl?: string
           time?: string
           title?: string
           type?: Database["public"]["Enums"]["CourseType"]
