@@ -1,5 +1,7 @@
 import { ComponentType } from 'react';
 import { ParamListBase } from '@react-navigation/native';
+import CourseDetailsPage from './stacks/routineStack/CourseDetailsPage';
+import { Lesson } from './shared/api/supaBase/models';
 
 declare global {
     // namespace ReactNavigation {
@@ -24,6 +26,8 @@ declare global {
         Premium: undefined;
         Course: { courseId?: string };
         Article: { articleId?: string };
+        CourseDetailsPage: { details: string | null };
+        Lesson: { courseId?: string; lessonId?: string };
     }
 
     interface AppRoute {

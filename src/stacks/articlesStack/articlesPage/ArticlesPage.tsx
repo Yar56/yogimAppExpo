@@ -69,13 +69,25 @@ export const ArticlesPage = () => {
                             <Text>Произошла ошибка, пожалуйста потяните экран вниз чтобы обновить данные</Text>
                         )}
                         <TabScreen label="Все">
-                            <FlatListComponent items={articles || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={articles || []}
+                                renderItem={renderItem}
+                                notFoundText="Статьи не найдены"
+                            />
                         </TabScreen>
                         <TabScreen label="Йога и медитация">
-                            <FlatListComponent items={articlesByType?.YOGA || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={articlesByType?.YOGA || []}
+                                renderItem={renderItem}
+                                notFoundText="Статьи не найдены"
+                            />
                         </TabScreen>
                         <TabScreen label="Энергия">
-                            <FlatListComponent items={articlesByType?.ENERGY || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={articlesByType?.ENERGY || []}
+                                renderItem={renderItem}
+                                notFoundText="Статьи не найдены"
+                            />
                         </TabScreen>
                     </Tabs>
                 </TabsProvider>

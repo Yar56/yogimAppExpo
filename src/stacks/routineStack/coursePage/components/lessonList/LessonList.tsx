@@ -1,32 +1,29 @@
-import React from 'react';
-import { FlatList, ListRenderItemInfo, ScrollView } from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { ListRenderItemInfo } from 'react-native';
 
-import styles from './LessonListStylesheet';
-import { useAppSelector } from '../../../../../app/store/hooks';
-import LessonItem from '../lessonItem/LessonItem';
+import { lessonUi } from '../../../../../entities/lesson';
+import { Lesson } from '../../../../../shared/api/supaBase/models';
+import FlatListComponent from '../../../../../shared/ui/components/flatListComponent/FlatListComponent';
 
-interface Lesson {
-    id: string;
-    title: string;
-    description: string;
+const { LessonCard } = lessonUi;
+
+interface LessonListProps {
+    lessons: Lesson[];
 }
+const LessonList: FunctionComponent<LessonListProps> = ({ lessons }) => {
+    // const lessons = useAppSelector((state) => state.lessonState.lessonsByCourseId);
 
-const LessonList = () => {
-    const lessons = useAppSelector((state) => state.lessonState.lessonsByCourseId);
-
-    const renderItem = ({ item }: ListRenderItemInfo<Lesson>) => {
-        return <LessonItem lesson={item} />;
+    const renderItem = ({ item, index }: ListRenderItemInfo<Lesson>) => {
+        return <LessonCard lesson={item} index={index} />;
     };
 
     return (
-        <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
-            <FlatList
-                contentContainerStyle={styles.wrapper}
-                data={lessons}
-                keyExtractor={(item) => item.id}
-                renderItem={renderItem}
-            />
-        </ScrollView>
+        <FlatListComponent<Lesson>
+            withPadding={false}
+            items={lessons ?? []}
+            renderItem={renderItem}
+            notFoundText="Уроки не найдены"
+        />
     );
 };
 

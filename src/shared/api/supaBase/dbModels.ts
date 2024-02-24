@@ -50,10 +50,13 @@ export interface Database {
       courses: {
         Row: {
           description: string
+          details: string | null
           disabled: boolean
           id: string
+          isFree: boolean
           isPaid: boolean
           isStarted: boolean
+          labels: Json[] | null
           lessonNumber: string
           lessons: Json[] | null
           photoUrl: string
@@ -64,10 +67,13 @@ export interface Database {
         }
         Insert: {
           description: string
+          details?: string | null
           disabled: boolean
           id: string
+          isFree?: boolean
           isPaid?: boolean
           isStarted?: boolean
+          labels?: Json[] | null
           lessonNumber: string
           lessons?: Json[] | null
           photoUrl?: string
@@ -78,10 +84,13 @@ export interface Database {
         }
         Update: {
           description?: string
+          details?: string | null
           disabled?: boolean
           id?: string
+          isFree?: boolean
           isPaid?: boolean
           isStarted?: boolean
+          labels?: Json[] | null
           lessonNumber?: string
           lessons?: Json[] | null
           photoUrl?: string

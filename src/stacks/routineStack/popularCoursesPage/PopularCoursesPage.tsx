@@ -61,16 +61,32 @@ const PopularCoursesPage = () => {
                             <Text>Произошла ошибка, пожалуйста потяните экран вниз чтобы обновить данные</Text>
                         )}
                         <TabScreen label="Все">
-                            <FlatListComponent<Course> items={courses || []} renderItem={renderItem} />
+                            <FlatListComponent<Course>
+                                items={courses || []}
+                                renderItem={renderItem}
+                                notFoundText="Курсы не найдены"
+                            />
                         </TabScreen>
                         <TabScreen label="Йога">
-                            <FlatListComponent items={coursesByType?.YOGA || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={coursesByType?.YOGA || []}
+                                renderItem={renderItem}
+                                notFoundText="Курсы не найдены"
+                            />
                         </TabScreen>
                         <TabScreen label="Восстановление">
-                            <FlatListComponent items={coursesByType?.RECOVERY || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={coursesByType?.RECOVERY || []}
+                                renderItem={renderItem}
+                                notFoundText="Курсы не найдены"
+                            />
                         </TabScreen>
                         <TabScreen label="Медитации">
-                            <FlatListComponent items={coursesByType?.MEDITATION || []} renderItem={renderItem} />
+                            <FlatListComponent
+                                items={coursesByType?.MEDITATION || []}
+                                renderItem={renderItem}
+                                notFoundText="Курсы не найдены"
+                            />
                         </TabScreen>
                     </Tabs>
                 </TabsProvider>

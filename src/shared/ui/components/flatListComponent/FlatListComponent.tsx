@@ -10,15 +10,22 @@ interface Item {
 interface FlatListComponentProps<T extends Item> {
     items: T[];
     renderItem: (info: ListRenderItemInfo<T>) => ReactElement | null;
+    notFoundText: string;
+    withPadding?: boolean;
 }
-const FlatListComponent = <T extends Item>({ items, renderItem }: FlatListComponentProps<T>) => {
+const FlatListComponent = <T extends Item>({
+    items,
+    renderItem,
+    notFoundText,
+    withPadding = true,
+}: FlatListComponentProps<T>) => {
     const bottomTabBarHeight = useBottomTabBarHeight();
     const isAndroid = Platform.OS === 'android';
 
     if (items.length === 0) {
         return (
             <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingVertical: 100 }}>
-                <Text variant="bodyLarge">Курсы не найдены</Text>
+                <Text variant="bodyLarge">{notFoundText}</Text>
             </View>
         );
     }
@@ -34,7 +41,7 @@ const FlatListComponent = <T extends Item>({ items, renderItem }: FlatListCompon
             data={items}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
-            style={styles.listStyle}
+            style={withPadding ? styles.listStyle : {}}
         />
     );
 };

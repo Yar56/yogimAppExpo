@@ -1,80 +1,126 @@
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { FunctionComponent, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Avatar, Button, Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { TouchableOpacity, View } from 'react-native';
+import { Button, Chip, Divider, Text } from 'react-native-paper';
+import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
 
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { lessonModel } from '../../../entities/lesson';
+import { useAppSelector } from '../../../app/store/hooks';
+import { CourseLabel } from '../../../shared/api/supaBase/models';
+import { screenHeight } from '../../../shared/constants/screenSize';
 import { Spacer } from '../../../shared/ui/components/Spacer';
+import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Course'>;
-
+const IMG_HEIGHT = (screenHeight / 100) * 70;
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
-    const dispatch = useAppDispatch();
+    const navigation = useNavigation();
+    // const dispatch = useAppDispatch();
     // const safeAreaInsets = useSafeAreaInsets();
     const courseId = route.params.courseId;
+
+    const scrollRef = useAnimatedRef<Animated.ScrollView>();
+    const scrollOffset = useScrollViewOffset(scrollRef);
+    const bottomTabBarHeight = useBottomTabBarHeight();
+
+    const imageAnimatedStyle = useAnimatedStyle(() => {
+        const translateY = interpolate(
+            scrollOffset.value,
+            [-IMG_HEIGHT, 0, IMG_HEIGHT],
+            [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]
+        );
+        const scale = interpolate(scrollOffset.value, [-IMG_HEIGHT, 0, IMG_HEIGHT], [2, 1, 1.2]);
+
+        return {
+            transform: [{ translateY }, { scale }],
+        };
+    });
 
     useEffect(() => {
         if (!courseId) {
             console.error('courseId is empty');
-            return;
         }
-        dispatch(lessonModel.fetchAllLessonsByCourseId(courseId));
+        // dispatch(lessonModel.fetchAllLessonsByCourseId(courseId));
     }, [courseId]);
 
-    const navigation = useNavigation();
     const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
 
-    const handleBack = () => navigation.goBack();
+    const handleBuyCourse = () => {};
+    const navigateToDetails = () => navigation.navigate('CourseDetailsPage', { details: course.details });
+
+    if (!course) {
+        console.warn(`article is undefined, courseId=${courseId}`);
+        // log sentry
+        return (
+            <View>
+                <Text variant="displayMedium">Что то пошло не так! Курса не существует</Text>
+            </View>
+        );
+    }
 
     return (
-        <LinearGradient colors={['#21244A', '#736688', '#C37686']} style={{ flex: 1 }}>
-            <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-                <SafeAreaView edges={['bottom', 'top']} style={styles.container}>
-                    <View style={styles.header}>
-                        <TouchableOpacity activeOpacity={0.5} onPress={handleBack}>
-                            <View>
-                                <FontAwesome5 name="long-arrow-alt-left" size={25} color="#E7E1E5" />
-                            </View>
-                        </TouchableOpacity>
-                        <Spacer size={60} horizontal />
-                        <View>
-                            <Text variant="headlineMedium">{course?.title}</Text>
-                        </View>
+        <View style={[styles.container, { paddingBottom: bottomTabBarHeight }]}>
+            <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+                <Animated.Image source={{ uri: course.photoUrl }} style={[styles.image, imageAnimatedStyle]} />
+
+                <CommonLayout externalStyles={styles.textContainer}>
+                    <View style={styles.titleWrapper}>
+                        <Text style={styles.title} variant="headlineSmall">
+                            {course.title}
+                        </Text>
                     </View>
                     <Spacer size={20} />
-                    <View style={styles.infoWrapper}>
-                        <View>
-                            <View style={styles.tutor}>
-                                <Avatar.Icon size={30} icon="folder" />
-                                <Spacer size={15} horizontal />
-                                <View>
-                                    <Text variant="titleLarge">Юлия</Text>
-                                </View>
-                            </View>
-                            <Spacer size={10} />
-                            <View style={styles.time}>
-                                <Text variant="bodyLarge">15 часов</Text>
-                                <Entypo name="dot-single" size={24} color="#E7E1E5" />
-                                <Text variant="bodyLarge">20 уроков</Text>
-                            </View>
-                        </View>
-                        <View style={styles.price}>
-                            <Text variant="headlineSmall">1200Р</Text>
-                        </View>
+                    <Text variant="bodyLarge">{course.description}</Text>
+                    <Spacer size={10} />
+                    <Text
+                        style={{ textDecorationLine: 'underline', fontWeight: 'bold' }}
+                        variant="bodyLarge"
+                        onPress={navigateToDetails}
+                    >
+                        Подробнее
+                    </Text>
+                    <Spacer size={15} />
+                    <View style={styles.purchaseWrapper}>
+                        <Text variant="headlineSmall">Доступ к курсу</Text>
+                        {course.isFree ? (
+                            <Chip style={{ backgroundColor: '#156494' }} mode="flat">
+                                <Text variant="bodyLarge">Бесплатно</Text>
+                            </Chip>
+                        ) : (
+                            <TouchableOpacity activeOpacity={0.5} onPress={handleBuyCourse}>
+                                <Button mode="contained-tonal" dark buttonColor="#156494">
+                                    {course.isPaid ? 'Уже куплено' : 'Купить курс'}
+                                </Button>
+                            </TouchableOpacity>
+                        )}
                     </View>
-                    <Spacer size={20} />
-                    <Button mode="contained">Вступить</Button>
-                    <Spacer size={20} />
-                    <LessonList />
-                </SafeAreaView>
-            </ScrollView>
-        </LinearGradient>
+                    <Spacer size={15} />
+                    <Divider bold />
+                    <Spacer size={15} />
+                    {course.labels && (
+                        <View>
+                            <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+                                {(course.labels as unknown as CourseLabel[]).map((label) => {
+                                    return (
+                                        <Chip key={label.id} style={{ width: 'fit-content', display: 'flex' }}>
+                                            {label?.name}
+                                        </Chip>
+                                    );
+                                })}
+                            </View>
+                            <Spacer size={20} />
+                            <Divider bold />
+                        </View>
+                    )}
+
+                    <Text variant="headlineSmall">Список уроков</Text>
+                    <Spacer size={10} />
+                    <LessonList lessons={course.lessons} />
+                </CommonLayout>
+            </Animated.ScrollView>
+        </View>
     );
 };

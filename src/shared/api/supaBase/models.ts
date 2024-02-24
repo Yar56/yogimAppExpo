@@ -36,6 +36,7 @@ export enum LoadingStatus {
 }
 
 export type Course = Database['public']['Tables']['courses']['Row'];
+
 export type CourseList = Tables<'courses'>[];
 export type LessonList = Tables<'lessons'>[];
 export type ArticleList = Tables<'articles'>[];
@@ -52,4 +53,20 @@ export enum CourseType {
     RECOVERY = 'RECOVERY',
     YOGA = 'YOGA',
     MEDITATION = 'MEDITATION',
+}
+
+export interface Lesson {
+    id: string;
+    time: string;
+    order: number;
+    title: string;
+    courseId: string;
+    description: string;
+    photoUrl: string;
+    videoUrl: string;
+}
+
+export interface CourseLabel {
+    id: string;
+    name: string;
 }

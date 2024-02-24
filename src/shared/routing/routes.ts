@@ -14,8 +14,10 @@ import { ProfilePage } from '../../stacks/profileStack/profilePage/ProfilePage';
 import ProfileSettings from '../../stacks/profileStack/profileSettings/ProfileSettings';
 import SchedulePage from '../../stacks/profileStack/schedulePage/SchedulePage';
 import SupportPage from '../../stacks/profileStack/supportPage/SupportPage';
+import CourseDetailsPage from '../../stacks/routineStack/CourseDetailsPage';
 import PurchasePage from '../../stacks/routineStack/PurchasePage';
 import { CoursePage } from '../../stacks/routineStack/coursePage/CoursePage';
+import LessonPage from '../../stacks/routineStack/lessonPage/LessonPage';
 import PopularCoursesPage from '../../stacks/routineStack/popularCoursesPage/PopularCoursesPage';
 import { RoutinePage } from '../../stacks/routineStack/routinePage/RoutinePage';
 
@@ -29,6 +31,8 @@ export const routineRoutes: AppRoute[] = [
     { name: 'Routine', component: RoutinePage },
     { name: 'PopularCourses', component: PopularCoursesPage },
     { name: 'Course', component: CoursePage },
+    { name: 'Lesson', component: LessonPage },
+    { name: 'CourseDetailsPage', component: CourseDetailsPage },
     { name: 'Purchase', component: PurchasePage },
 ];
 export const eventsRoutes: AppRoute[] = [{ name: 'Events', component: EventsPage, title: '' }];

@@ -1,51 +1,41 @@
 import { StyleSheet } from 'react-native';
 
+import { screenHeight, screenWidth } from '../../../shared/constants/screenSize';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
-        paddingRight: 20,
-        paddingLeft: 20,
-        display: 'flex',
-        flexDirection: 'column',
+        paddingRight: 0,
+        paddingLeft: 0,
     },
-    infoTitle: {
-        fontWeight: 'bold',
+    image: {
+        flex: 1,
+        height: (screenHeight / 100) * 70,
+        width: screenWidth,
     },
-    scrollView: { overflow: 'visible' },
-    scrollViewContentContainer: {
-        marginTop: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        gap: 12,
+    textContainer: {
+        marginTop: -23,
     },
-    header: {
+
+    titleWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
-    },
-    video: {
-        height: 400,
-        borderRadius: 20,
-    },
-    infoWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-    },
-    tutor: {
-        display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
     },
-    time: {
+    title: {
+        maxWidth: screenWidth * 0.8,
+    },
+    iconWrapper: {
+        width: 50,
+    },
+
+    purchaseWrapper: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
     },
-    price: {},
 });
 
 export default styles;

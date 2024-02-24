@@ -38,7 +38,7 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
                     </View>
                 </View>
 
-                <View style={styles.button}>
+                <View>
                     <TouchableOpacity activeOpacity={0.5} onPress={handleCoursePage}>
                         <Button mode="contained-tonal" dark buttonColor="#156494">
                             {course.disabled ? 'Скоро' : 'Подробнее'}
