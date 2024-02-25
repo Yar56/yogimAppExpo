@@ -30,8 +30,8 @@ export const homeRoutes: AppRoute[] = [{ name: 'Home', component: HomePage, titl
 export const routineRoutes: AppRoute[] = [
     { name: 'Routine', component: RoutinePage },
     { name: 'PopularCourses', component: PopularCoursesPage },
-    { name: 'Course', component: CoursePage },
-    { name: 'Lesson', component: LessonPage },
+    { name: 'Course', component: CoursePage, title: '' },
+    { name: 'Lesson', component: LessonPage, title: '' },
     { name: 'CourseDetailsPage', component: CourseDetailsPage },
     { name: 'Purchase', component: PurchasePage },
 ];

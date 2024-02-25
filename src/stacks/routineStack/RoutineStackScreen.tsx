@@ -6,16 +6,31 @@ import CustomHeader from '../../shared/ui/components/CustomHeader';
 
 const RoutineStack = createNativeStackNavigator();
 
+const baseStackColor = '#022B42';
+const CourseStackColor = '#032030';
+
 export const RoutineStackScreen = () => {
     return (
         <RoutineStack.Navigator
             screenOptions={{
-                contentStyle: { backgroundColor: '#022B42' },
+                contentStyle: { backgroundColor: baseStackColor },
                 header: (props) => <CustomHeader headerProps={props} />,
             }}
         >
             {routineRoutes.map((route) => {
-                return <RoutineStack.Screen options={{ title: route.title }} key={route.name} {...route} />;
+                return (
+                    <RoutineStack.Screen
+                        options={{
+                            title: route.title,
+                            headerTransparent: route.name === 'Course',
+                            contentStyle: {
+                                backgroundColor: route.name === 'Course' ? CourseStackColor : baseStackColor,
+                            },
+                        }}
+                        key={route.name}
+                        {...route}
+                    />
+                );
             })}
         </RoutineStack.Navigator>
     );

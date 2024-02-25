@@ -10,7 +10,7 @@ interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;
 }
 const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => {
-    const isArticlePage = headerProps.route.name === 'Article';
+    const isTransparentPage = headerProps.route.name === 'Article' || headerProps.route.name === 'Course';
 
     return (
         <View
@@ -20,7 +20,7 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: 105,
-                backgroundColor: isArticlePage ? 'transparent' : '#022B42',
+                backgroundColor: isTransparentPage ? 'transparent' : '#022B42',
                 paddingTop: 40,
                 position: 'relative',
             }}
@@ -35,7 +35,7 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
                     <AntDesign name="left" size={25} color="#0b80ba" style={{ paddingLeft: 10 }} />
                 </TouchableOpacity>
             )}
-            {!isArticlePage && (
+            {!isTransparentPage && (
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Image source={LOGO} style={{ width: 70, height: 70, marginRight: 0 }} />
                     <Text variant="headlineSmall" onPress={() => headerProps.navigation.goBack()}>

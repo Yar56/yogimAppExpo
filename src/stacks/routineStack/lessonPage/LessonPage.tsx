@@ -1,38 +1,20 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
-import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
+import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
-import styles from './LessonPageStylesheet';
 import { useAppSelector } from '../../../app/store/hooks';
 import { Lesson } from '../../../shared/api/supaBase/models';
-import { screenHeight } from '../../../shared/constants/screenSize';
+import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Lesson'>;
 
-const IMG_HEIGHT = (screenHeight / 100) * 70;
 const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const courseId = route.params.courseId;
     const lessonId = route.params.lessonId;
-
-    const scrollRef = useAnimatedRef<Animated.ScrollView>();
-    const scrollOffset = useScrollViewOffset(scrollRef);
-    const bottomTabBarHeight = useBottomTabBarHeight();
-    const imageAnimatedStyle = useAnimatedStyle(() => {
-        const translateY = interpolate(
-            scrollOffset.value,
-            [-IMG_HEIGHT, 0, IMG_HEIGHT],
-            [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]
-        );
-        const scale = interpolate(scrollOffset.value, [-IMG_HEIGHT, 0, IMG_HEIGHT], [2, 1, 1.2]);
-
-        return {
-            transform: [{ translateY }, { scale }],
-        };
-    });
+    const [isVideoLoading, setIsVideoLoading] = useState<boolean>(false);
+    const [isVideoError, setIsVideoError] = useState<boolean>(false);
 
     useEffect(() => {
         if (!courseId || !lessonId) {
@@ -52,14 +34,30 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
             </View>
         );
     }
-    return (
-        <View style={[styles.container, { paddingBottom: bottomTabBarHeight }]}>
-            <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-                <Animated.Image source={{ uri: lesson.photoUrl }} style={[styles.image, imageAnimatedStyle]} />
 
-                <CommonLayout externalStyles={{}} />
-            </Animated.ScrollView>
-        </View>
+    const content = isVideoError ? (
+        <Text>Произошла ошибка при загрузке видео</Text>
+    ) : (
+        <Card.Cover
+            resizeMode="cover"
+            source={{ uri: lesson.videoUrl }}
+            style={{ height: 250 }}
+            onLoadStart={() => setIsVideoLoading(true)}
+            onLoadEnd={() => setIsVideoLoading(false)}
+            onError={() => setIsVideoError(true)}
+        />
+    );
+
+    return (
+        <CommonLayout>
+            <Text variant="titleLarge">{lesson.title}</Text>
+            <Spacer size={20} />
+            <Card style={{ width: 'auto', height: 250 }}>
+                {isVideoLoading ? <ActivityIndicator size={30} style={{ height: '95%' }} /> : content}
+            </Card>
+            <Spacer size={20} />
+            <Text variant="bodyLarge">{lesson.description}</Text>
+        </CommonLayout>
     );
 };
 
