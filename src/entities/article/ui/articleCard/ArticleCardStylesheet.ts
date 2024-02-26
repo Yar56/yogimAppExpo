@@ -10,7 +10,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
     },
-
+    fastImage: {
+        width: 'auto',
+        height: 200,
+        borderRadius: 25,
+        marginBottom: 5,
+    },
     imageContainer: {
         minHeight: 230,
         borderRadius: 20,

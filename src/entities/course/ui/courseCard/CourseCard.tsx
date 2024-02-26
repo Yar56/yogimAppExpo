@@ -2,6 +2,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './CourseCardStylesheet';
@@ -16,9 +17,13 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
 
     return (
         <Card style={[styles.card, course.disabled && styles.cardDisabled]}>
-            <Card.Cover
-                source={{ uri: course.photoUrl }}
-                style={{ flex: 1, height: 200, width: 'auto', resizeMode: 'stretch' }}
+            <FastImage
+                style={styles.fastImage}
+                source={{
+                    uri: course.photoUrl,
+                    priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
             />
 
             <Card.Title title={course.title} titleVariant="titleLarge" />

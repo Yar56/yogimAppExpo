@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Button, Chip, Divider, Text } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
 
@@ -14,6 +15,7 @@ import { screenHeight } from '../../../shared/constants/screenSize';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 type Props = NativeStackScreenProps<RootStackParamList, 'Course'>;
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
@@ -64,7 +66,10 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
     return (
         <View style={[styles.container, { paddingBottom: bottomTabBarHeight }]}>
             <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-                <Animated.Image source={{ uri: course.photoUrl }} style={[styles.image, imageAnimatedStyle]} />
+                <AnimatedFastImage
+                    source={{ uri: course.photoUrl, priority: FastImage.priority.normal }}
+                    style={[styles.image, imageAnimatedStyle]}
+                />
 
                 <CommonLayout externalStyles={styles.textContainer}>
                     <View style={styles.titleWrapper}>

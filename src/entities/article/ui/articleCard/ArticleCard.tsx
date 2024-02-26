@@ -2,6 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './ArticleCardStylesheet';
@@ -17,10 +18,13 @@ export const ArticleCard: FunctionComponent<CourseCardProps> = ({ article }) => 
 
     return (
         <Card style={{ backgroundColor: '#022b42' }}>
-            <Card.Cover
-                source={{ uri: article.imageUrl }}
-                // resizeMode="cover"
-                style={{ flex: 1, height: 250, width: 'auto', resizeMode: 'stretch' }}
+            <FastImage
+                style={styles.fastImage}
+                source={{
+                    uri: article.imageUrl,
+                    priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
             />
 
             <View style={styles.buttons}>

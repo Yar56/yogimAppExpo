@@ -9,7 +9,12 @@ const styles = StyleSheet.create({
         pointerEvents: 'none',
         opacity: 0.5,
     },
-
+    fastImage: {
+        width: 'auto',
+        height: 200,
+        borderRadius: 25,
+        marginBottom: 5,
+    },
     infoWrapper: {
         display: 'flex',
         flexDirection: 'row',

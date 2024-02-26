@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import Image from 'react-native-image-progress';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../../app/store/hooks';
@@ -13,7 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Lesson'>;
 const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const courseId = route.params.courseId;
     const lessonId = route.params.lessonId;
-    const [isVideoLoading, setIsVideoLoading] = useState<boolean>(false);
+
     const [isVideoError, setIsVideoError] = useState<boolean>(false);
 
     useEffect(() => {
@@ -38,12 +39,13 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const content = isVideoError ? (
         <Text>Произошла ошибка при загрузке видео</Text>
     ) : (
-        <Card.Cover
-            resizeMode="cover"
+        <Image
             source={{ uri: lesson.videoUrl }}
-            style={{ height: 250 }}
-            onLoadStart={() => setIsVideoLoading(true)}
-            onLoadEnd={() => setIsVideoLoading(false)}
+            indicator={() => <ActivityIndicator size={20} />}
+            imageStyle={{ borderRadius: 15 }}
+            style={{
+                height: 250,
+            }}
             onError={() => setIsVideoError(true)}
         />
     );
@@ -52,9 +54,7 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
         <CommonLayout>
             <Text variant="titleLarge">{lesson.title}</Text>
             <Spacer size={20} />
-            <Card style={{ width: 'auto', height: 250 }}>
-                {isVideoLoading ? <ActivityIndicator size={30} style={{ height: '95%' }} /> : content}
-            </Card>
+            <Card style={{ width: 'auto', height: 250 }}>{content}</Card>
             <Spacer size={20} />
             <Text variant="bodyLarge">{lesson.description}</Text>
         </CommonLayout>

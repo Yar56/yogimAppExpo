@@ -3,6 +3,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import Animated, {
     interpolate,
@@ -21,6 +22,7 @@ import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Article'>;
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
@@ -83,7 +85,10 @@ export const ArticlePage: FunctionComponent<Props> = ({ route }) => {
     return (
         <View style={[styles.container, { paddingBottom: bottomTabBarHeight }]}>
             <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-                <Animated.Image source={{ uri: article.imageUrl }} style={[styles.image, imageAnimatedStyle]} />
+                <AnimatedFastImage
+                    source={{ uri: article.imageUrl, priority: FastImage.priority.normal }}
+                    style={[styles.image, imageAnimatedStyle]}
+                />
 
                 <CommonLayout externalStyles={styles.textContainer}>
                     <View style={styles.titleWrapper}>
