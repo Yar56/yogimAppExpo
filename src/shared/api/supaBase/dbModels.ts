@@ -193,6 +193,7 @@ export interface Database {
       }
       profiles: {
         Row: {
+          activeCourseId: string | null
           avatar_url: string | null
           created_at: string | null
           email: string | null
@@ -202,6 +203,7 @@ export interface Database {
           username: string | null
         }
         Insert: {
+          activeCourseId?: string | null
           avatar_url?: string | null
           created_at?: string | null
           email?: string | null
@@ -211,6 +213,7 @@ export interface Database {
           username?: string | null
         }
         Update: {
+          activeCourseId?: string | null
           avatar_url?: string | null
           created_at?: string | null
           email?: string | null

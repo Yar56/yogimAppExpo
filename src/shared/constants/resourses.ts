@@ -5,3 +5,4 @@ export const PROFILE_BACKGROUND_DARK = require('../../../assets/img/profilePage/
 export const PROFILE_DEFAULT_AVATAR = require('../../../assets/img/profilePage/def.png');
 export const PRODUCT_CARD_1 = require('../../../assets/img/coursesPage/course/productCard1.jpeg');
 export const ROUTINE_CARD = require('../../../assets/img/routinePage/routineCard.jpeg');
+export const EMPTY_ACTIVE_COURSE = require('../../../assets/img/routinePage/emptyActiveCourse.png');

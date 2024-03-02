@@ -1,21 +1,27 @@
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { ImageBackground, TouchableOpacity, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Image, ImageBackground, TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { Card, Text, Tooltip } from 'react-native-paper';
 
 import styles from './RoutinePageStylesheet';
-import { ROUTINE_CARD } from '../../../shared/constants/resourses';
+import { useAppSelector } from '../../../app/store/hooks';
+import { EMPTY_ACTIVE_COURSE, ROUTINE_CARD } from '../../../shared/constants/resourses';
+import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const RoutinePage = () => {
     const navigation = useNavigation();
+    const profile = useAppSelector((state) => state.userState.profile);
+    const courses = useAppSelector((state) => state.courseState.courses);
+    const activeCourse = courses && courses.find((course) => course.id === profile?.activeCourseId);
 
     const handleNavigate = () => navigation.navigate('PopularCourses');
 
     return (
         <CommonLayout externalStyles={styles.container}>
-            <View style={styles.courses}>
+            <View>
                 <Card style={styles.card}>
                     <ImageBackground
                         resizeMode="cover"
@@ -45,8 +51,40 @@ export const RoutinePage = () => {
                     </ImageBackground>
                 </Card>
             </View>
+            <Spacer size={20} />
             <View>
-                <Text>Активные курсы</Text>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'baseline',
+                        gap: 5,
+                    }}
+                >
+                    <Text variant="titleLarge">Активные курсы</Text>
+
+                    <Tooltip title="Активный курс - тот курс в котором вы нажали Вступить. Обычно это курс длинною от нескольких дней до двух недель">
+                        <FontAwesome5 name="question-circle" size={19} color="#6383CB" />
+                    </Tooltip>
+                </View>
+
+                {!activeCourse && (
+                    <View style={{ alignItems: 'center' }}>
+                        <Spacer size={20} />
+                        <Image
+                            style={styles.emptyCourseImage}
+                            source={EMPTY_ACTIVE_COURSE}
+                            resizeMode={FastImage.resizeMode.cover}
+                        />
+                        <Text style={{ textAlign: 'center' }} variant="headlineSmall">
+                            Похоже активных курсов нет
+                        </Text>
+                        <Spacer size={10} />
+                        <Text style={{ textAlign: 'center' }} variant="bodyLarge">
+                            Выберете курс и начните его прохождения, чтобы он отобразился тут
+                        </Text>
+                    </View>
+                )}
             </View>
         </CommonLayout>
     );
