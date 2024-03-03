@@ -1,20 +1,28 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { ScrollView, View } from 'react-native';
 import Image from 'react-native-image-progress';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../../app/store/hooks';
 import { Lesson } from '../../../shared/api/supaBase/models';
 import { Spacer } from '../../../shared/ui/components/Spacer';
+import NavigateLessonsButton, {
+    Direction,
+} from '../../../shared/ui/components/navigateLessonsButton/NavigateLessonsButton';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Lesson'>;
 
+const NEXT_BUTTON_BLOCK_HEIGHT = 40;
+
 const LessonPage: FunctionComponent<Props> = ({ route }) => {
+    const navigation = useNavigation();
     const courseId = route.params.courseId;
     const lessonId = route.params.lessonId;
-
+    const bottomTabBarHeight = useBottomTabBarHeight();
     const [isVideoError, setIsVideoError] = useState<boolean>(false);
 
     useEffect(() => {
@@ -24,9 +32,30 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
         // dispatch(lessonModel.fetchAllLessonsByCourseId(courseId));
     }, [courseId]);
     const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
-    const lesson = (course?.lessons as unknown as Lesson[]).find((lesson) => lesson.id === lessonId);
+    const lessons = course?.lessons as unknown as Lesson[];
+    const lesson = lessons.find((lesson) => lesson.id === lessonId);
 
-    if (!lesson) {
+    const lessonIds = lessons?.map((lesson) => lesson.id);
+
+    const handleMoveToNextLesson = useCallback(
+        (direction: Direction) => {
+            if (!lessonIds) {
+                return;
+            }
+
+            const currentLinkIndex = lessonIds.findIndex((link) => link === lessonId);
+
+            // если есть следующий урок или движемся обратно
+            if (currentLinkIndex + 1 < lessonIds.length || direction === Direction.PREVIOUS) {
+                const indexDirection = direction === Direction.NEXT ? currentLinkIndex + 1 : currentLinkIndex - 1;
+                // @ts-ignore
+                navigation.navigate('Lesson', { courseId: course.id, lessonId: lessonIds[indexDirection] }); // переходим к нему
+            }
+        },
+        [lessonId]
+    );
+
+    if (!lesson || !lessonId) {
         console.warn(`lesson is undefined, lessonId=${lessonId}`);
         // log sentry
         return (
@@ -52,11 +81,21 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
 
     return (
         <CommonLayout>
-            <Text variant="titleLarge">{lesson.title}</Text>
-            <Spacer size={20} />
-            <Card style={{ width: 'auto', height: 250 }}>{content}</Card>
-            <Spacer size={20} />
-            <Text variant="bodyLarge">{lesson.description}</Text>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentInset={{ bottom: bottomTabBarHeight + NEXT_BUTTON_BLOCK_HEIGHT, top: 0, right: 0, left: 0 }}
+            >
+                <Text variant="titleLarge">{lesson.title}</Text>
+                <Spacer size={20} />
+                <Card style={{ width: 'auto', height: 250 }}>{content}</Card>
+                <Spacer size={20} />
+                <Text variant="bodyLarge">{lesson.description}</Text>
+            </ScrollView>
+            <NavigateLessonsButton
+                lessonIds={lessonIds}
+                onChangeLesson={handleMoveToNextLesson}
+                currentLessonId={lessonId}
+            />
         </CommonLayout>
     );
 };

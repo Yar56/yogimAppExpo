@@ -1,10 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Button, Chip, Divider, Text } from 'react-native-paper';
+import { Button, Chip, Divider, Text, Tooltip } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
 
 import styles from './CoursePageStylesheet';
@@ -89,7 +90,13 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                     </Text>
                     <Spacer size={15} />
                     <View style={styles.purchaseWrapper}>
-                        <Text variant="headlineSmall">Доступ к курсу</Text>
+                        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 5 }}>
+                            <Text variant="headlineSmall">Доступ к курсу</Text>
+                            <Tooltip title="Это мини-курс. Чтобы начать его просто приступите к нужному уроку. Чтобы сохранить в личный кабинет, нажмите на сердцечко выше)">
+                                <FontAwesome5 name="question-circle" size={20} color="#6383CB" />
+                            </Tooltip>
+                        </View>
+
                         {course.isFree ? (
                             <Chip style={{ backgroundColor: '#156494' }} mode="flat">
                                 <Text variant="bodyLarge">Бесплатно</Text>
