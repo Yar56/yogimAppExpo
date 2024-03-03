@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import Animated, {
@@ -26,6 +26,7 @@ const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 export const ArticlePage: FunctionComponent<Props> = ({ route }) => {
     const dispatch = useAppDispatch();
@@ -84,7 +85,7 @@ export const ArticlePage: FunctionComponent<Props> = ({ route }) => {
 
     return (
         <View style={[styles.container, { paddingBottom: bottomTabBarHeight }]}>
-            <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+            <AnimatedScrollView ref={scrollRef} scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
                 <AnimatedFastImage
                     source={{ uri: article.imageUrl, priority: FastImage.priority.normal }}
                     style={[styles.image, imageAnimatedStyle]}
@@ -116,7 +117,7 @@ export const ArticlePage: FunctionComponent<Props> = ({ route }) => {
                     <Spacer size={20} />
                     <Text variant="bodyLarge">{article.content}</Text>
                 </CommonLayout>
-            </Animated.ScrollView>
+            </AnimatedScrollView>
         </View>
     );
 };

@@ -33,15 +33,14 @@ const FlatListComponent = <T extends Item>({
     return (
         <FlatList
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator
-            contentContainerStyle={[
-                styles.wrapper,
-                { paddingBottom: isAndroid ? bottomTabBarHeight + 30 : bottomTabBarHeight },
-            ]}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[styles.wrapper]}
             data={items}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             style={withPadding ? styles.listStyle : {}}
+            contentInset={{ bottom: bottomTabBarHeight, top: 0, right: 0, left: 0 }}
+            scrollEnabled={false}
         />
     );
 };
