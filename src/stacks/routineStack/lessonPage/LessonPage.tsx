@@ -1,9 +1,10 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { Video } from 'expo-av';
+import { ResizeMode } from 'expo-av/src/Video.types';
+import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
-import Image from 'react-native-image-progress';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../../app/store/hooks';
@@ -24,6 +25,8 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const lessonId = route.params.lessonId;
     const bottomTabBarHeight = useBottomTabBarHeight();
     const [isVideoError, setIsVideoError] = useState<boolean>(false);
+    const [isVideoLoading, setIsVideoLoading] = useState<boolean>(false);
+    const video = useRef(null);
 
     useEffect(() => {
         if (!courseId || !lessonId) {
@@ -68,14 +71,30 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const content = isVideoError ? (
         <Text>Произошла ошибка при загрузке видео</Text>
     ) : (
-        <Image
-            source={{ uri: lesson.videoUrl }}
-            indicator={() => <ActivityIndicator size={20} />}
-            imageStyle={{ borderRadius: 15 }}
-            style={{
-                height: 250,
+        <Video
+            ref={video}
+            style={{ width: 'auto', height: 250, borderRadius: 20 }}
+            source={{
+                uri: lesson.videoUrl,
             }}
-            onError={() => setIsVideoError(true)}
+            useNativeControls
+            resizeMode={ResizeMode.COVER}
+            isLooping
+            onLoadStart={() => setIsVideoLoading(true)}
+            onLoad={(status) => {
+                setIsVideoLoading(false);
+                if (status.isLoaded) {
+                }
+            }}
+            // onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+            onError={() => {
+                setIsVideoError(true);
+            }}
+            posterSource={{ uri: lesson.photoUrl }}
+            usePoster
+            PosterComponent={(props, context) => {
+                return isVideoLoading ? <ActivityIndicator style={props.style} /> : null;
+            }}
         />
     );
 
