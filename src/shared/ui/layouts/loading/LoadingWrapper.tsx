@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { screenHeight, screenWidth } from '../../../constants/screenSize';
 
 interface LoadingWrapper {
     isLoading: boolean;
@@ -13,18 +13,18 @@ export const LoadingWrapper: FunctionComponent<LoadingWrapper & PropsWithChildre
                 <ActivityIndicator
                     style={{
                         position: 'absolute',
-                        top: screenHeight / 2.3,
-                        left: screenWidth / 2.3,
+                        top: '25%',
+                        left: '42%',
                         zIndex: 10,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
-                    size={'large'}
-                    animating={true}
-                    color={'#635096'}
+                    size="large"
+                    animating
+                    color="#156494"
                 />
-                {children}
+                <View style={{ pointerEvents: 'none', opacity: 0.5 }}>{children}</View>
             </>
         );
     }

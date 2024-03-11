@@ -59,7 +59,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             ),
                         }}
                         // tabBar={(props) => <TabBar {...props} />}
-                        initialRouteName="HomeTab"
+                        initialRouteName="RoutineTab"
                     >
                         <Tab.Screen
                             name="HomeTab"

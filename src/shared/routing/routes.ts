@@ -2,8 +2,7 @@ import { ComponentType } from 'react';
 
 import { ArticlePage } from '../../stacks/articlesStack/articlePage/ArticlePage';
 import { ArticlesPage } from '../../stacks/articlesStack/articlesPage/ArticlesPage';
-import { AuthPage } from '../../stacks/authStack/authPage/AuthPage';
-import { RegistrationPage } from '../../stacks/authStack/registrationPage/RegistrationPage';
+import AuthStartPage from '../../stacks/authStack/authStartPage/AuthStartPage';
 import { EventsPage } from '../../stacks/eventsStack/EventsPage';
 import { HomePage } from '../../stacks/homeStack/HomePage';
 import IntentionsPage from '../../stacks/profileStack/intentionsPage/IntentionsPage';
@@ -47,7 +46,4 @@ export const profileRoutes: AppRoute[] = [
     { name: 'Premium', component: PremiumPage, title: '' },
 ];
 
-export const authRoutes: AppRoute[] = [
-    { name: 'Auth', component: AuthPage, title: '' },
-    { name: 'Registration', component: RegistrationPage, title: '' },
-];
+export const authRoutes: AppRoute[] = [{ name: 'AuthStart', component: AuthStartPage, title: '' }];
