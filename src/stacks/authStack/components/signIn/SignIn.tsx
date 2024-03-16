@@ -4,13 +4,14 @@ import { AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { FunctionComponent, useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignInStylesheet';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
+import { Spacer } from '../../../../shared/ui/components/Spacer';
 import { LoadingWrapper } from '../../../../shared/ui/layouts/loading/LoadingWrapper';
 
 const schema = yup.object().shape({
@@ -87,17 +88,9 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     return (
         <LoadingWrapper isLoading={isLoading}>
             <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart}>
-                <Button
-                    icon={() => <AntDesign name="arrowleft" size={23} color="#F1F5F9" />}
-                    style={styles.button}
-                    mode="text"
-                    dark
-                    // buttonColor="#156494"
-                    contentStyle={{ justifyContent: 'flex-start' }}
-                >
-                    назад
-                </Button>
+                <AntDesign name="arrowleft" size={23} color="#F1F5F9" />
             </TouchableOpacity>
+            <Spacer size={13} />
             <Formik {...formik}>
                 {({
                     handleChange,

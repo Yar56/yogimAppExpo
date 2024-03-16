@@ -11,6 +11,7 @@ import styles from './SignUpStylesheet';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
+import { Spacer } from '../../../../shared/ui/components/Spacer';
 import { LoadingWrapper } from '../../../../shared/ui/layouts/loading/LoadingWrapper';
 import { SignInProps } from '../signIn/SignIn';
 
@@ -93,18 +94,9 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     return (
         <LoadingWrapper isLoading={isLoading}>
             <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart}>
-                <Button
-                    icon={() => <AntDesign name="arrowleft" size={23} color="#F1F5F9" />}
-                    style={styles.button}
-                    mode="text"
-                    dark
-                    // buttonColor="#156494"
-                    contentStyle={{ justifyContent: 'flex-start' }}
-                >
-                    назад
-                </Button>
+                <AntDesign name="arrowleft" size={23} color="#F1F5F9" />
             </TouchableOpacity>
-
+            <Spacer size={13} />
             <Formik {...formik}>
                 {({
                     handleChange,

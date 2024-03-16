@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import authStylesheet from '../../authPage/AuthStylesheet';
+import authStylesheet from '../signIn/SignInStylesheet';
 
 const styles = StyleSheet.create({
     ...authStylesheet,
