@@ -9,11 +9,14 @@ const styles = StyleSheet.create({
         position: 'relative',
         borderRadius: 15,
     },
+    cardCover: { flex: 1, height: 100, minWidth: 150, maxWidth: 150, resizeMode: 'stretch' },
     info: {
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'center',
+        gap: 5,
     },
+    title: { maxWidth: 170, lineHeight: 20 },
     icon: {
         position: 'absolute',
         bottom: 0,

@@ -21,14 +21,11 @@ export const LessonCard: FunctionComponent<LessonCardProps> = ({ lesson, index }
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={handleGoToLesson}>
             <Card contentStyle={styles.card}>
-                <Card.Cover
-                    source={{ uri: lesson.photoUrl }}
-                    style={{ flex: 1, height: 100, minWidth: 150, maxWidth: 150, resizeMode: 'stretch' }}
-                />
+                <Card.Cover source={{ uri: lesson.photoUrl }} style={styles.cardCover} />
 
                 <View style={styles.info}>
                     <Text variant="titleLarge">Урок {index + 1}</Text>
-                    <Text variant="bodyLarge" style={{ maxWidth: 170 }}>
+                    <Text variant="bodyLarge" style={styles.title}>
                         {lesson.title}
                     </Text>
                 </View>
