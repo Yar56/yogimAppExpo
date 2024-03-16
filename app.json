@@ -31,6 +31,14 @@
                 "projectId": "709fdc07-3379-49ac-a0d8-174ae395e23f"
             }
         },
-        "owner": "yarvav"
+        "owner": "yarvav",
+        "plugins": [
+            [
+                "expo-av",
+                {
+                    "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+                }
+            ]
+        ]
     }
 }
