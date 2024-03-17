@@ -40,7 +40,6 @@ const FlatListComponent = <T extends Item>({
             renderItem={renderItem}
             style={withPadding ? styles.listStyle : {}}
             contentInset={{ bottom: bottomTabBarHeight, top: 0, right: 0, left: 0 }}
-            scrollEnabled={false}
         />
     );
 };
