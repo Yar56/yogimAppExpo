@@ -10,10 +10,16 @@ import { courseModel } from '../../../entities/course';
 import { CourseCard } from '../../../entities/course/ui';
 import { supaBaseApi } from '../../../shared/api';
 import { Course, LoadingStatus } from '../../../shared/api/supaBase/models';
+import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
+import routingEmitter from '../../../shared/routing/listeners/emitter';
+import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import FlatListComponent from '../../../shared/ui/components/flatListComponent/FlatListComponent';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+const SUGGEST_COURSE_ID = '6aff9f2d-c7e1-4acc-9865-bc57b2099a1e';
 
 const PopularCoursesPage = () => {
+    const navigation = useAppNavigation();
+
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(courseModel.fetchAllCourses());
@@ -29,7 +35,7 @@ const PopularCoursesPage = () => {
     const renderItem = ({ item }: ListRenderItemInfo<supaBaseApi.models.Course>) => {
         return <CourseCard course={item} />;
     };
-    console.log(coursesByType);
+
     return (
         <CommonLayout externalStyles={styles.container}>
             {isLoading ? (

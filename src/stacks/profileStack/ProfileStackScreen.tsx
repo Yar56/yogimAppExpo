@@ -4,7 +4,7 @@ import React from 'react';
 import { profileRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
-const ProfileStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator<RootStackParamList>();
 
 export const ProfileStackScreen = () => {
     return (

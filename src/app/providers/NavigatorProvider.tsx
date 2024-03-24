@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
+import { TabName } from '../../shared/routing/NavigationEntities';
 import CustomTabBarIcon from '../../shared/ui/components/CustomTabBarIcon';
 import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
 import { AuthStackScreen } from '../../stacks/authStack/AuthStackScreen';
@@ -59,10 +60,10 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             ),
                         }}
                         // tabBar={(props) => <TabBar {...props} />}
-                        initialRouteName="RoutineTab"
+                        initialRouteName={TabName.HOME_TAB}
                     >
                         <Tab.Screen
-                            name="HomeTab"
+                            name={TabName.HOME_TAB}
                             component={HomeStackScreen}
                             options={{
                                 tabBarLabel: 'Домой',
@@ -72,7 +73,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             }}
                         />
                         <Tab.Screen
-                            name="CoursesTab"
+                            name={TabName.ARTICLES_TAB}
                             component={ArticlesStackScreen}
                             options={{
                                 tabBarLabel: 'Статьи',
@@ -82,7 +83,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             }}
                         />
                         <Tab.Screen
-                            name="RoutineTab"
+                            name={TabName.ROUTINE_TAB}
                             component={RoutineStackScreen}
                             options={() => ({
                                 tabBarLabel: 'Йожить',
@@ -92,7 +93,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             })}
                         />
                         <Tab.Screen
-                            name="EventsTab"
+                            name={TabName.EVENTS_TAB}
                             component={EventsStackScreen}
                             options={{
                                 tabBarLabel: 'События',
@@ -106,7 +107,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             }}
                         />
                         <Tab.Screen
-                            name="ProfileTab"
+                            name={TabName.PROFILE_TAB}
                             component={ProfileStackScreen}
                             options={{
                                 tabBarLabel: 'Профиль',

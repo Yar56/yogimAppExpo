@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthResponse, AuthTokenResponse, Session } from '@supabase/supabase-js';
+import { AuthResponse, AuthTokenResponse, Session, UserAttributes } from '@supabase/supabase-js';
 
-import { fireBaseApi, supaBaseApi } from '../../shared/api';
+import { supaBaseApi } from '../../shared/api';
 import { LoadingStatus } from '../../shared/api/supaBase/models';
 
 export const signUpUserThunk = createAsyncThunk(
@@ -26,17 +26,14 @@ export const signInUserThunk = createAsyncThunk(
     }
 );
 
-export const updateUserThunk = createAsyncThunk(
-    'user/updateUserThunk',
-    async (userData: fireBaseApi.models.UpdateUserParams, thunkAPI) => {
-        try {
-            await fireBaseApi.user.updateUser(userData);
-            return userData;
-        } catch (e) {
-            console.error(e);
-        }
+export const updateUserThunk = createAsyncThunk('user/updateUserThunk', async (userData: UserAttributes, thunkAPI) => {
+    try {
+        await supaBaseApi.user.updateUser(userData);
+        return userData;
+    } catch (e) {
+        console.error(e);
     }
-);
+});
 
 export const fetchProfileDB = createAsyncThunk(
     'course/fetchProfileDB',

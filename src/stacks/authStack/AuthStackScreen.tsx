@@ -3,7 +3,7 @@ import React from 'react';
 
 import { authRoutes } from '../../shared/routing/routes';
 
-const AuthStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator<RootStackParamList>();
 
 export const AuthStackScreen = () => {
     return (

@@ -12,12 +12,14 @@ interface FlatListComponentProps<T extends Item> {
     renderItem: (info: ListRenderItemInfo<T>) => ReactElement | null;
     notFoundText: string;
     withPadding?: boolean;
+    scrollEnabled?: boolean;
 }
 const FlatListComponent = <T extends Item>({
     items,
     renderItem,
     notFoundText,
     withPadding = true,
+    scrollEnabled = true,
 }: FlatListComponentProps<T>) => {
     const bottomTabBarHeight = useBottomTabBarHeight();
     const isAndroid = Platform.OS === 'android';
@@ -34,12 +36,13 @@ const FlatListComponent = <T extends Item>({
         <FlatList
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={[styles.wrapper]}
+            contentContainerStyle={[styles.wrapper, { paddingBottom: isAndroid ? bottomTabBarHeight : 0 }]}
             data={items}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             style={withPadding ? styles.listStyle : {}}
             contentInset={{ bottom: bottomTabBarHeight, top: 0, right: 0, left: 0 }}
+            scrollEnabled={scrollEnabled}
         />
     );
 };

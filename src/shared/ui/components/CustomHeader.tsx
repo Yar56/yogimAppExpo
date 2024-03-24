@@ -5,12 +5,16 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { LOGO } from '../../constants/resourses';
+import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
 
 interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;
 }
 const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => {
-    const isTransparentPage = headerProps.route.name === 'Article' || headerProps.route.name === 'Course';
+    const isTransparentPage =
+        headerProps.route.name === ArticlesScreen.ARTICLE ||
+        headerProps.route.name === RoutineScreen.COURSE ||
+        headerProps.route.name === HomeScreen.HOME;
 
     return (
         <View

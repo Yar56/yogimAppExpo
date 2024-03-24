@@ -3,13 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 
 import { CourseCard } from '../../entities/course/ui';
-import { fireBaseApi } from '../../shared/api/';
+import { supaBaseApi } from '../../shared/api/';
 import { screenHeight, screenWidth } from '../../shared/constants/screenSize';
 
-const loadingStatuses = fireBaseApi.models.LoadingStatus;
+const loadingStatuses = supaBaseApi.models.LoadingStatus;
 interface CoursesListProps {
-    courses?: fireBaseApi.models.CourseList;
-    loadingStatus: fireBaseApi.models.LoadingStatus;
+    courses?: supaBaseApi.models.CourseList;
+    loadingStatus: supaBaseApi.models.LoadingStatus;
 }
 export const CoursesList: FunctionComponent<CoursesListProps> = ({ loadingStatus, courses }) => {
     if (loadingStatus === loadingStatuses.LOADING || !courses) {

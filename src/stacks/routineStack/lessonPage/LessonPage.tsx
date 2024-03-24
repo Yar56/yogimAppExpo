@@ -1,5 +1,4 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Video } from 'expo-av';
 import { ResizeMode } from 'expo-av/src/Video.types';
@@ -9,18 +8,20 @@ import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../../app/store/hooks';
 import { Lesson } from '../../../shared/api/supaBase/models';
+import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import NavigateLessonsButton, {
     Direction,
 } from '../../../shared/ui/components/navigateLessonsButton/NavigateLessonsButton';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Lesson'>;
+type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.LESSON>;
 
 const NEXT_BUTTON_BLOCK_HEIGHT = 40;
 
 const LessonPage: FunctionComponent<Props> = ({ route }) => {
-    const navigation = useNavigation();
+    const navigation = useAppNavigation();
     const courseId = route.params.courseId;
     const lessonId = route.params.lessonId;
     const bottomTabBarHeight = useBottomTabBarHeight();
@@ -52,7 +53,7 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
             if (currentLinkIndex + 1 < lessonIds.length || direction === Direction.PREVIOUS) {
                 const indexDirection = direction === Direction.NEXT ? currentLinkIndex + 1 : currentLinkIndex - 1;
                 // @ts-ignore
-                navigation.navigate('Lesson', { courseId: course.id, lessonId: lessonIds[indexDirection] }); // переходим к нему
+                navigation.navigate(RoutineScreen.LESSON, { courseId: course.id, lessonId: lessonIds[indexDirection] }); // переходим к нему
             }
         },
         [lessonId]

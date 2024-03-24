@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { ArticlesScreen } from '../../shared/routing/NavigationEntities';
 import { articlesRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
@@ -22,9 +23,10 @@ export const ArticlesStackScreen = () => {
                     <CoursesStack.Screen
                         options={{
                             title: route.title,
-                            headerTransparent: route.name === 'Article',
+                            headerTransparent: route.name === ArticlesScreen.ARTICLE,
                             contentStyle: {
-                                backgroundColor: route.name === 'Article' ? ArticleStackColor : baseStackColor,
+                                backgroundColor:
+                                    route.name === ArticlesScreen.ARTICLE ? ArticleStackColor : baseStackColor,
                             },
                         }}
                         key={route.name}

@@ -4,7 +4,7 @@ import React from 'react';
 import { eventsRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
-const EventsStack = createNativeStackNavigator();
+const EventsStack = createNativeStackNavigator<RootStackParamList>();
 
 export const EventsStackScreen = () => {
     return (

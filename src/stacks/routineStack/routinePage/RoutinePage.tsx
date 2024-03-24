@@ -1,23 +1,31 @@
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, ImageBackground, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Card, Text, Tooltip } from 'react-native-paper';
 
 import styles from './RoutinePageStylesheet';
-import { useAppSelector } from '../../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { courseModel } from '../../../entities/course';
 import { EMPTY_ACTIVE_COURSE, ROUTINE_CARD } from '../../../shared/constants/resourses';
+import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const RoutinePage = () => {
-    const navigation = useNavigation();
+    const dispatch = useAppDispatch();
+
+    const navigation = useAppNavigation();
     const profile = useAppSelector((state) => state.userState.profile);
     const courses = useAppSelector((state) => state.courseState.courses);
     const activeCourse = courses && courses.find((course) => course.id === profile?.activeCourseId);
 
-    const handleNavigate = () => navigation.navigate('PopularCourses');
+    useEffect(() => {
+        dispatch(courseModel.fetchAllCourses());
+    }, [dispatch]);
+
+    const handleNavigate = () => navigation.navigate(RoutineScreen.POPULAR_COURSES);
 
     return (
         <CommonLayout externalStyles={styles.container}>

@@ -23,6 +23,7 @@ const LessonList: FunctionComponent<LessonListProps> = ({ lessons }) => {
             items={lessons ?? []}
             renderItem={renderItem}
             notFoundText="Уроки не найдены"
+            scrollEnabled={false}
         />
     );
 };

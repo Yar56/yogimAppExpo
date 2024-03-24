@@ -1,33 +1,44 @@
 import { ComponentType } from 'react';
 import { ParamListBase } from '@react-navigation/native';
-import CourseDetailsPage from './stacks/routineStack/CourseDetailsPage';
-import { Lesson } from './shared/api/supaBase/models';
+import {
+    ArticlesScreen,
+    EventsScreen,
+    HomeScreen,
+    ProfileScreen,
+    RoutineScreen,
+} from './shared/routing/NavigationEntities';
 
 declare global {
-    // namespace ReactNavigation {
-    //   interface RootParamList extends RootStackParamList {}
-    // }
-
     interface RootStackParamList extends ParamListBase {
-        Auth: undefined;
-        Registration: undefined;
-        Home: undefined;
-        Courses: undefined;
-        Articles: undefined;
-        Routine: undefined;
-        Events: undefined;
-        Profile: undefined;
-        Intentions: undefined;
-        ProfileEvents: undefined;
-        Settings: undefined;
-        Support: undefined;
-        Schedule: undefined;
-        Payment: undefined;
-        Premium: undefined;
-        Course: { courseId?: string };
-        Article: { articleId?: string };
-        CourseDetailsPage: { details: string | null };
-        Lesson: { courseId?: string; lessonId?: string };
+        // Auth: undefined;
+        // Registration: undefined;
+
+        // HomeTab
+        [HomeScreen.HOME]: undefined;
+
+        // ArticleTab
+        [ArticlesScreen.ARTICLE]: { articleId?: string };
+        [ArticlesScreen.ARTICLES]: undefined;
+
+        // RoutineTab
+        [RoutineScreen.ROUTINE]: undefined;
+        [RoutineScreen.POPULAR_COURSES]: undefined;
+        [RoutineScreen.COURSE]: { courseId?: string };
+        [RoutineScreen.LESSON]: { courseId?: string; lessonId?: string };
+        [RoutineScreen.COURSE_DETAILS_PAGE]: { details?: string | null };
+
+        // EventsTab
+        [EventsScreen.EVENTS]: undefined;
+
+        // ProfileTab
+        [ProfileScreen.Profile]: undefined;
+        [ProfileScreen.PROFILE_SETTINGS]: undefined;
+        [ProfileScreen.INTENTIONS]: undefined;
+        [ProfileScreen.ProfileEvents]: undefined;
+        [ProfileScreen.SUPPORT]: undefined;
+        [ProfileScreen.SCHEDULE]: undefined;
+        [ProfileScreen.PAYMENT]: undefined;
+        [ProfileScreen.PREMIUM]: undefined;
     }
 
     interface AppRoute {

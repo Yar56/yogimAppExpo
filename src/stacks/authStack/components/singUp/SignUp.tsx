@@ -1,5 +1,4 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { AuthResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { FunctionComponent, useState } from 'react';
@@ -11,6 +10,8 @@ import styles from './SignUpStylesheet';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
+import { RoutineScreen, TabName } from '../../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../../shared/ui/components/Spacer';
 import { LoadingWrapper } from '../../../../shared/ui/layouts/loading/LoadingWrapper';
 import { SignInProps } from '../signIn/SignIn';
@@ -22,7 +23,7 @@ const schema = yup.object().shape({
     confirmPassword: yup
         .string()
         .required('Подтвердите пароль')
-        .oneOf([yup.ref('password'), null], 'Пароли должны совподать'),
+        .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
 });
 
 interface SignUpProps extends SignInProps {}
@@ -34,7 +35,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     const [secureTextEntryPass, setSecureTextEntryPass] = useState(true);
     const [secureTextEntryConfirm, setSecureTextEntryConfirm] = useState(true);
 
-    const navigation = useNavigation();
+    const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>('');
@@ -61,7 +62,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                     throw payload?.error;
                 }
 
-                navigation.navigate('RoutineTab', { screen: 'Routine' });
+                navigation.navigate(TabName.ROUTINE_TAB, { screen: RoutineScreen.ROUTINE });
                 // dispatch(userModel.setCachedDisplayName(displayName));
             } catch (error) {
                 if (error instanceof Error) {
@@ -136,7 +137,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                         <TextInput
                             disabled={isSubmitting}
                             mode="outlined"
-                            label="Пароль"
+                            label={errors.password ? errors.password : 'Пароль'}
                             secureTextEntry={secureTextEntryPass}
                             value={password}
                             onBlur={handleBlur('password')}
@@ -155,7 +156,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                         <TextInput
                             disabled={isSubmitting}
                             mode="outlined"
-                            label="Подтвердите пароль"
+                            label={errors.confirmPassword ? errors.confirmPassword : 'Подтвердите пароль'}
                             secureTextEntry={secureTextEntryConfirm}
                             value={confirmPassword}
                             onBlur={handleBlur('confirmPassword')}

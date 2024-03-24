@@ -1,5 +1,4 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -7,13 +6,15 @@ import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './CourseCardStylesheet';
 import { supaBaseApi } from '../../../../shared/api';
+import { RoutineScreen } from '../../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../../shared/routing/useAppNavigation';
 
 interface CourseCardProps {
     course: supaBaseApi.models.Course;
 }
 export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
-    const navigation = useNavigation();
-    const handleCoursePage = () => navigation.navigate('Course', { courseId: course.id });
+    const navigation = useAppNavigation();
+    const handleCoursePage = () => navigation.navigate(RoutineScreen.COURSE, { courseId: course.id });
 
     return (
         <Card style={[styles.card, course.disabled && styles.cardDisabled]}>

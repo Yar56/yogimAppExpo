@@ -1,5 +1,4 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import React, { FunctionComponent } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -7,14 +6,16 @@ import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './ArticleCardStylesheet';
 import { supaBaseApi } from '../../../../shared/api';
+import { ArticlesScreen } from '../../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../../shared/routing/useAppNavigation';
 
 interface CourseCardProps {
     article: supaBaseApi.models.Article;
 }
 
 export const ArticleCard: FunctionComponent<CourseCardProps> = ({ article }) => {
-    const navigation = useNavigation();
-    const handleMoveToArticle = () => navigation.navigate('Article', { articleId: article.id });
+    const navigation = useAppNavigation();
+    const handleMoveToArticle = () => navigation.navigate(ArticlesScreen.ARTICLE, { articleId: article.id });
 
     return (
         <Card style={{ backgroundColor: '#022b42' }}>

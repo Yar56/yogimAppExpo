@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { articleModel } from '../../../entities/article';
 import { ArticleCard } from '../../../entities/article/ui';
 import { supaBaseApi } from '../../../shared/api';
-import { LoadingStatus } from '../../../shared/api/fireBase/models';
 import FlatListComponent from '../../../shared/ui/components/flatListComponent/FlatListComponent';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
@@ -27,8 +26,8 @@ export const ArticlesPage = () => {
     const articles = useAppSelector((state) => state.articleState.articles);
     const loadingStatus = useAppSelector((state) => state.articleState.articlesLoadingStatus);
 
-    const isLoading = loadingStatus === LoadingStatus.LOADING;
-    const isError = loadingStatus === LoadingStatus.FAILED;
+    const isLoading = loadingStatus === supaBaseApi.models.LoadingStatus.LOADING;
+    const isError = loadingStatus === supaBaseApi.models.LoadingStatus.FAILED;
 
     // const scrollViewRef = useRef<ScrollView>(null);
 

@@ -18,8 +18,9 @@ const ProfileSettings = () => {
     const profile = useAppSelector((state) => state.userState.profile);
 
     const handleUpdatePhoto = (url: string) => {
-        if (session) {
-            supaBaseApi.user.updateProfileDB(session, { id: session.user.id, avatar_url: url });
+        if (session && profile) {
+            // eslint-disable-next-line camelcase
+            supaBaseApi.user.updateProfileDB(session, { ...profile, id: session.user.id, avatar_url: url });
         }
     };
 
@@ -35,9 +36,9 @@ const ProfileSettings = () => {
             const { userName, sex } = values;
 
             try {
-                if (session) {
+                if (session && profile) {
                     supaBaseApi.user
-                        .updateProfileDB(session, { id: session.user.id, sex, username: userName })
+                        .updateProfileDB(session, { ...profile, id: session.user.id, sex, username: userName })
                         .then(() => dispatch(fetchProfileDB(session)));
                 }
             } catch (error) {

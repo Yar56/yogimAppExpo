@@ -1,6 +1,6 @@
-import { AVPlaybackStatus, AVPlaybackStatusSuccess, Video } from 'expo-av';
+import { Video } from 'expo-av';
 import { ResizeMode } from 'expo-av/src/Video.types';
-import React, { FunctionComponent, useRef, useState } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 
@@ -11,7 +11,7 @@ interface VideoPlayerProps {
 }
 export const VideoPlayer: FunctionComponent<VideoPlayerProps> = ({ url }) => {
     const video = useRef<Video>(null);
-    const [status, setStatus] = useState<AVPlaybackStatusSuccess & AVPlaybackStatus>();
+    // const [status, setStatus] = useState<AVPlaybackStatusSuccess & AVPlaybackStatus>();
     return (
         <View style={styles.container}>
             <Video
@@ -21,13 +21,12 @@ export const VideoPlayer: FunctionComponent<VideoPlayerProps> = ({ url }) => {
                 useNativeControls
                 resizeMode={ResizeMode.CONTAIN}
                 isLooping
-                onPlaybackStatusUpdate={(status) => setStatus(status)}
             />
             <View style={styles.buttons}>
                 <Button onPress={() => video?.current?.playFromPositionAsync(5000)}>play form 5s</Button>
-                <Button onPress={() => video?.current?.setIsLoopingAsync(!status?.isLooping)}>
-                    {status?.isLooping ? 'not' : 'set to loop'}
-                </Button>
+                {/*<Button onPress={() => video?.current?.setIsLoopingAsync(!status?.isLooping)}>*/}
+                {/*    /!*{status?.isLooping ? 'not' : 'set to loop'}*!/*/}
+                {/*</Button>*/}
             </View>
         </View>
     );

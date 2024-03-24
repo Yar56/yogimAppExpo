@@ -1,10 +1,11 @@
 import { ComponentType } from 'react';
 
+import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from './NavigationEntities';
 import { ArticlePage } from '../../stacks/articlesStack/articlePage/ArticlePage';
 import { ArticlesPage } from '../../stacks/articlesStack/articlesPage/ArticlesPage';
 import AuthStartPage from '../../stacks/authStack/authStartPage/AuthStartPage';
 import { EventsPage } from '../../stacks/eventsStack/EventsPage';
-import { HomePage } from '../../stacks/homeStack/HomePage';
+import { HomePage } from '../../stacks/homeStack/homePage/HomePage';
 import IntentionsPage from '../../stacks/profileStack/intentionsPage/IntentionsPage';
 import PaymentPage from '../../stacks/profileStack/paymentPage/PaymentPage';
 import PremiumPage from '../../stacks/profileStack/premiumPage/PremiumPage';
@@ -21,29 +22,29 @@ import PopularCoursesPage from '../../stacks/routineStack/popularCoursesPage/Pop
 import { RoutinePage } from '../../stacks/routineStack/routinePage/RoutinePage';
 
 export const articlesRoutes: AppRoute[] = [
-    { name: 'Articles', component: ArticlesPage, title: '' },
-    { name: 'Article', component: ArticlePage as ComponentType, title: '' },
+    { name: ArticlesScreen.ARTICLES, component: ArticlesPage, title: '' },
+    { name: ArticlesScreen.ARTICLE, component: ArticlePage as ComponentType, title: '' },
 ];
 
-export const homeRoutes: AppRoute[] = [{ name: 'Home', component: HomePage, title: '' }];
+export const homeRoutes: AppRoute[] = [{ name: HomeScreen.HOME, component: HomePage, title: '' }];
 export const routineRoutes: AppRoute[] = [
-    { name: 'Routine', component: RoutinePage },
-    { name: 'PopularCourses', component: PopularCoursesPage },
-    { name: 'Course', component: CoursePage, title: '' },
-    { name: 'Lesson', component: LessonPage, title: '' },
-    { name: 'CourseDetailsPage', component: CourseDetailsPage },
-    { name: 'Purchase', component: PurchasePage },
+    { name: RoutineScreen.ROUTINE, component: RoutinePage },
+    { name: RoutineScreen.POPULAR_COURSES, component: PopularCoursesPage },
+    { name: RoutineScreen.COURSE, component: CoursePage as ComponentType, title: '' },
+    { name: RoutineScreen.LESSON, component: LessonPage as ComponentType, title: '' },
+    { name: RoutineScreen.COURSE_DETAILS_PAGE, component: CourseDetailsPage as ComponentType },
+    { name: RoutineScreen.PURCHASE, component: PurchasePage },
 ];
 export const eventsRoutes: AppRoute[] = [{ name: 'Events', component: EventsPage, title: '' }];
 export const profileRoutes: AppRoute[] = [
-    { name: 'Profile', component: ProfilePage, title: '' },
-    { name: 'ProfileSettings', component: ProfileSettings, title: '' },
-    { name: 'Intentions', component: IntentionsPage, title: '' },
-    { name: 'ProfileEvents', component: ProfileEvents, title: '' },
-    { name: 'Support', component: SupportPage, title: '' },
-    { name: 'Schedule', component: SchedulePage, title: '' },
-    { name: 'Payment', component: PaymentPage, title: '' },
-    { name: 'Premium', component: PremiumPage, title: '' },
+    { name: ProfileScreen.PROFILE, component: ProfilePage, title: '' },
+    { name: ProfileScreen.PROFILE_SETTINGS, component: ProfileSettings, title: '' },
+    { name: ProfileScreen.INTENTIONS, component: IntentionsPage, title: '' },
+    { name: ProfileScreen.PROFILE_EVENTS, component: ProfileEvents, title: '' },
+    { name: ProfileScreen.SUPPORT, component: SupportPage, title: '' },
+    { name: ProfileScreen.SCHEDULE, component: SchedulePage, title: '' },
+    { name: ProfileScreen.PAYMENT, component: PaymentPage, title: '' },
+    { name: ProfileScreen.PREMIUM, component: PremiumPage, title: '' },
 ];
 
 export const authRoutes: AppRoute[] = [{ name: 'AuthStart', component: AuthStartPage, title: '' }];

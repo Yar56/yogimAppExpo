@@ -64,6 +64,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
             };
 
             const formData = new FormData();
+            // @ts-ignore
             formData.append('file', photo);
 
             const fileExt = file?.name?.split('.').pop();

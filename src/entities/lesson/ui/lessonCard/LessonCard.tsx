@@ -1,21 +1,21 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { FunctionComponent } from 'react';
 import React, { TouchableOpacity, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import styles from './LessonCardStylesheet';
 import { Lesson } from '../../../../shared/api/supaBase/models';
+import { RoutineScreen } from '../../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../../shared/routing/useAppNavigation';
 
 interface LessonCardProps {
     lesson: Lesson;
     index: number;
 }
 export const LessonCard: FunctionComponent<LessonCardProps> = ({ lesson, index }) => {
-    const navigation = useNavigation();
+    const navigation = useAppNavigation();
     const handleGoToLesson = () => {
-        console.log({ courseId: lesson.courseId, lessonId: lesson.id });
-        navigation.navigate('Lesson', { courseId: lesson.courseId, lessonId: lesson.id });
+        navigation.navigate(RoutineScreen.LESSON, { courseId: lesson.courseId, lessonId: lesson.id });
     };
 
     return (

@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
@@ -11,17 +10,20 @@ import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewO
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
 import { useAppSelector } from '../../../app/store/hooks';
-import { CourseLabel } from '../../../shared/api/supaBase/models';
+import { CourseLabel, Lesson } from '../../../shared/api/supaBase/models';
 import { screenHeight } from '../../../shared/constants/screenSize';
+import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
+// @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
-type Props = NativeStackScreenProps<RootStackParamList, 'Course'>;
+type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE>;
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
-    const navigation = useNavigation();
+    const navigation = useAppNavigation();
     // const dispatch = useAppDispatch();
     // const safeAreaInsets = useSafeAreaInsets();
     const courseId = route.params.courseId;
@@ -53,7 +55,8 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
     const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
 
     const handleBuyCourse = () => {};
-    const navigateToDetails = () => navigation.navigate('CourseDetailsPage', { details: course.details });
+    const navigateToDetails = () =>
+        navigation.navigate(RoutineScreen.COURSE_DETAILS_PAGE, { details: course?.details });
 
     if (!course) {
         console.warn(`article is undefined, courseId=${courseId}`);
@@ -118,7 +121,7 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                             <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
                                 {(course.labels as unknown as CourseLabel[]).map((label) => {
                                     return (
-                                        <Chip key={label.id} style={{ width: 'fit-content', display: 'flex' }}>
+                                        <Chip key={label.id} style={{ width: 'auto', display: 'flex' }}>
                                             {label?.name}
                                         </Chip>
                                     );
@@ -131,7 +134,7 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
 
                     <Text variant="headlineSmall">Список уроков</Text>
                     <Spacer size={10} />
-                    <LessonList lessons={course.lessons} />
+                    <LessonList lessons={course.lessons as unknown as Lesson[]} />
                 </CommonLayout>
             </AnimatedScrollView>
         </View>

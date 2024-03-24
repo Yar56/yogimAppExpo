@@ -18,10 +18,12 @@ import styles from './ArticlePageStylesheet';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { articleModel } from '../../../entities/article';
 import { screenHeight } from '../../../shared/constants/screenSize';
+import { ArticlesScreen } from '../../../shared/routing/NavigationEntities';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Article'>;
+type Props = NativeStackScreenProps<RootStackParamList, ArticlesScreen.ARTICLE>;
+// @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 const IMG_HEIGHT = (screenHeight / 100) * 70;

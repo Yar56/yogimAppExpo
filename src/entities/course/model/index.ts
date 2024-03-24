@@ -40,7 +40,9 @@ export const courseModel = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAllCourses.fulfilled, (state, action) => {
             state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            // @ts-ignore
             state.courses = action.payload;
+            // @ts-ignore
             state.coursesByType = action?.payload?.reduce(
                 (acc) => {
                     // @ts-ignore

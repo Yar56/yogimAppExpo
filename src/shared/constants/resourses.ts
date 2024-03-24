@@ -6,3 +6,6 @@ export const PROFILE_DEFAULT_AVATAR = require('../../../assets/img/profilePage/d
 export const PRODUCT_CARD_1 = require('../../../assets/img/coursesPage/course/productCard1.jpeg');
 export const ROUTINE_CARD = require('../../../assets/img/routinePage/routineCard.jpeg');
 export const EMPTY_ACTIVE_COURSE = require('../../../assets/img/routinePage/emptyActiveCourse.png');
+
+export const WELCOME_CARD_BACKGROUND = require('../../../assets/img/homePage/welcomeCardBackground.png');
+export const WELCOME_CARD_WOMEN = require('../../../assets/img/homePage/welcomeCardWomen.png');

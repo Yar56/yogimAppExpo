@@ -11,7 +11,7 @@ export interface SignUpUserParams {
 }
 export type SignInUserParams = SignUpUserParams;
 
-export type UpdateProfileDBParams = Database['public']['Tables']['profiles']['Update'];
+export type UpdateProfileDBParams = Database['public']['Tables']['profiles']['Row'];
 
 export interface SetToDBUserParams {
     userData: {

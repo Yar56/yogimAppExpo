@@ -1,16 +1,17 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { FunctionComponent, useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { Button, IconButton, Text, TextInput } from 'react-native-paper';
+import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignInStylesheet';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
+import { HomeScreen, TabName } from '../../../../shared/routing/NavigationEntities';
+import useAppNavigation from '../../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../../shared/ui/components/Spacer';
 import { LoadingWrapper } from '../../../../shared/ui/layouts/loading/LoadingWrapper';
 
@@ -28,7 +29,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
 
     // const { theme, toggleTheme } = usePreferencesContext();
     const [secureTextEntry, setSecureTextEntry] = useState(true);
-    const navigation = useNavigation();
+    const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>('');
@@ -60,7 +61,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                     throw payload?.error;
                 }
 
-                navigation.navigate('RoutineTab', { screen: 'Routine' });
+                navigation.navigate(TabName.HOME_TAB, { screen: HomeScreen.HOME });
             } catch (error) {
                 if (error instanceof Error) {
                     const errorMessage = error.message;
