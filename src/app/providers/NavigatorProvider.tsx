@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
-import { TabName } from '../../shared/routing/NavigationEntities';
+import { HomeScreen, TabName } from '../../shared/routing/NavigationEntities';
 import CustomTabBarIcon from '../../shared/ui/components/CustomTabBarIcon';
 import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
 import { AuthStackScreen } from '../../stacks/authStack/AuthStackScreen';
@@ -15,6 +16,13 @@ import { RoutineStackScreen } from '../../stacks/routineStack/RoutineStackScreen
 import { useAppSelector } from '../store/hooks';
 
 const Tab = createBottomTabNavigator();
+
+const getTabBarVisibility = (route) => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+
+    const hideOnScreens = [HomeScreen.MEDITATION]; // put here name of screen where you want to hide tabBar
+    return hideOnScreens.indexOf(routeName as HomeScreen) <= -1;
+};
 
 export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => {
     const session = useAppSelector((state) => state.userState.session);
@@ -31,10 +39,9 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
             <>
                 {isSignIn ? (
                     <Tab.Navigator
-                        screenOptions={{
+                        screenOptions={({ route }) => ({
                             headerShown: false,
                             tabBarShowLabel: false,
-                            // tabBarIconStyle: {},
                             tabBarActiveTintColor: '#b97a7f',
                             tabBarInactiveTintColor: 'rgba(4,115,171,0.8)',
                             tabBarStyle: {
@@ -44,6 +51,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                                 borderTopLeftRadius: 30,
                                 elevation: 0,
                                 shadowOpacity: 0,
+                                display: !getTabBarVisibility(route) ? 'none' : 'flex',
                             },
                             tabBarBackground: () => (
                                 <BlurView
@@ -58,7 +66,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                                     }}
                                 />
                             ),
-                        }}
+                        })}
                         // tabBar={(props) => <TabBar {...props} />}
                         initialRouteName={TabName.HOME_TAB}
                     >

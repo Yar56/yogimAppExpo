@@ -36,8 +36,10 @@ export enum LoadingStatus {
 }
 
 export type Course = Database['public']['Tables']['courses']['Row'];
+export type Meditation = Database['public']['Tables']['meditations']['Row'];
 
 export type CourseList = Tables<'courses'>[];
+export type MeditationList = Tables<'meditations'>[];
 export type LessonList = Tables<'lessons'>[];
 export type ArticleList = Tables<'articles'>[];
 export type Article = Database['public']['Tables']['articles']['Row'];

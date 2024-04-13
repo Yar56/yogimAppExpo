@@ -14,7 +14,10 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.yarvav.yogimapp"
+            "bundleIdentifier": "com.yarvav.yogimapp",
+            "infoPlist": {
+                "UIBackgroundModes": ["audio"]
+            }
         },
         "android": {
             "adaptiveIcon": {

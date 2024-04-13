@@ -4,8 +4,10 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
 import styles from './HomePageStylesheet';
+import MeditationList from './components/meditationList/MeditationList';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { courseModel } from '../../../entities/course';
+import { meditationModel } from '../../../entities/meditation';
 import { fetchProfileDB } from '../../../entities/user/model';
 import { PROFILE_DEFAULT_AVATAR, WELCOME_CARD_WOMEN } from '../../../shared/constants/resourses';
 import getCurrentHours from '../../../shared/lib/date/getCurrentHours';
@@ -21,6 +23,7 @@ export const HomePage: FunctionComponent = () => {
     const dispatch = useAppDispatch();
 
     const profile = useAppSelector((state) => state.userState.profile);
+    const meditations = useAppSelector((state) => state.meditationState.meditations);
     const avatarSize = { height: 54, width: 54 };
     const navigation = useAppNavigation();
 
@@ -31,6 +34,7 @@ export const HomePage: FunctionComponent = () => {
         }
         dispatch(fetchProfileDB(session));
         dispatch(courseModel.fetchAllCourses());
+        dispatch(meditationModel.fetchAllMeditations());
     }, [dispatch, session]);
 
     const currentHours = useMemo(() => getCurrentHours(), []);
@@ -84,6 +88,16 @@ export const HomePage: FunctionComponent = () => {
                     </Button>
                 </View>
             </Card>
+            <Spacer size={20} />
+            <View>
+                <View style={styles.recommendWrapper}>
+                    <Text variant="titleLarge">Рекомендуем вам</Text>
+                </View>
+            </View>
+            <Spacer size={10} />
+            <View>
+                <MeditationList list={meditations} />
+            </View>
         </CommonLayout>
     );
 };

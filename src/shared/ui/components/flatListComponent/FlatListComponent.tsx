@@ -1,18 +1,20 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { ReactElement } from 'react';
-import React, { FlatList, ListRenderItemInfo, StyleSheet, Platform, View } from 'react-native';
+import React, { FlatList, ListRenderItemInfo, Platform, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 interface Item {
     id: string;
 }
 
-interface FlatListComponentProps<T extends Item> {
+export interface FlatListComponentProps<T extends Item> {
     items: T[];
     renderItem: (info: ListRenderItemInfo<T>) => ReactElement | null;
     notFoundText: string;
     withPadding?: boolean;
     scrollEnabled?: boolean;
+    horizontal?: boolean;
+    hasContentInsets?: boolean;
 }
 const FlatListComponent = <T extends Item>({
     items,
@@ -20,11 +22,13 @@ const FlatListComponent = <T extends Item>({
     notFoundText,
     withPadding = true,
     scrollEnabled = true,
+    horizontal: isHorizontal,
+    hasContentInsets = true,
 }: FlatListComponentProps<T>) => {
     const bottomTabBarHeight = useBottomTabBarHeight();
     const isAndroid = Platform.OS === 'android';
 
-    if (items.length === 0) {
+    if (items && items.length === 0) {
         return (
             <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingVertical: 100 }}>
                 <Text variant="bodyLarge">{notFoundText}</Text>
@@ -34,6 +38,7 @@ const FlatListComponent = <T extends Item>({
 
     return (
         <FlatList
+            horizontal={isHorizontal}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[styles.wrapper, { paddingBottom: isAndroid ? bottomTabBarHeight : 0 }]}
@@ -41,7 +46,7 @@ const FlatListComponent = <T extends Item>({
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
             style={withPadding ? styles.listStyle : {}}
-            contentInset={{ bottom: bottomTabBarHeight, top: 0, right: 0, left: 0 }}
+            contentInset={hasContentInsets ? { bottom: bottomTabBarHeight, top: 0, right: 0, left: 0 } : undefined}
             scrollEnabled={scrollEnabled}
         />
     );

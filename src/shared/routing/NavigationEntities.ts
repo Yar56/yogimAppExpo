@@ -8,6 +8,7 @@ export enum TabName {
 
 export enum HomeScreen {
     HOME = 'HOME',
+    MEDITATION = 'MEDITATION',
 }
 
 export enum ArticlesScreen {

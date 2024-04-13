@@ -34,16 +34,17 @@ const styles = StyleSheet.create({
         // opacity: 0.5,
     },
     controls: {
-        // position: 'absolute',
-        // marginTop: 'auto',
-        // margin: 20,
         width: 270,
         display: 'flex',
         alignItems: 'flex-start',
-        // justifyContent: 'flex-start',
-        // flexDirection: 'column',
-        // alignItems: 'baseline',
         gap: 20,
+    },
+
+    recommendWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        justifyContent: 'space-between',
     },
 });
 

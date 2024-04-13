@@ -22,9 +22,12 @@ export const HomeStackScreen = () => {
                     <HomeStack.Screen
                         options={{
                             title: route.title,
-                            headerTransparent: route.name === HomeScreen.HOME,
+                            headerTransparent: route.name === HomeScreen.HOME || route.name === HomeScreen.MEDITATION,
                             contentStyle: {
-                                backgroundColor: route.name === HomeScreen.HOME ? ArticleStackColor : baseStackColor,
+                                backgroundColor:
+                                    route.name === HomeScreen.HOME || route.name === HomeScreen.MEDITATION
+                                        ? ArticleStackColor
+                                        : baseStackColor,
                             },
                         }}
                         key={route.name}

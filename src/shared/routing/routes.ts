@@ -6,6 +6,7 @@ import { ArticlesPage } from '../../stacks/articlesStack/articlesPage/ArticlesPa
 import AuthStartPage from '../../stacks/authStack/authStartPage/AuthStartPage';
 import { EventsPage } from '../../stacks/eventsStack/EventsPage';
 import { HomePage } from '../../stacks/homeStack/homePage/HomePage';
+import MeditationPage from '../../stacks/homeStack/meditationPage/MeditationPage';
 import IntentionsPage from '../../stacks/profileStack/intentionsPage/IntentionsPage';
 import PaymentPage from '../../stacks/profileStack/paymentPage/PaymentPage';
 import PremiumPage from '../../stacks/profileStack/premiumPage/PremiumPage';
@@ -26,7 +27,10 @@ export const articlesRoutes: AppRoute[] = [
     { name: ArticlesScreen.ARTICLE, component: ArticlePage as ComponentType, title: '' },
 ];
 
-export const homeRoutes: AppRoute[] = [{ name: HomeScreen.HOME, component: HomePage, title: '' }];
+export const homeRoutes: AppRoute[] = [
+    { name: HomeScreen.HOME, component: HomePage, title: '' },
+    { name: HomeScreen.MEDITATION, component: MeditationPage, title: '' },
+];
 export const routineRoutes: AppRoute[] = [
     { name: RoutineScreen.ROUTINE, component: RoutinePage },
     { name: RoutineScreen.POPULAR_COURSES, component: PopularCoursesPage },

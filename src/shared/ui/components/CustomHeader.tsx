@@ -14,7 +14,8 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
     const isTransparentPage =
         headerProps.route.name === ArticlesScreen.ARTICLE ||
         headerProps.route.name === RoutineScreen.COURSE ||
-        headerProps.route.name === HomeScreen.HOME;
+        headerProps.route.name === HomeScreen.HOME ||
+        headerProps.route.name === HomeScreen.MEDITATION;
 
     return (
         <View

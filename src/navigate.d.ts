@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentProps, ComponentType } from 'react';
 import { ParamListBase } from '@react-navigation/native';
 import {
     ArticlesScreen,
@@ -10,11 +10,9 @@ import {
 
 declare global {
     interface RootStackParamList extends ParamListBase {
-        // Auth: undefined;
-        // Registration: undefined;
-
         // HomeTab
         [HomeScreen.HOME]: undefined;
+        [HomeScreen.MEDITATION]: { meditationId: string };
 
         // ArticleTab
         [ArticlesScreen.ARTICLE]: { articleId?: string };
@@ -44,6 +42,6 @@ declare global {
     interface AppRoute {
         title?: string;
         name: keyof RootStackParamList;
-        component: ComponentType;
+        component: ComponentType<ComponentProps<any>>;
     }
 }

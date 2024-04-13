@@ -3,6 +3,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { articleReducer } from '../../entities/article/model';
 import { courseReducer } from '../../entities/course/model';
 import { lessonReducer } from '../../entities/lesson/model';
+import { meditationReducer } from '../../entities/meditation/model';
 import { userReducer } from '../../entities/user/model';
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         articleState: articleReducer,
         courseState: courseReducer,
         lessonState: lessonReducer,
+        meditationState: meditationReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
