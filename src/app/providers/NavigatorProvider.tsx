@@ -9,7 +9,7 @@ import { HomeScreen, TabName } from '../../shared/routing/NavigationEntities';
 import CustomTabBarIcon from '../../shared/ui/components/CustomTabBarIcon';
 import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
 import { AuthStackScreen } from '../../stacks/authStack/AuthStackScreen';
-import { EventsStackScreen } from '../../stacks/eventsStack/EventsStackScreen';
+// import { EventsStackScreen } from '../../stacks/eventsStack/EventsStackScreen';
 import { HomeStackScreen } from '../../stacks/homeStack/HomeStackScreen';
 import { ProfileStackScreen } from '../../stacks/profileStack/ProfileStackScreen';
 import { RoutineStackScreen } from '../../stacks/routineStack/RoutineStackScreen';
@@ -100,20 +100,20 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                                 ),
                             })}
                         />
-                        <Tab.Screen
-                            name={TabName.EVENTS_TAB}
-                            component={EventsStackScreen}
-                            options={{
-                                tabBarLabel: 'События',
-                                tabBarIcon: ({ focused, color }) => (
-                                    <CustomTabBarIcon
-                                        iconName="hexagon-multiple-outline"
-                                        focused={focused}
-                                        color={color}
-                                    />
-                                ),
-                            }}
-                        />
+                        {/*<Tab.Screen*/}
+                        {/*    name={TabName.EVENTS_TAB}*/}
+                        {/*    component={EventsStackScreen}*/}
+                        {/*    options={{*/}
+                        {/*        tabBarLabel: 'События',*/}
+                        {/*        tabBarIcon: ({ focused, color }) => (*/}
+                        {/*            <CustomTabBarIcon*/}
+                        {/*                iconName="hexagon-multiple-outline"*/}
+                        {/*                focused={focused}*/}
+                        {/*                color={color}*/}
+                        {/*            />*/}
+                        {/*        ),*/}
+                        {/*    }}*/}
+                        {/*/>*/}
                         <Tab.Screen
                             name={TabName.PROFILE_TAB}
                             component={ProfileStackScreen}
