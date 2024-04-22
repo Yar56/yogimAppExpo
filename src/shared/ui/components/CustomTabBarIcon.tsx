@@ -22,7 +22,7 @@ const CustomTabBarIcon: FunctionComponent<CustomTabBarIconProps> = ({ iconName, 
                     style={{
                         position: 'absolute',
                         bottom: -10,
-                        left: 4,
+                        left: 2,
                         width: '20%',
                         borderTopRightRadius: 15,
                         borderTopLeftRadius: 15,

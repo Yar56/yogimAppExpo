@@ -22,8 +22,6 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
         });
 
         const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-            console.log(event, session);
-
             if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user) {
                 dispatch(userModel.setUser(session.user));
             }

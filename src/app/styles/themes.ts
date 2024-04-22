@@ -48,3 +48,21 @@ export {};
 //   ...MD3LightTheme,
 //   colors: {...MD3LightTheme.colors},
 // };
+
+export const customDarkColors = {
+    color1: '#006da4',
+    color2: '#006494',
+    color3: '#004d74',
+    color4: '#003554',
+    color5: '#022b42',
+    color6: '#032030',
+};
+
+export const customLightColors = {
+    color1: '#395886',
+    color2: '#638ecb',
+    color3: '#8aaee0',
+    color4: '#b1c9ef',
+    color5: '#d5deff',
+    color6: '#f0f3fa',
+};
