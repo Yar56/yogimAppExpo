@@ -1,61 +1,59 @@
-// import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
-import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { Material3Scheme, Material3Theme, useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import React, { createContext, useContext } from 'react';
 import { useColorScheme } from 'react-native';
-import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal } from 'react-native-paper';
+import {
+    MD3DarkTheme,
+    MD3LightTheme,
+    MD3Theme,
+    PaperProvider,
+    Portal,
+    ProviderProps,
+    useTheme,
+} from 'react-native-paper';
 
-// import { customDarkColors, customLightColors } from '../styles/themes';
+import { customDarkColors, customLightColors } from '../styles/themes';
 
-export const MaterialThemeProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
+type Material3ThemeProviderProps = {
+    theme: Material3Theme;
+    updateTheme: (sourceColor: string) => void;
+    resetTheme: () => void;
+};
+
+const Material3ThemeProviderContext = createContext<Material3ThemeProviderProps>({} as Material3ThemeProviderProps);
+
+export const Material3ThemeProvider = ({
+    children,
+    sourceColor,
+    fallbackSourceColor,
+    ...otherProps
+}: ProviderProps & { sourceColor?: string; fallbackSourceColor?: string }) => {
     const colorScheme = useColorScheme();
 
-    const { theme } = useMaterial3Theme();
-
-    // const [theme, setTheme] = React.useState<'light' | 'dark'>(colorScheme === 'dark' ? 'dark' : 'light');
-    // console.log(colorScheme);
-    // useEffect(() => {
-    //     if (colorScheme === 'dark') {
-    //         setTheme('dark');
-    //     } else {
-    //         setTheme('light');
-    //     }
-    // }, [colorScheme]);
-
-    // function toggleTheme() {
-    //     setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
-    // }
-    // const preferences = React.useMemo(
-    //     () => ({
-    //         toggleTheme,
-    //         theme,
-    //     }),
-    //     [theme]
-    // );
+    const { theme, updateTheme, resetTheme } = useMaterial3Theme({
+        sourceColor,
+        fallbackSourceColor,
+    });
 
     const paperTheme =
-        colorScheme === 'dark' ? { ...MD3DarkTheme, colors: theme.dark } : { ...MD3LightTheme, colors: theme.light };
+        colorScheme === 'dark'
+            ? { ...MD3DarkTheme, colors: { ...theme.dark, customDarkColors } }
+            : { ...MD3LightTheme, colors: { ...theme.light, customLightColors } };
 
-    // console.log(theme, preferences);
-    console.log(colorScheme);
     return (
-        // <PreferencesContext.Provider value={preferences}>
-        <PaperProvider
-            theme={paperTheme}
-            // theme={
-            //     theme === 'light'
-            //         ? {
-            //               ...MD3LightTheme,
-            //               colors: { ...MD3LightTheme.colors, ...customLightColors },
-            //           }
-            //         : {
-            //               ...MD3DarkTheme,
-            //               colors: { ...MD3DarkTheme.colors, ...customDarkColors },
-            //           }
-            // }
-            // theme={{ ...MD3DarkTheme, colors: { ...MD3DarkTheme.colors, primary: '#1ba1f2' } }}
-        >
-            <Portal>{children}</Portal>
-        </PaperProvider>
-        // </PreferencesContext.Provider>
+        <Material3ThemeProviderContext.Provider value={{ theme, updateTheme, resetTheme }}>
+            <PaperProvider theme={paperTheme} {...otherProps}>
+                <Portal>{children}</Portal>
+            </PaperProvider>
+        </Material3ThemeProviderContext.Provider>
     );
 };
+
+export const useMaterial3ThemeContext = () => {
+    const ctx = useContext(Material3ThemeProviderContext);
+    if (!ctx) {
+        throw new Error('useMaterial3ThemeContext must be used inside Material3ThemeProvider');
+    }
+    return ctx;
+};
+
+export const useAppTheme = useTheme<MD3Theme & { colors: Material3Scheme }>;

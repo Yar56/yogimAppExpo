@@ -13,7 +13,6 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "userInterfaceStyle": "automatic",
             "supportsTablet": true,
             "bundleIdentifier": "com.yarvav.yogimapp",
             "infoPlist": {
