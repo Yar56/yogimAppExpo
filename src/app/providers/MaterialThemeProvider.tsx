@@ -11,7 +11,7 @@ import {
     useTheme,
 } from 'react-native-paper';
 
-import { customDarkColors, customLightColors } from '../styles/themes';
+import { CustomColors, customDarkColors, customLightColors } from '../styles/themes';
 
 type Material3ThemeProviderProps = {
     theme: Material3Theme;
@@ -36,8 +36,8 @@ export const Material3ThemeProvider = ({
 
     const paperTheme =
         colorScheme === 'dark'
-            ? { ...MD3DarkTheme, colors: { ...theme.dark, customDarkColors } }
-            : { ...MD3LightTheme, colors: { ...theme.light, customLightColors } };
+            ? { ...MD3DarkTheme, colors: { ...theme.dark, ...customDarkColors } }
+            : { ...MD3LightTheme, colors: { ...theme.light, ...customLightColors } };
 
     return (
         <Material3ThemeProviderContext.Provider value={{ theme, updateTheme, resetTheme }}>
@@ -56,4 +56,7 @@ export const useMaterial3ThemeContext = () => {
     return ctx;
 };
 
-export const useAppTheme = useTheme<MD3Theme & { colors: Material3Scheme }>;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type Merge<F, S> = any;
+
+export const useAppTheme = useTheme<MD3Theme & { colors: Merge<Material3Scheme, CustomColors> }>;

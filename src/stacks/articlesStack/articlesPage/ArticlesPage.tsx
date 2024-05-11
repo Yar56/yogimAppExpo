@@ -14,8 +14,6 @@ import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const ArticlesPage = () => {
     const dispatch = useAppDispatch();
-    // const safeAreaInsets = useSafeAreaInsets();
-    // const navigation = useNavigation();
 
     useEffect(() => {
         dispatch(articleModel.fetchAllArticles());
@@ -28,8 +26,6 @@ export const ArticlesPage = () => {
 
     const isLoading = loadingStatus === supaBaseApi.models.LoadingStatus.LOADING;
     const isError = loadingStatus === supaBaseApi.models.LoadingStatus.FAILED;
-
-    // const scrollViewRef = useRef<ScrollView>(null);
 
     const renderItem = ({ item }: ListRenderItemInfo<supaBaseApi.models.Article>) => {
         return <ArticleCard article={item} />;

@@ -1,9 +1,10 @@
 import { AntDesign } from '@expo/vector-icons';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { LOGO } from '../../constants/resourses';
 import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
 
@@ -16,33 +17,24 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
         headerProps.route.name === RoutineScreen.COURSE ||
         headerProps.route.name === HomeScreen.HOME ||
         headerProps.route.name === HomeScreen.MEDITATION;
+    const theme = useAppTheme();
+    const headerBackgroundColor = theme.colors.colorLevel5;
 
     return (
-        <View
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 105,
-                backgroundColor: isTransparentPage ? 'transparent' : '#022B42',
-                paddingTop: 40,
-                position: 'relative',
-            }}
-        >
+        <View style={wrapperStyles(isTransparentPage, headerBackgroundColor).wrapper}>
             {headerProps.navigation.canGoBack() && headerProps.navigation.getState().index !== 0 && (
                 <TouchableOpacity
-                    style={{ position: 'absolute', left: 5, bottom: '25%' }}
+                    style={styles.button}
                     onPress={() => {
                         headerProps.navigation.goBack();
                     }}
                 >
-                    <AntDesign name="left" size={25} color="#0b80ba" style={{ paddingLeft: 10 }} />
+                    <AntDesign name="left" size={25} color={theme.colors.colorLevel4} style={styles.buttonIcon} />
                 </TouchableOpacity>
             )}
             {!isTransparentPage && (
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Image source={LOGO} style={{ width: 70, height: 70, marginRight: 0 }} />
+                <View style={styles.headerWrapper}>
+                    <Image source={LOGO} style={styles.headerLogo} />
                     <Text variant="headlineSmall" onPress={() => headerProps.navigation.goBack()}>
                         Йожим
                     </Text>
@@ -51,5 +43,40 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
         </View>
     );
 };
+
+const wrapperStyles = (isTransparentPage: boolean, headerBackgroundColor: string) =>
+    StyleSheet.create({
+        wrapper: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 105,
+            backgroundColor: isTransparentPage ? 'transparent' : headerBackgroundColor,
+            paddingTop: 40,
+            position: 'relative',
+        },
+    });
+
+const styles = StyleSheet.create({
+    button: {
+        position: 'absolute',
+        left: 5,
+        bottom: '25%',
+    },
+    buttonIcon: {
+        paddingLeft: 10,
+    },
+    headerWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerLogo: {
+        width: 70,
+        height: 70,
+        marginRight: 0,
+    },
+});
 
 export default CustomHeader;

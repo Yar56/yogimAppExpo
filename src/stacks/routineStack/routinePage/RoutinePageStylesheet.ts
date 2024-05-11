@@ -7,13 +7,12 @@ const styles = StyleSheet.create({
 
     card: { backgroundColor: '#022b42', height: 200, borderRadius: 20 },
     imageContainer: {
-        borderRadius: 20,
+        borderRadius: 24,
         backgroundColor: 'rgba(0,0,0,0.56)',
         height: '100%',
     },
     image: {
         borderRadius: 20,
-        opacity: 0.5,
     },
     controls: {
         marginTop: 'auto',
@@ -28,6 +27,17 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         opacity: 0.9,
+    },
+
+    popularButton: { borderRadius: 50, padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    infoCoursesWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        gap: 5,
+    },
+    text: {
+        textAlign: 'center',
     },
 });
 

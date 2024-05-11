@@ -5,6 +5,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 
 import styles from './NavigateLessonButtonStylesheet';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 
 export enum Direction {
     PREVIOUS = 'PREVIOUS',
@@ -18,6 +19,8 @@ interface Props {
 }
 
 const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLessonId, onChangeLesson }) => {
+    const theme = useAppTheme();
+
     const bottomTabBarHeight = useBottomTabBarHeight();
 
     const currentLinkIndex = lessonIds.findIndex((link) => link.includes(currentLessonId));
@@ -37,17 +40,29 @@ const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLes
                         {isLastLink ? (
                             <Button
                                 mode="contained-tonal"
-                                dark
-                                buttonColor="#004e74"
-                                icon={() => <AntDesign name="left" size={23} color="#6383cb" />}
+                                dark={theme.dark}
+                                buttonColor={theme.colors.colorLevel4}
+                                icon={() => (
+                                    <AntDesign
+                                        name="left"
+                                        size={23}
+                                        color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                    />
+                                )}
                             >
-                                {isLastLink ? 'Предыдущий урок мини курса' : ''}
+                                {isLastLink ? 'Предыдущий урок практики' : ''}
                             </Button>
                         ) : (
                             <IconButton
                                 mode="contained-tonal"
-                                containerColor="#004e74"
-                                icon={() => <AntDesign name="left" size={23} color="#6383cb" />}
+                                containerColor={theme.colors.colorLevel4}
+                                icon={() => (
+                                    <AntDesign
+                                        name="left"
+                                        size={23}
+                                        color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                    />
+                                )}
                             />
                         )}
                     </TouchableOpacity>
@@ -56,12 +71,18 @@ const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLes
                     <TouchableOpacity activeOpacity={0.5} onPress={handleChange(Direction.NEXT)}>
                         <Button
                             mode="contained-tonal"
-                            dark
-                            buttonColor="#004e74"
-                            icon={() => <AntDesign name="right" size={23} color="#6383cb" />}
+                            dark={theme.dark}
+                            buttonColor={theme.colors.colorLevel4}
+                            icon={() => (
+                                <AntDesign
+                                    name="right"
+                                    size={23}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                             contentStyle={{ flexDirection: 'row-reverse' }}
                         >
-                            Следующий урок мини курса
+                            Следующий урок практики
                         </Button>
                     </TouchableOpacity>
                 )}

@@ -36,6 +36,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    purchase: { display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 5 },
+
+    more: { textDecorationLine: 'underline', fontWeight: 'bold' },
+
+    labelsWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+    },
+    chip: { width: 'auto', display: 'flex' },
 });
 
 export default styles;

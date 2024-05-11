@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Button, Divider, List, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { fetchProfileDB } from '../../../entities/user/model';
 import { AvatarComponent } from '../../../entities/user/ui';
@@ -16,7 +17,7 @@ import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 
 export const ProfilePage = () => {
-    // const { theme, toggleTheme } = usePreferencesContext();
+    const theme = useAppTheme();
 
     const dispatch = useAppDispatch();
     const session = useAppSelector((state) => state.userState.session);
@@ -69,7 +70,11 @@ export const ProfilePage = () => {
                             {profile.email && <Text variant="bodyLarge">{profile.email}</Text>}
                         </View>
                     </View>
-                    <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />
+                    <MaterialCommunityIcons
+                        name="chevron-right"
+                        size={30}
+                        color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                    />
                 </View>
             </TouchableOpacity>
 
@@ -80,8 +85,14 @@ export const ProfilePage = () => {
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(ProfileScreen.INTENTIONS)}>
                         <List.Item
                             title="Мои намерения"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
 
@@ -91,44 +102,79 @@ export const ProfilePage = () => {
                     >
                         <List.Item
                             title="Ивенты"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(ProfileScreen.SUPPORT)}>
                         <List.Item
                             title="Поддержка"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(ProfileScreen.SCHEDULE)}>
                         <List.Item
                             title="Расписание уведомлений"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(ProfileScreen.PAYMENT)}>
                         <List.Item
                             title="Оплата"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(ProfileScreen.PREMIUM)}>
                         <List.Item
                             title="Премиум (Личное ведение)"
-                            style={styles.listItem}
-                            right={() => <MaterialCommunityIcons name="chevron-right" size={30} color="#F0FAFB" />}
+                            style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
+                            right={() => (
+                                <MaterialCommunityIcons
+                                    name="chevron-right"
+                                    size={30}
+                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                />
+                            )}
                         />
                     </TouchableOpacity>
                 </View>
-                <Button contentStyle={styles.exitButton} mode="contained-tonal" onPress={handleLogout}>
+                <Button
+                    buttonColor={theme.colors.colorLevel4}
+                    dark={theme.dark}
+                    mode="contained-tonal"
+                    onPress={handleLogout}
+                >
                     Выйти
                 </Button>
             </View>

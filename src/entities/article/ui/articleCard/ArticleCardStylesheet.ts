@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fastImage: {
         width: 'auto',
         height: 200,
-        borderRadius: 25,
+        borderRadius: 12,
         marginBottom: 5,
     },
     imageContainer: {

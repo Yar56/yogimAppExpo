@@ -5,6 +5,7 @@ import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './ArticleCardStylesheet';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 import { supaBaseApi } from '../../../../shared/api';
 import { ArticlesScreen } from '../../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../../shared/routing/useAppNavigation';
@@ -14,11 +15,12 @@ interface CourseCardProps {
 }
 
 export const ArticleCard: FunctionComponent<CourseCardProps> = ({ article }) => {
+    const theme = useAppTheme();
     const navigation = useAppNavigation();
     const handleMoveToArticle = () => navigation.navigate(ArticlesScreen.ARTICLE, { articleId: article.id });
 
     return (
-        <Card style={{ backgroundColor: '#022b42' }}>
+        <Card style={{ backgroundColor: theme.dark ? '#022b42' : theme.colors.colorLevel3 }}>
             <FastImage
                 style={styles.fastImage}
                 source={{
@@ -34,11 +36,18 @@ export const ArticleCard: FunctionComponent<CourseCardProps> = ({ article }) => 
                 </Text>
                 <TouchableOpacity activeOpacity={0.5} onPress={handleMoveToArticle}>
                     <Button
-                        icon={() => <AntDesign name="right" size={23} color="#6383cb" style={{ paddingLeft: 10 }} />}
+                        icon={() => (
+                            <AntDesign
+                                name="right"
+                                size={23}
+                                color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
+                                style={{ paddingLeft: 10 }}
+                            />
+                        )}
                         mode="contained-tonal"
                         contentStyle={{ flexDirection: 'row-reverse' }}
-                        dark
-                        buttonColor="#004e74"
+                        dark={theme.dark}
+                        buttonColor={theme.colors.colorLevel4}
                     >
                         Подробнее
                     </Button>

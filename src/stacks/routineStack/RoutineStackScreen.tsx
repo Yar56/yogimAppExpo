@@ -1,16 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { useAppTheme } from '../../app/providers/MaterialThemeProvider';
 import { RoutineScreen } from '../../shared/routing/NavigationEntities';
 import { routineRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
 const RoutineStack = createNativeStackNavigator<RootStackParamList>();
 
-const baseStackColor = '#022B42';
-const CourseStackColor = '#032030';
-
 export const RoutineStackScreen = () => {
+    const theme = useAppTheme();
+    const baseStackColor = theme.colors.colorLevel5;
+    const CourseStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
     return (
         <RoutineStack.Navigator
             screenOptions={{

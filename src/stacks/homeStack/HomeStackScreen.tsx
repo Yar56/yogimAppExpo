@@ -1,19 +1,22 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { useAppTheme } from '../../app/providers/MaterialThemeProvider';
 import { HomeScreen } from '../../shared/routing/NavigationEntities';
 import { homeRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
-const baseStackColor = '#022B42';
-const ArticleStackColor = '#032030';
 export const HomeStackScreen = () => {
+    const theme = useAppTheme();
+    const baseStackColor = theme.colors.colorLevel5;
+    const HomeStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
+
     return (
         <HomeStack.Navigator
             screenOptions={{
-                contentStyle: { backgroundColor: '#022B42' },
+                contentStyle: { backgroundColor: baseStackColor },
                 header: (props) => <CustomHeader headerProps={props} />,
             }}
         >
@@ -26,7 +29,7 @@ export const HomeStackScreen = () => {
                             contentStyle: {
                                 backgroundColor:
                                     route.name === HomeScreen.HOME || route.name === HomeScreen.MEDITATION
-                                        ? ArticleStackColor
+                                        ? HomeStackColor
                                         : baseStackColor,
                             },
                         }}

@@ -74,7 +74,7 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     ) : (
         <Video
             ref={video}
-            style={{ width: 'auto', height: 250, borderRadius: 20 }}
+            style={{ width: 'auto', height: 250, borderRadius: 12 }}
             source={{
                 uri: lesson.videoUrl,
             }}
@@ -93,7 +93,7 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
             }}
             posterSource={{ uri: lesson.photoUrl }}
             usePoster
-            PosterComponent={(props, context) => {
+            PosterComponent={(props) => {
                 return isVideoLoading ? <ActivityIndicator style={props.style} /> : null;
             }}
         />

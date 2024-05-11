@@ -1,14 +1,16 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { ScrollView, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Button, Chip, Divider, Text, Tooltip } from 'react-native-paper';
+import { Button, Chip, Divider, Text } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppSelector } from '../../../app/store/hooks';
 import { CourseLabel, Lesson } from '../../../shared/api/supaBase/models';
 import { screenHeight } from '../../../shared/constants/screenSize';
@@ -23,9 +25,10 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE>;
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
+    const theme = useAppTheme();
+    const [isVisibleTooltip, setIsVisibleTooltip] = useState<boolean>(false);
+
     const navigation = useAppNavigation();
-    // const dispatch = useAppDispatch();
-    // const safeAreaInsets = useSafeAreaInsets();
     const courseId = route.params.courseId;
 
     const scrollRef = useAnimatedRef<Animated.ScrollView>();
@@ -85,24 +88,43 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                     <Spacer size={20} />
                     <Text variant="bodyLarge">{course.description}</Text>
                     <Spacer size={10} />
-                    <Text
-                        style={{ textDecorationLine: 'underline', fontWeight: 'bold' }}
-                        variant="bodyLarge"
-                        onPress={navigateToDetails}
-                    >
+                    <Text style={styles.more} variant="bodyLarge" onPress={navigateToDetails}>
                         Подробнее
                     </Text>
                     <Spacer size={15} />
                     <View style={styles.purchaseWrapper}>
-                        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 5 }}>
+                        <View style={styles.purchase}>
                             <Text variant="headlineSmall">Доступ к курсу</Text>
-                            <Tooltip title="Это мини-курс. Чтобы начать его просто приступите к нужному уроку. Чтобы сохранить в личный кабинет, нажмите на сердцечко выше)">
-                                <FontAwesome5 name="question-circle" size={20} color="#6383CB" />
+                            <Tooltip
+                                isVisible={isVisibleTooltip}
+                                content={
+                                    <Text>
+                                        Это мини-курс. Чтобы начать его, просто перейдите к нужному уроку.
+                                        {/*Чтобы сохранить его в свой личный кабинет, нажмите на сердечко выше.*/}
+                                    </Text>
+                                }
+                                placement="bottom"
+                                contentStyle={{ backgroundColor: theme.colors.colorLevel3 }}
+                                backgroundColor={"'rgba(0,0,0,0.5)'"}
+                                onClose={() => setIsVisibleTooltip(false)}
+                            >
+                                <TouchableHighlight
+                                    style={{}}
+                                    underlayColor="transparent"
+                                    onPress={() => setIsVisibleTooltip(true)}
+                                >
+                                    <FontAwesome5 name="question-circle" size={19} color="#6383CB" />
+                                </TouchableHighlight>
                             </Tooltip>
                         </View>
 
                         {course.isFree ? (
-                            <Chip style={{ backgroundColor: '#156494' }} mode="flat">
+                            <Chip
+                                style={{
+                                    backgroundColor: theme.dark ? theme.colors.colorLevel2 : theme.colors.colorLevel4,
+                                }}
+                                mode="flat"
+                            >
                                 <Text variant="bodyLarge">Бесплатно</Text>
                             </Chip>
                         ) : (
@@ -118,10 +140,16 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                     <Spacer size={15} />
                     {course.labels && (
                         <View>
-                            <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+                            <View style={styles.labelsWrapper}>
                                 {(course.labels as unknown as CourseLabel[]).map((label) => {
                                     return (
-                                        <Chip key={label.id} style={{ width: 'auto', display: 'flex' }}>
+                                        <Chip
+                                            key={label.id}
+                                            style={{
+                                                ...styles.chip,
+                                                backgroundColor: theme.colors.colorLevel3,
+                                            }}
+                                        >
                                             {label?.name}
                                         </Chip>
                                     );

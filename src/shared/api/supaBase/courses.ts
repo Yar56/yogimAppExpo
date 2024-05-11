@@ -1,5 +1,5 @@
 import { supabase } from '../../lib/baas/supabase';
 
 export const getAllCourses = () => {
-    return supabase.from('courses').select().order('id', { ascending: false });
+    return supabase.from('courses').select().order('disabled', { ascending: true });
 };

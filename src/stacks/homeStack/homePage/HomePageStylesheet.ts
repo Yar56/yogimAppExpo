@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: '#0b4e77',
+        // backgroundColor: '#0b4e77',
         height: 200,
         borderRadius: 20,
         position: 'relative',

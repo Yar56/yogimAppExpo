@@ -27,11 +27,8 @@ const styles = StyleSheet.create({
 
     listItemWrapper: { marginTop: 20, display: 'flex', gap: 10 },
     listItem: {
-        backgroundColor: 'rgba(31,43,83,0.8)',
+        // backgroundColor: 'rgba(31,43,83,0.8)',
         borderRadius: 20,
-    },
-    exitButton: {
-        backgroundColor: '#006da4',
     },
 });
 

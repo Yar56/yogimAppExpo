@@ -14,6 +14,7 @@ import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-
 import { AddTrack } from 'react-native-track-player/src/interfaces';
 
 import styles from './MeditationPageStylesheet';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppSelector } from '../../../app/store/hooks';
 import { addTracks, setupPlayer } from '../../../shared/lib/audio/trackPlayerServices';
 import { HomeScreen } from '../../../shared/routing/NavigationEntities';
@@ -38,6 +39,7 @@ function format(seconds: number) {
 }
 
 const MeditationPage: FunctionComponent<Props> = ({ route }) => {
+    const theme = useAppTheme();
     const meditationId = route.params.meditationId;
 
     const meditation = useAppSelector(
@@ -227,7 +229,10 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
                 </View>
             </View>
 
-            <Text variant="titleMedium" style={{ ...styles.description, color: cacheColor }}>
+            <Text
+                variant="titleMedium"
+                style={{ ...styles.description, color: theme.dark ? cacheColor : meditation.color }}
+            >
                 {meditation.description}
             </Text>
         </CommonLayout>

@@ -4,6 +4,7 @@ import { ImageBackground, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import styles from './MeditationCardStylesheet';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 import { supaBaseApi } from '../../../../shared/api';
 import { HomeScreen } from '../../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../../shared/routing/useAppNavigation';
@@ -14,13 +15,14 @@ interface MeditationCardProps {
 }
 export const MeditationCard: FunctionComponent<MeditationCardProps> = ({ meditation }) => {
     const navigation = useAppNavigation();
+    const theme = useAppTheme();
     const handleClick = () => navigation.navigate(HomeScreen.MEDITATION, { meditationId: meditation.id });
     return (
         <Card style={styles.card} onPress={handleClick}>
             <ImageBackground
                 source={{ uri: meditation.photoUrl ?? '' }}
-                style={styles.imageBackground}
-                imageStyle={styles.imageBackgroundImage}
+                style={[styles.imageBackground, { backgroundColor: theme.dark ? '#605f5f' : '#bbbbbb' }]}
+                imageStyle={[styles.imageBackgroundImage, { opacity: theme.dark ? 0.3 : 0.4 }]}
             />
 
             <View style={styles.cardView}>
@@ -29,7 +31,7 @@ export const MeditationCard: FunctionComponent<MeditationCardProps> = ({ meditat
                 </Text>
                 <Spacer size={7} />
                 <View style={styles.time}>
-                    <Text>{meditation.time}</Text>
+                    <Text style={{ fontWeight: '600' }}>{meditation.time}</Text>
                     <AntDesign name="play" color={meditation.color} size={20} />
                 </View>
             </View>

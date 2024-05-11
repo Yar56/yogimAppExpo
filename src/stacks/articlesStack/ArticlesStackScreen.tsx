@@ -1,16 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { useAppTheme } from '../../app/providers/MaterialThemeProvider';
 import { ArticlesScreen } from '../../shared/routing/NavigationEntities';
 import { articlesRoutes } from '../../shared/routing/routes';
 import CustomHeader from '../../shared/ui/components/CustomHeader';
 
 const CoursesStack = createNativeStackNavigator<RootStackParamList>();
 
-const baseStackColor = '#022B42';
-const ArticleStackColor = '#032030';
-
 export const ArticlesStackScreen = () => {
+    const theme = useAppTheme();
+    const baseStackColor = theme.colors.colorLevel5;
+    const ArticleStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
+
     return (
         <CoursesStack.Navigator
             screenOptions={{

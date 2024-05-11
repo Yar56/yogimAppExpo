@@ -5,6 +5,7 @@ import { Avatar, Button, Card, Text } from 'react-native-paper';
 
 import styles from './HomePageStylesheet';
 import MeditationList from './components/meditationList/MeditationList';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { courseModel } from '../../../entities/course';
 import { meditationModel } from '../../../entities/meditation';
@@ -21,6 +22,8 @@ import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 export const HomePage: FunctionComponent = () => {
     const session = useAppSelector((state) => state.userState.session);
     const dispatch = useAppDispatch();
+
+    const theme = useAppTheme();
 
     const profile = useAppSelector((state) => state.userState.profile);
     const meditations = useAppSelector((state) => state.meditationState.meditations);
@@ -65,25 +68,31 @@ export const HomePage: FunctionComponent = () => {
                 </View>
                 <View style={styles.greetingWrapper}>
                     <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>
-                        {getGreeting(currentHours)} {profile?.username ? `, ${profile.username}!` : '!'}
+                        {getGreeting(currentHours)}
+                        {profile?.username ? `, ${profile.username}` : ''}
                     </Text>
-                    <Text variant="titleMedium">У тебя все получится</Text>
+                    <Text variant="titleMedium">У тебя все получится!</Text>
                 </View>
                 <View style={styles.settings}>
                     <TouchableOpacity activeOpacity={0.5} onPress={handleMoveSettings}>
-                        <AntDesign name="setting" size={23} color="#F1F5F9" />
+                        <AntDesign name="setting" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
                     </TouchableOpacity>
                 </View>
             </View>
             <Spacer size={20} />
 
-            <Card style={styles.card}>
+            <Card style={[styles.card, { backgroundColor: theme.colors.colorLevel3 }]}>
                 <Image source={WELCOME_CARD_WOMEN} style={styles.cardImage} />
 
                 <View style={styles.controls}>
                     <Text variant="titleLarge">Готовы начать свой первый урок?</Text>
                     <Text variant="titleMedium">Мини курс для начинающих</Text>
-                    <Button mode="contained" buttonColor="#6383cb" textColor="#fff" onPress={handleMoveToSuggestCourse}>
+                    <Button
+                        mode="contained"
+                        buttonColor={theme.colors.colorLevel4}
+                        dark={theme.dark}
+                        onPress={handleMoveToSuggestCourse}
+                    >
                         Начать
                     </Button>
                 </View>
@@ -95,7 +104,7 @@ export const HomePage: FunctionComponent = () => {
                 </View>
             </View>
             <Spacer size={10} />
-            <View>
+            <View style={{ height: 225 }}>
                 <MeditationList list={meditations} />
             </View>
         </CommonLayout>

@@ -421,7 +421,7 @@ PODS:
   - React-jsinspector (0.72.10)
   - React-logger (0.72.10):
     - glog
-  - react-native-document-picker (9.1.0):
+  - react-native-document-picker (9.1.2):
     - React-Core
   - react-native-pager-view (6.2.3):
     - RCT-Folly (= 2021.07.22.00)
@@ -875,7 +875,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 45ef2ec6dcde31b90469175ec76ddac77b91dfc3
   React-jsinspector: de0198127395fec3058140a20c045167f761bb16
   React-logger: dc3a2b174d79c2da635059212747d8d929b54e06
-  react-native-document-picker: b4f4a23b73f864ce17965b284c0757648993805b
+  react-native-document-picker: 86bcfb8e2c94cd587ca9feb0049831b806df590d
   react-native-pager-view: e26d35e382d86950c936f8917e3beb9188115ccc
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   react-native-track-player: 82ef1756ffeea61140fea17519ecd6d64ec3cf3e
