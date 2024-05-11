@@ -31,8 +31,8 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
     const theme = useAppTheme();
 
     const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
-    const iconColorActive = theme.dark ? '#CB7E84' : '#8F4E73';
-    const iconColorInActive = theme.dark ? 'rgba(4,115,171,0.8)' : 'rgb(4,95,141)';
+    const iconColorActive = theme.dark ? '#84a4c2' : '#9AC0E3';
+    const iconColorInActive = theme.dark ? 'rgba(4,115,171,0.8)' : '#848484';
 
     const isIos = Platform.OS === 'ios';
 
@@ -57,7 +57,7 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                             },
                             tabBarBackground: () => (
                                 <BlurView
-                                    intensity={80}
+                                    intensity={95}
                                     tint={theme.dark ? 'dark' : 'light'}
                                     style={{
                                         ...StyleSheet.absoluteFillObject,
