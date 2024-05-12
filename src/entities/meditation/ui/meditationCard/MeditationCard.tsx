@@ -21,7 +21,7 @@ export const MeditationCard: FunctionComponent<MeditationCardProps> = ({ meditat
         <Card style={styles.card} onPress={handleClick}>
             <ImageBackground
                 source={{ uri: meditation.photoUrl ?? '' }}
-                style={[styles.imageBackground, { backgroundColor: theme.dark ? '#605f5f' : '#bbbbbb' }]}
+                style={[styles.imageBackground, { backgroundColor: theme.dark ? '#605f5f' : theme.colors.colorLevel2 }]}
                 imageStyle={[styles.imageBackgroundImage, { opacity: theme.dark ? 0.3 : 0.4 }]}
             />
 

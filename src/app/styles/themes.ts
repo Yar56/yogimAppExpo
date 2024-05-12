@@ -9,6 +9,7 @@ export const customDarkColors: Partial<CustomColors> = {
 };
 
 export const customLightColors: Partial<CustomColors> = {
+    colorLevel0: '#fff',
     colorLevel1: '#f0f3fa',
     colorLevel2: '#E8F4FF',
     colorLevel3: '#D0E9FF',

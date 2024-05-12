@@ -2,7 +2,8 @@ import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { Image, ImageBackground, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Card, Text } from 'react-native-paper';
+import { Button, Card, Text } from 'react-native-paper';
+import { MD3Colors } from 'react-native-paper/src/styles/themes/v3/tokens';
 import Tooltip from 'react-native-walkthrough-tooltip';
 
 import styles from './RoutinePageStylesheet';
@@ -31,33 +32,43 @@ export const RoutinePage = () => {
 
     const handleNavigate = () => navigation.navigate(RoutineScreen.POPULAR_COURSES);
 
+    const colorText = theme.dark ? MD3Colors.neutral90 : theme.colors.colorLevel0;
+
     return (
         <CommonLayout externalStyles={styles.container}>
             <View>
                 <Card style={styles.card}>
                     <ImageBackground
                         resizeMode="cover"
-                        blurRadius={theme.dark ? 7 : 5}
+                        blurRadius={theme.dark ? 1 : 1}
                         style={styles.imageContainer}
-                        imageStyle={[styles.image, { opacity: theme.dark ? 0.5 : 0.8 }]}
+                        imageStyle={[styles.image, { opacity: theme.dark ? 1 : 0.6 }]}
                         source={theme.dark ? ROUTINE_CARD : ROUTINE_CARD_LIGHT}
                     >
                         <View style={styles.controls}>
-                            <Text variant="headlineSmall">Популярные курсы</Text>
-
-                            <TouchableOpacity
-                                activeOpacity={0.5}
-                                onPress={handleNavigate}
+                            <Text
                                 style={{
-                                    backgroundColor: theme.dark ? '#052B42' : theme.colors.colorLevel4,
-                                    ...styles.popularButton,
+                                    color: colorText,
+                                    fontWeight: 'bold',
                                 }}
+                                variant="headlineSmall"
                             >
-                                <AntDesign
-                                    name="right"
-                                    size={23}
-                                    color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
-                                />
+                                Найдите свой баланс
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colorText,
+                                    fontWeight: '600',
+                                }}
+                                variant="labelLarge"
+                            >
+                                Откройте для себя занятия йогой для любого уровня.
+                            </Text>
+                            <TouchableOpacity style={styles.popularButton} activeOpacity={0.5} onPress={handleNavigate}>
+                                <Button textColor={colorText} mode="text">
+                                    Популярные курсы
+                                </Button>
+                                <AntDesign name="right" size={20} color={colorText} />
                             </TouchableOpacity>
                         </View>
                     </ImageBackground>

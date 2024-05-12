@@ -5,10 +5,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
 
-    card: { backgroundColor: '#022b42', height: 200, borderRadius: 20 },
+    card: { backgroundColor: '#022b42', height: 250, borderRadius: 20 },
     imageContainer: {
-        borderRadius: 24,
-        backgroundColor: 'rgba(0,0,0,0.56)',
+        borderRadius: 20,
         height: '100%',
     },
     image: {
@@ -16,12 +15,11 @@ const styles = StyleSheet.create({
     },
     controls: {
         marginTop: 'auto',
-        margin: 20,
+        margin: 15,
         display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        gap: 20,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        gap: 8,
     },
     emptyCourseImage: {
         width: 200,
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
         opacity: 0.9,
     },
 
-    popularButton: { borderRadius: 50, padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    popularButton: { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
     infoCoursesWrapper: {
         display: 'flex',
         flexDirection: 'row',
