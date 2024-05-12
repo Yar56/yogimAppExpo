@@ -45,7 +45,7 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
                         <MaterialCommunityIcons
                             name="text"
                             size={30}
-                            color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel5}
+                            color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel4}
                         />
                         <Text variant="bodyMedium">{course.lessonNumber}</Text>
                     </View>
@@ -54,7 +54,7 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
                         <MaterialCommunityIcons
                             name="clock"
                             size={30}
-                            color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel5}
+                            color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel4}
                         />
                         <Text variant="bodyMedium">{course.time}</Text>
                     </View>
