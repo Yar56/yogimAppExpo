@@ -29,7 +29,7 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
                         headerProps.navigation.goBack();
                     }}
                 >
-                    <AntDesign name="left" size={25} color={theme.colors.colorLevel4} style={styles.buttonIcon} />
+                    <AntDesign name="left" size={25} color="#628ecb" style={styles.buttonIcon} />
                 </TouchableOpacity>
             )}
             {!isTransparentPage && (
