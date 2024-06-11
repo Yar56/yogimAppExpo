@@ -7,6 +7,7 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignUpStylesheet';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
@@ -29,8 +30,7 @@ const schema = yup.object().shape({
 interface SignUpProps extends SignInProps {}
 const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBack }) => {
     const dispatch = useAppDispatch();
-
-    // const { theme, toggleTheme } = usePreferencesContext();
+    const theme = useAppTheme();
 
     const [secureTextEntryPass, setSecureTextEntryPass] = useState(true);
     const [secureTextEntryConfirm, setSecureTextEntryConfirm] = useState(true);
@@ -94,8 +94,8 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     const handleNavigateToStart = () => onNavigateBack();
     return (
         <LoadingWrapper isLoading={isLoading}>
-            <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart}>
-                <AntDesign name="arrowleft" size={23} color="#F1F5F9" />
+            <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart} style={styles.backButton}>
+                <AntDesign name="arrowleft" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
             </TouchableOpacity>
             <Spacer size={13} />
             <Formik {...formik}>
@@ -175,14 +175,15 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                         <Button
                             contentStyle={styles.button}
                             style={styles.buttonRegistration}
-                            buttonColor="#f3f2f2"
+                            buttonColor={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel4}
                             mode="contained"
                             disabled={isSubmitting}
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
                             onPress={handleSubmit}
+                            dark={theme.dark}
                         >
-                            <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#111C1E' }}>
+                            <Text variant="bodyLarge" style={{ fontWeight: 'bold' }}>
                                 Присоединиться
                             </Text>
                         </Button>
@@ -193,7 +194,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
 
             <View style={styles.bottomCardContent}>
                 <Text style={styles.bottomCardText}>Вы уже с нами?</Text>
-                <View style={styles.underlineWrapper}>
+                <View style={[styles.underlineWrapper, { borderColor: theme.dark ? '#E1E0E4' : undefined }]}>
                     <Text style={styles.underlineText} onPress={handleNavigateToSignIn}>
                         Войти
                     </Text>

@@ -5,16 +5,18 @@ const styles = StyleSheet.create({
         paddingVertical: 3,
     },
 
+    backButton: {
+        maxWidth: 30,
+    },
     formContainer: {
         display: 'flex',
         gap: 20,
         marginBottom: 20,
     },
 
-    underlineWrapper: { borderBottomWidth: 1.3, borderColor: '#ece3fa' },
+    underlineWrapper: { borderBottomWidth: 1.3 },
     underlineText: {
         fontWeight: 'bold',
-        color: '#ece3fa',
     },
 
     bottomCardContent: { display: 'flex', alignItems: 'center' },

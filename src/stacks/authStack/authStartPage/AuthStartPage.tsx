@@ -4,8 +4,9 @@ import { Image, LayoutAnimation, Platform, TouchableOpacity, UIManager, View } f
 import { Button, Divider, Text } from 'react-native-paper';
 
 import styles from './AuthStartPageStylesheet';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { AuthContent } from '../../../shared/constants/AuthContent';
-import { PROFILE_BACKGROUND_DARK } from '../../../shared/constants/resourses';
+import { AUTH_BACKGROUND_DARK, AUTH_BACKGROUND_LIGHT } from '../../../shared/constants/resourses';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 import SignIn, { SignInProps } from '../components/signIn/SignIn';
@@ -26,6 +27,7 @@ const layoutAnimation = () => {
 };
 
 const AuthStartPage = () => {
+    const theme = useAppTheme();
     const isIos = Platform.OS === 'ios';
     const [activeContent, setActiveContent] = useState<AuthContent | null>(null);
 
@@ -51,7 +53,11 @@ const AuthStartPage = () => {
 
     return (
         <View style={[styles.container]}>
-            <Image source={PROFILE_BACKGROUND_DARK} style={[styles.image]} resizeMode="cover" />
+            <Image
+                source={theme.dark ? AUTH_BACKGROUND_DARK : AUTH_BACKGROUND_LIGHT}
+                style={[styles.image, { opacity: theme.dark ? 0.45 : 0.9 }]}
+                resizeMode="cover"
+            />
 
             <CommonLayout externalStyles={styles.authContainer}>
                 <View style={styles.titleWrapper}>
@@ -59,7 +65,9 @@ const AuthStartPage = () => {
                         Изучайте йогу вместе с Йожим
                     </Text>
                     <Spacer size={7} />
-                    <Text variant="bodyLarge">Лучшие практики на вашем коврике</Text>
+                    <Text variant="bodyLarge" style={styles.title}>
+                        Лучшие практики на вашем коврике
+                    </Text>
                 </View>
                 <View style={{ position: 'relative' }}>
                     {activeContent && AuthComponent ? (

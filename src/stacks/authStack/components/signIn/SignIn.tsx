@@ -7,6 +7,7 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignInStylesheet';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { userModel } from '../../../../entities/user';
 import { AuthContent } from '../../../../shared/constants/AuthContent';
@@ -26,8 +27,7 @@ export interface SignInProps {
 }
 const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarget }) => {
     const dispatch = useAppDispatch();
-
-    // const { theme, toggleTheme } = usePreferencesContext();
+    const theme = useAppTheme();
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const navigation = useAppNavigation();
 
@@ -37,10 +37,10 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     const handleNavigateToSignUp = () => {
         onNavigateTarget(AuthContent.SIGN_UP);
     };
-    const handleRecoveryPage = () => {
-        // todo
-        // navigation.navigate('Profile');
-    };
+    // const handleRecoveryPage = () => {
+    //     // todo
+    //     // navigation.navigate('Profile');
+    // };
 
     const formik: FormikConfig<{ email: string; password: string }> = {
         initialValues: {
@@ -88,8 +88,8 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     const handleNavigateToStart = () => onNavigateBack();
     return (
         <LoadingWrapper isLoading={isLoading}>
-            <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart}>
-                <AntDesign name="arrowleft" size={23} color="#F1F5F9" />
+            <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart} style={styles.backButton}>
+                <AntDesign name="arrowleft" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
             </TouchableOpacity>
             <Spacer size={13} />
             <Formik {...formik}>
@@ -161,7 +161,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
             <View>
                 <View style={styles.bottomCardContent}>
                     <Text style={styles.bottomCardText}>Еще не с нами?</Text>
-                    <View style={styles.underlineWrapper}>
+                    <View style={[styles.underlineWrapper, { borderColor: theme.dark ? '#fff' : undefined }]}>
                         <Text style={styles.underlineText} onPress={handleNavigateToSignUp}>
                             Присоединиться
                         </Text>

@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         width: screenWidth,
-        opacity: 0.8,
     },
     authContainer: {
         flex: 0,
@@ -21,12 +20,10 @@ const styles = StyleSheet.create({
     titleWrapper: {
         position: 'absolute',
         top: -150,
-        // top: screenHeight / 3.3,
         width: 300,
         paddingLeft: 20,
     },
     title: { fontWeight: 'bold' },
-
     buttonsSocialAuth: {
         display: 'flex',
         gap: 10,
