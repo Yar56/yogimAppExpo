@@ -1,15 +1,14 @@
 {
     "expo": {
-        "name": "yogimAppExpo",
+        "name": "yogim-app",
         "slug": "yogimapp",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "./assets/images/icon.png",
         "userInterfaceStyle": "automatic",
         "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#2D2D5B"
+            "image": "./assets/images/splash.png",
+            "resizeMode": "contain"
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
@@ -22,13 +21,12 @@
         "android": {
             "userInterfaceStyle": "automatic",
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
+                "foregroundImage": "./assets/images/adaptive-icon.png"
             },
             "package": "com.yarvav.yogimapp"
         },
         "web": {
-            "favicon": "./assets/favicon.png"
+            "favicon": "./assets/images/favicon.png"
         },
         "extra": {
             "eas": {

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 15,
         paddingLeft: 15,
+        gap: 10,
     },
 });
 export default styles;

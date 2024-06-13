@@ -1,7 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Slider } from 'react-native-awesome-slider';
 import { HapticModeEnum } from 'react-native-awesome-slider/src/slide';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -151,84 +151,85 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
 
     return (
         <CommonLayout externalStyles={styles.container} edges={['top', 'bottom']}>
-            <View style={styles.audioStateWrapper}>
-                <AnimatedCircularProgress
-                    ref={(ref) => (animateSyntheticRef.circularProgress = ref)}
-                    rotation={0}
-                    size={350}
-                    width={9}
-                    easing={Easing.inOut(Easing.ease)}
-                    fill={progressFillPercent}
-                    tintColor={meditation.color}
-                    lineCap="round"
-                    backgroundColor={maximumColor}
-                    children={() => {
-                        return (
-                            <AnimatedFastImage
-                                source={{ uri: meditation.photoUrl as string, priority: FastImage.priority.normal }}
-                                style={[styles.image, imageAnimatedStyle]}
-                            />
-                        );
-                    }}
-                />
-            </View>
-            <Spacer size={50} />
-            <Text variant="headlineMedium" style={{ ...styles.title, color: meditation.color }}>
-                {meditation.title}
-            </Text>
-            <Spacer size={50} />
-
-            <View style={styles.playerWrapper}>
-                <View style={styles.controlsWrapper}>
-                    <IconButton
-                        disabled
-                        icon={() => <FontAwesome name="step-backward" size={30} color={cacheColor} disabled />}
-                    />
-                    <IconButton
-                        icon={() => (
-                            <FontAwesome
-                                name={playerState.state === State.Playing ? 'pause' : 'play'}
-                                size={30}
-                                color={meditation.color}
-                            />
-                        )}
-                        onPress={handlePlayPress}
-                        size={30}
-                        style={{ alignSelf: 'center' }}
-                    />
-                    <IconButton
-                        disabled
-                        icon={() => <FontAwesome name="step-forward" size={30} color={cacheColor} disabled />}
-                    />
-                </View>
-
-                <View style={styles.sliderWrapper}>
-                    <Slider
-                        style={styles.slider}
-                        cache={cached}
-                        progress={progress}
-                        minimumValue={min}
-                        maximumValue={max}
-                        disable={!isPlayerReady || !meditation}
-                        hapticMode={HapticModeEnum.BOTH}
-                        onValueChange={(value) => {
-                            TrackPlayer.seekTo(value);
-                        }}
-                        theme={{
-                            // disableMinTrackTintColor: '#fff',
-                            maximumTrackTintColor: maximumColor,
-                            minimumTrackTintColor: meditation.color,
-                            cacheTrackTintColor: cacheColor,
-                            bubbleBackgroundColor: cacheColor,
-                            // heartbeatColor: '#999',
-                        }}
-                        onHapticFeedback={() => {
-                            ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+            <ScrollView contentContainerStyle={{ paddingBottom: 30 }} showsVerticalScrollIndicator={false}>
+                <View style={styles.audioStateWrapper}>
+                    <AnimatedCircularProgress
+                        ref={(ref) => (animateSyntheticRef.circularProgress = ref)}
+                        rotation={0}
+                        size={330}
+                        width={9}
+                        easing={Easing.inOut(Easing.ease)}
+                        fill={progressFillPercent}
+                        tintColor={meditation.color}
+                        lineCap="round"
+                        backgroundColor={maximumColor}
+                        children={() => {
+                            return (
+                                <AnimatedFastImage
+                                    source={{ uri: meditation.photoUrl as string, priority: FastImage.priority.normal }}
+                                    style={[styles.image, imageAnimatedStyle]}
+                                />
+                            );
                         }}
                     />
                 </View>
-            </View>
+                <Spacer size={50} />
+                <Text variant="headlineMedium" style={{ ...styles.title, color: meditation.color }}>
+                    {meditation.title}
+                </Text>
+                <Spacer size={50} />
 
+                <View style={styles.playerWrapper}>
+                    <View style={styles.controlsWrapper}>
+                        <IconButton
+                            disabled
+                            icon={() => <FontAwesome name="step-backward" size={30} color={cacheColor} disabled />}
+                        />
+                        <IconButton
+                            icon={() => (
+                                <FontAwesome
+                                    name={playerState.state === State.Playing ? 'pause' : 'play'}
+                                    size={30}
+                                    color={meditation.color}
+                                />
+                            )}
+                            onPress={handlePlayPress}
+                            size={30}
+                            style={{ alignSelf: 'center' }}
+                        />
+                        <IconButton
+                            disabled
+                            icon={() => <FontAwesome name="step-forward" size={30} color={cacheColor} disabled />}
+                        />
+                    </View>
+
+                    <View style={styles.sliderWrapper}>
+                        <Slider
+                            style={styles.slider}
+                            cache={cached}
+                            progress={progress}
+                            minimumValue={min}
+                            maximumValue={max}
+                            disable={!isPlayerReady || !meditation}
+                            hapticMode={HapticModeEnum.BOTH}
+                            onValueChange={(value) => {
+                                TrackPlayer.seekTo(value);
+                            }}
+                            theme={{
+                                // disableMinTrackTintColor: '#fff',
+                                maximumTrackTintColor: maximumColor,
+                                minimumTrackTintColor: meditation.color,
+                                cacheTrackTintColor: cacheColor,
+                                bubbleBackgroundColor: cacheColor,
+                                // heartbeatColor: '#999',
+                            }}
+                            onHapticFeedback={() => {
+                                ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+                            }}
+                        />
+                    </View>
+                </View>
+            </ScrollView>
             <Text
                 variant="titleMedium"
                 style={{ ...styles.description, color: theme.dark ? cacheColor : meditation.color }}

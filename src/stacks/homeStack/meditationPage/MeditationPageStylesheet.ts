@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
     sliderWrapper: { display: 'flex', alignItems: 'center' },
     description: {
         textAlign: 'center',
-        marginTop: 'auto',
-        marginBottom: 20,
     },
     slider: {
         width: screenWidth - 60,

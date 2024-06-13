@@ -129,6 +129,7 @@ const AuthStartPage = () => {
                                         Войти с Google
                                     </Button>
                                 )}
+                                <Spacer size={5} />
                             </View>
                         </View>
                     )}

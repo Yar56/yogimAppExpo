@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5,
     },
-    title: { maxWidth: 170, lineHeight: 20 },
+    title: { maxWidth: 160, lineHeight: 20 },
     icon: {
         position: 'absolute',
         bottom: 0,

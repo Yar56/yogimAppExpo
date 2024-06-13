@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
-    listItemWrapper: { marginTop: 20, display: 'flex', gap: 10 },
+    listItemWrapper: { marginTop: 20, display: 'flex', flexDirection: 'column', gap: 10 },
     listItem: {
         // backgroundColor: 'rgba(31,43,83,0.8)',
         borderRadius: 20,

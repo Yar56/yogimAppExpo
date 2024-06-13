@@ -1,8 +1,10 @@
 import { Session } from '@supabase/supabase-js';
+import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 
 import { userModel } from '../../entities/user';
+import { fetchProfileDB } from '../../entities/user/model';
 import { supabase } from '../../shared/lib/baas/supabase';
 import { useAppDispatch } from '../store/hooks';
 
@@ -17,6 +19,7 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
     // const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
 
     useEffect(() => {
+        NavigationBar.setBackgroundColorAsync('rgba(0, 0, 0, 0)');
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
         });
@@ -45,9 +48,9 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
     }, []);
 
     useEffect(() => {
-        // syntetic waiting
-        if (initializing) {
-            new Promise((resolve) => setTimeout(resolve, 2000)).then(async () => {
+        if (initializing && session) {
+            dispatch(fetchProfileDB(session)).then(async () => {
+                await NavigationBar.setBackgroundColorAsync('rgba(0, 0, 0, 0)');
                 await SplashScreen.hideAsync();
             });
         }

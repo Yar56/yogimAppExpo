@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
 import styles from './HomePageStylesheet';
@@ -9,7 +9,6 @@ import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { courseModel } from '../../../entities/course';
 import { meditationModel } from '../../../entities/meditation';
-import { fetchProfileDB } from '../../../entities/user/model';
 import { PROFILE_DEFAULT_AVATAR, WELCOME_CARD_WOMEN } from '../../../shared/constants/resourses';
 import getCurrentHours from '../../../shared/lib/date/getCurrentHours';
 import getGreeting from '../../../shared/lib/message/getGreeting';
@@ -35,7 +34,6 @@ export const HomePage: FunctionComponent = () => {
             // log sentry error
             throw new Error('Сессия не активна');
         }
-        dispatch(fetchProfileDB(session));
         dispatch(courseModel.fetchAllCourses());
         dispatch(meditationModel.fetchAllMeditations());
     }, [dispatch, session]);
@@ -53,60 +51,62 @@ export const HomePage: FunctionComponent = () => {
 
     return (
         <CommonLayout edges={['top', 'bottom']}>
-            <View style={styles.head}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 90 }} showsVerticalScrollIndicator={false}>
+                <View style={styles.head}>
+                    <View>
+                        {profile?.avatar_url ? (
+                            <Avatar.Image
+                                size={avatarSize.width}
+                                source={{ uri: profile?.avatar_url }}
+                                accessibilityLabel="Avatar"
+                                style={[avatarSize]}
+                            />
+                        ) : (
+                            <Avatar.Image source={PROFILE_DEFAULT_AVATAR} />
+                        )}
+                    </View>
+                    <View style={styles.greetingWrapper}>
+                        <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>
+                            {getGreeting(currentHours)}
+                            {profile?.username ? `, ${profile.username}` : ''}
+                        </Text>
+                        <Text variant="titleMedium">У тебя все получится!</Text>
+                    </View>
+                    <View style={styles.settings}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={handleMoveSettings}>
+                            <AntDesign name="setting" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <Spacer size={20} />
+
+                <Card style={[styles.card, { backgroundColor: theme.dark ? '#042B42' : '#D0E9FF' }]}>
+                    <Image source={WELCOME_CARD_WOMEN} style={styles.cardImage} />
+
+                    <View style={styles.controls}>
+                        <Text variant="titleLarge">Готовы начать свой первый урок?</Text>
+                        <Text variant="titleMedium">Мини курс для начинающих</Text>
+                        <Button
+                            mode="contained"
+                            buttonColor={theme.dark ? theme.colors.colorLevel3 : theme.colors.colorLevel4}
+                            dark={theme.dark}
+                            onPress={handleMoveToSuggestCourse}
+                        >
+                            Начать
+                        </Button>
+                    </View>
+                </Card>
+                <Spacer size={20} />
                 <View>
-                    {profile?.avatar_url ? (
-                        <Avatar.Image
-                            size={avatarSize.width}
-                            source={{ uri: profile?.avatar_url }}
-                            accessibilityLabel="Avatar"
-                            style={[avatarSize]}
-                        />
-                    ) : (
-                        <Avatar.Image source={PROFILE_DEFAULT_AVATAR} />
-                    )}
+                    <View style={styles.recommendWrapper}>
+                        <Text variant="titleLarge">Рекомендуем вам</Text>
+                    </View>
                 </View>
-                <View style={styles.greetingWrapper}>
-                    <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>
-                        {getGreeting(currentHours)}
-                        {profile?.username ? `, ${profile.username}` : ''}
-                    </Text>
-                    <Text variant="titleMedium">У тебя все получится!</Text>
+                <Spacer size={10} />
+                <View style={{ height: 225 }}>
+                    <MeditationList list={meditations} />
                 </View>
-                <View style={styles.settings}>
-                    <TouchableOpacity activeOpacity={0.5} onPress={handleMoveSettings}>
-                        <AntDesign name="setting" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <Spacer size={20} />
-
-            <Card style={[styles.card, { backgroundColor: theme.colors.colorLevel3 }]}>
-                <Image source={WELCOME_CARD_WOMEN} style={styles.cardImage} />
-
-                <View style={styles.controls}>
-                    <Text variant="titleLarge">Готовы начать свой первый урок?</Text>
-                    <Text variant="titleMedium">Мини курс для начинающих</Text>
-                    <Button
-                        mode="contained"
-                        buttonColor={theme.colors.colorLevel4}
-                        dark={theme.dark}
-                        onPress={handleMoveToSuggestCourse}
-                    >
-                        Начать
-                    </Button>
-                </View>
-            </Card>
-            <Spacer size={20} />
-            <View>
-                <View style={styles.recommendWrapper}>
-                    <Text variant="titleLarge">Рекомендуем вам</Text>
-                </View>
-            </View>
-            <Spacer size={10} />
-            <View style={{ height: 225 }}>
-                <MeditationList list={meditations} />
-            </View>
+            </ScrollView>
         </CommonLayout>
     );
 };

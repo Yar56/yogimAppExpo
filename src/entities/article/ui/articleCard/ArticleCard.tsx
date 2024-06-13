@@ -34,14 +34,13 @@ export const ArticleCard: FunctionComponent<CourseCardProps> = ({ article }) => 
                 <Text variant="bodyLarge" style={{ maxWidth: 170 }}>
                     {article.title}
                 </Text>
-                <TouchableOpacity activeOpacity={0.5} onPress={handleMoveToArticle}>
+                <TouchableOpacity activeOpacity={0.5} onPress={handleMoveToArticle} style={{ maxWidth: 130 }}>
                     <Button
                         icon={() => (
                             <AntDesign
                                 name="right"
                                 size={23}
                                 color={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel6}
-                                style={{ paddingLeft: 10 }}
                             />
                         )}
                         mode="contained-tonal"

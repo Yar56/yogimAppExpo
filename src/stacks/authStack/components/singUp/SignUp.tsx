@@ -200,6 +200,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                     </Text>
                 </View>
             </View>
+            <Spacer size={10} />
         </LoadingWrapper>
     );
 };

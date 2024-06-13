@@ -67,7 +67,7 @@ export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
                             dark={theme.dark}
                             buttonColor={theme.dark ? theme.colors.colorLevel0 : theme.colors.colorLevel4}
                         >
-                            {course.disabled ? 'Скоро' : 'Подробнее'}
+                            {course.disabled ? 'Скоро' : 'Начать'}
                         </Button>
                     </TouchableOpacity>
                 </View>

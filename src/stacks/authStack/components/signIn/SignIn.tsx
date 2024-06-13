@@ -168,6 +168,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                     </View>
                 </View>
             </View>
+            <Spacer size={10} />
         </LoadingWrapper>
     );
 };

@@ -22,11 +22,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingTop: 10,
         paddingBottom: 15,
+        gap: 10,
     },
     icons: {
         display: 'flex',
         flexDirection: 'row',
-        gap: 20,
+        gap: 5,
     },
     iconItem: {
         display: 'flex',
