@@ -3,9 +3,10 @@ import React, { FunctionComponent } from 'react';
 import { ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 
+import { RoutineScreen } from '../../shared/routing/NavigationEntities';
 import CommonLayout from '../../shared/ui/layouts/CommonLayout';
 
-type CourseDetailsPageProps = NativeStackScreenProps<RootStackParamList, 'CourseDetailsPage'>;
+type CourseDetailsPageProps = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE_DETAILS_PAGE>;
 const CourseDetailsPage: FunctionComponent<CourseDetailsPageProps> = ({ route }) => {
     const details = route.params.details;
 
