@@ -17,7 +17,6 @@ export const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) =>
                           ? options.title
                           : route.name;
 
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const icon = options.tabBarIcon();
 
