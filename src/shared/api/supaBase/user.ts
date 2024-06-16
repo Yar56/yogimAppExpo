@@ -29,11 +29,7 @@ export const updateUser = (data: UserAttributes): Promise<UserResponse> => {
 };
 
 export const getProfileDB = (session: supaBaseApi.models.ISession) => {
-    return supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', session?.user.id)
-        .single();
+    return supabase.from('profiles').select(`*`).eq('id', session?.user.id).single();
 };
 export const updateProfileDB = async (session: Session, updates: supaBaseApi.models.UpdateProfileDBParams) => {
     if (!session?.user) {

@@ -1,13 +1,6 @@
 module.exports = {
     root: true,
-    extends: [
-        'universe/native',
-        // 'universe/shared/typescript-analysis'
-        // '@react-native',
-        // 'eslint:recommended',
-        // 'plugin:react/recommended',
-        // 'plugin:@typescript-eslint/recommended',
-    ],
+    extends: ['expo', 'eslint:recommended'],
     // plugins: ['react', '@typescript-eslint'],
     rules: {
         'no-console': 'off',
@@ -27,12 +20,4 @@ module.exports = {
             },
         ],
     },
-    // overrides: [
-    //     {
-    //         files: ['*.ts', '*.tsx', '*.d.ts'],
-    //         parserOptions: {
-    //             project: './tsconfig.json',
-    //         },
-    //     },
-    // ],
 };

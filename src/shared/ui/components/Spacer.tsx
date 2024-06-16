@@ -1,5 +1,5 @@
-import { View } from 'react-native';
 import { FunctionComponent } from 'react';
+import { View } from 'react-native';
 
 interface SpacerProps {
     horizontal?: boolean;

@@ -15,8 +15,11 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
 
     const dispatch = useAppDispatch();
     const [initializing, setInitializing] = useState(false);
-    // const userDisplayName = useAppSelector((state) => state.userState.user?.displayName);
-    // const cachedDisplayName = useAppSelector((state) => state.userState.cachedDisplayName);
+
+    const resolveScreens = async () => {
+        await NavigationBar.setBackgroundColorAsync('rgba(0, 0, 0, 0)');
+        await SplashScreen.hideAsync();
+    };
 
     useEffect(() => {
         NavigationBar.setBackgroundColorAsync('rgba(0, 0, 0, 0)');
@@ -43,18 +46,21 @@ export const AuthProvider: FunctionComponent<PropsWithChildren> = ({ children })
         });
 
         return () => {
+            // eslint-disable-next-line no-unused-expressions
             authListener.subscription;
         };
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (initializing && session) {
             dispatch(fetchProfileDB(session)).then(async () => {
-                await NavigationBar.setBackgroundColorAsync('rgba(0, 0, 0, 0)');
-                await SplashScreen.hideAsync();
+                await resolveScreens();
             });
         }
-    }, [initializing]);
+        if (initializing && !session) {
+            resolveScreens();
+        }
+    }, [dispatch, initializing, session]);
 
     return <>{children}</>;
 };

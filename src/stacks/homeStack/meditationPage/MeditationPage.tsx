@@ -42,8 +42,8 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
     const theme = useAppTheme();
     const meditationId = route.params.meditationId;
 
-    const meditation = useAppSelector(
-        (state) => state.meditationState.meditations?.find((meditation) => meditation.id === meditationId)
+    const meditation = useAppSelector((state) =>
+        state.meditationState.meditations?.find((meditation) => meditation.id === meditationId)
     );
 
     const scaleDownAnimation = useSharedValue(1);
