@@ -12,6 +12,19 @@ export const fetchAllArticles = createAsyncThunk('article/fetchAllArticles', asy
         console.error(e);
     }
 });
+
+export const fetchAllArticlesByIds = createAsyncThunk(
+    'article/fetchAllArticlesByIds',
+    async (ids: string[], { dispatch, getState }) => {
+        try {
+            const { data } = await supaBaseApi.articles.getAllArticlesByIds(ids);
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+);
+
 export const fetchAllLikedArticles = createAppAsyncThunk(
     'article/fetchAllLikedArticles',
     async (arg, { dispatch, getState }) => {
@@ -52,13 +65,14 @@ export const setLikedArticleThunk = createAppAsyncThunk(
 export const deleteLikedArticleThunk = createAppAsyncThunk(
     'article/deleteLikedArticleThunk',
     async ({ articleId }: { articleId?: string }, { dispatch, getState }) => {
-        if (!articleId) {
+        const profileId = getState().userState?.user?.id;
+
+        if (!profileId || !articleId) {
             throw new Error('articleId is undefined');
         }
 
         try {
-            await supaBaseApi.articles.deleteLikedArticle({ articleId });
-            // console.log(data, 'data deleteLikedArticleThunk');
+            await supaBaseApi.articles.deleteLikedArticle({ articleId, profileId });
             return articleId;
         } catch (e) {
             console.error(e);
@@ -68,6 +82,7 @@ export const deleteLikedArticleThunk = createAppAsyncThunk(
 
 interface ArticleModelState {
     articles?: supaBaseApi.models.ArticleList | null;
+    likedArticles?: supaBaseApi.models.ArticleList | null;
     likedArticleIds?: string[];
     articleByType?: Record<ArticleType, ArticleList>;
     articlesLoadingStatus: supaBaseApi.models.LoadingStatus;
@@ -104,6 +119,19 @@ export const articleModel = createSlice({
             state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
         });
 
+        // region fetch all liked articles
+        builder.addCase(fetchAllArticlesByIds.fulfilled, (state, action) => {
+            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.likedArticles = action.payload;
+        });
+        builder.addCase(fetchAllArticlesByIds.pending, (state) => {
+            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+        });
+        builder.addCase(fetchAllArticlesByIds.rejected, (state) => {
+            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+        });
+        // endregion
+
         // region fetch all ids
         builder.addCase(fetchAllLikedArticles.fulfilled, (state, { payload }) => {
             state.likedArticleIds = payload?.map((liked) => liked.articleId);
@@ -114,7 +142,7 @@ export const articleModel = createSlice({
         builder.addCase(fetchAllLikedArticles.rejected, (state) => {
             state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
         });
-        // endregion fetch all ids
+        // endregion
 
         // region set,remove liked article
         builder.addCase(setLikedArticleThunk.fulfilled, (state, { payload }) => {
@@ -126,7 +154,7 @@ export const articleModel = createSlice({
         builder.addCase(deleteLikedArticleThunk.fulfilled, (state, { payload }) => {
             state.likedArticleIds = state.likedArticleIds?.filter((likedId) => likedId !== payload);
         });
-        // endregion set liked article
+        // endregion
     },
 });
 

@@ -14,6 +14,7 @@ import { ProfileScreen } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { articleModel } from '../../../entities/article';
 
 export const ProfilePage = () => {
     const theme = useAppTheme();
@@ -29,6 +30,7 @@ export const ProfilePage = () => {
             throw new Error('Сессия не активна');
         }
         dispatch(fetchProfileDB(session));
+        dispatch(articleModel.fetchAllLikedArticles());
     }, [dispatch, session]);
 
     const handleLogout = () => supaBaseApi.user.signOutUser();
@@ -84,10 +86,10 @@ export const ProfilePage = () => {
                     <View style={styles.listItemWrapper}>
                         <TouchableOpacity
                             activeOpacity={0.5}
-                            onPress={() => navigation.navigate(ProfileScreen.INTENTIONS)}
+                            onPress={() => navigation.navigate(ProfileScreen.PROFILE_ARTICLES)}
                         >
                             <List.Item
-                                title="Мои статьи"
+                                title="Избранные статьи"
                                 style={[styles.listItem, { backgroundColor: theme.colors.colorLevel4 }]}
                                 right={() => (
                                     <MaterialCommunityIcons

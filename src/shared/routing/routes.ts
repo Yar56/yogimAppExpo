@@ -7,20 +7,15 @@ import AuthStartPage from '../../stacks/authStack/authStartPage/AuthStartPage';
 import { EventsPage } from '../../stacks/eventsStack/EventsPage';
 import { HomePage } from '../../stacks/homeStack/homePage/HomePage';
 import MeditationPage from '../../stacks/homeStack/meditationPage/MeditationPage';
-import IntentionsPage from '../../stacks/profileStack/intentionsPage/IntentionsPage';
-import PaymentPage from '../../stacks/profileStack/paymentPage/PaymentPage';
-import PremiumPage from '../../stacks/profileStack/premiumPage/PremiumPage';
-import ProfileEvents from '../../stacks/profileStack/profileEvents/ProfileEvents';
 import { ProfilePage } from '../../stacks/profileStack/profilePage/ProfilePage';
 import ProfileSettings from '../../stacks/profileStack/profileSettings/ProfileSettings';
-import SchedulePage from '../../stacks/profileStack/schedulePage/SchedulePage';
-import SupportPage from '../../stacks/profileStack/supportPage/SupportPage';
 import CourseDetailsPage from '../../stacks/routineStack/CourseDetailsPage';
 import PurchasePage from '../../stacks/routineStack/PurchasePage';
 import { CoursePage } from '../../stacks/routineStack/coursePage/CoursePage';
 import LessonPage from '../../stacks/routineStack/lessonPage/LessonPage';
 import PopularCoursesPage from '../../stacks/routineStack/popularCoursesPage/PopularCoursesPage';
 import { RoutinePage } from '../../stacks/routineStack/routinePage/RoutinePage';
+import ProfileArticlesPage from '../../stacks/profileStack/profileArticlesPage/ProfileArticlesPage';
 
 export const articlesRoutes: AppRoute[] = [
     { name: ArticlesScreen.ARTICLES, component: ArticlesPage, title: '' },
@@ -43,12 +38,7 @@ export const eventsRoutes: AppRoute[] = [{ name: 'Events', component: EventsPage
 export const profileRoutes: AppRoute[] = [
     { name: ProfileScreen.PROFILE, component: ProfilePage, title: '' },
     { name: ProfileScreen.PROFILE_SETTINGS, component: ProfileSettings, title: '' },
-    { name: ProfileScreen.INTENTIONS, component: IntentionsPage, title: '' },
-    { name: ProfileScreen.PROFILE_EVENTS, component: ProfileEvents, title: '' },
-    { name: ProfileScreen.SUPPORT, component: SupportPage, title: '' },
-    { name: ProfileScreen.SCHEDULE, component: SchedulePage, title: '' },
-    { name: ProfileScreen.PAYMENT, component: PaymentPage, title: '' },
-    { name: ProfileScreen.PREMIUM, component: PremiumPage, title: '' },
+    { name: ProfileScreen.PROFILE_ARTICLES, component: ProfileArticlesPage, title: '' },
 ];
 
 export const authRoutes: AppRoute[] = [{ name: 'AuthStart', component: AuthStartPage, title: '' }];

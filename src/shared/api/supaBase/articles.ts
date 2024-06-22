@@ -1,9 +1,12 @@
 import { uuid } from '@supabase/gotrue-js/src/lib/helpers';
-
 import { supabase } from '../../lib/baas/supabase';
 
 export const getAllArticles = () => {
     return supabase.from('articles').select('*');
+};
+
+export const getAllArticlesByIds = (ids: string[]) => {
+    return supabase.from('articles').select('*').in('id', ids);
 };
 
 export const getAllLikedArticles = ({ profileId }: { profileId: string }) => {
@@ -16,6 +19,6 @@ export const setLikedArticle = ({ profileId, articleId }: { profileId: string; a
         .insert([{ id: uuid(), articleId, profileId }])
         .select();
 };
-export const deleteLikedArticle = ({ articleId }: { articleId: string }) => {
-    return supabase.from('likedArticles').delete().eq('articleId', articleId);
+export const deleteLikedArticle = ({ articleId, profileId }: { articleId: string; profileId: string }) => {
+    return supabase.from('likedArticles').delete().eq('profileId', profileId).eq('articleId', articleId);
 };

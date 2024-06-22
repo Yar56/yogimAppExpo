@@ -31,12 +31,7 @@ declare global {
         // ProfileTab
         [ProfileScreen.Profile]: undefined;
         [ProfileScreen.PROFILE_SETTINGS]: undefined;
-        [ProfileScreen.INTENTIONS]: undefined;
-        [ProfileScreen.ProfileEvents]: undefined;
-        [ProfileScreen.SUPPORT]: undefined;
-        [ProfileScreen.SCHEDULE]: undefined;
-        [ProfileScreen.PAYMENT]: undefined;
-        [ProfileScreen.PREMIUM]: undefined;
+        [ProfileScreen.PROFILE_ARTICLES]: undefined;
     }
 
     interface AppRoute {
