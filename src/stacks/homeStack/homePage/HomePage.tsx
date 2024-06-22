@@ -1,8 +1,6 @@
-import { AntDesign } from '@expo/vector-icons';
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
-
 import styles from './HomePageStylesheet';
 import MeditationList from './components/meditationList/MeditationList';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
@@ -12,7 +10,7 @@ import { meditationModel } from '../../../entities/meditation';
 import { PROFILE_DEFAULT_AVATAR, WELCOME_CARD_WOMEN } from '../../../shared/constants/resourses';
 import getCurrentHours from '../../../shared/lib/date/getCurrentHours';
 import getGreeting from '../../../shared/lib/message/getGreeting';
-import { ProfileScreen, RoutineScreen, TabName } from '../../../shared/routing/NavigationEntities';
+import { RoutineScreen, TabName } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
@@ -47,8 +45,6 @@ export const HomePage: FunctionComponent = () => {
         });
     };
 
-    const handleMoveSettings = () => navigation.navigate(TabName.PROFILE_TAB, { screen: ProfileScreen.PROFILE });
-
     return (
         <CommonLayout edges={['top', 'bottom']}>
             <ScrollView contentContainerStyle={{ paddingBottom: 90 }} showsVerticalScrollIndicator={false}>
@@ -71,11 +67,6 @@ export const HomePage: FunctionComponent = () => {
                             {profile?.username ? `, ${profile.username}` : ''}
                         </Text>
                         <Text variant="titleMedium">У тебя все получится!</Text>
-                    </View>
-                    <View style={styles.settings}>
-                        <TouchableOpacity activeOpacity={0.5} onPress={handleMoveSettings}>
-                            <AntDesign name="setting" size={23} color={theme.dark ? '#F1F5F9' : '#000'} />
-                        </TouchableOpacity>
                     </View>
                 </View>
                 <Spacer size={20} />

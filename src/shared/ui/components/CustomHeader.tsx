@@ -1,13 +1,13 @@
-import { AntDesign, FontAwesome, Octicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
 import { Text } from 'react-native-paper';
 
-import { useAppTheme, useMaterial3ThemeContext } from '../../../app/providers/MaterialThemeProvider';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { LOGO } from '../../constants/resourses';
 import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
+import { ChangeTheme } from '../../../features/changeTheme';
 
 interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;
@@ -19,13 +19,9 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
         headerProps.route.name === HomeScreen.HOME ||
         headerProps.route.name === HomeScreen.MEDITATION;
 
-    const isShowChangeTheme = headerProps.route.name === HomeScreen.MEDITATION;
+    // const isShowChangeTheme = headerProps.route.name === HomeScreen.MEDITATION;
 
     const theme = useAppTheme();
-    const { updateTheme } = useMaterial3ThemeContext();
-    const handleChangeTheme = (theme: ColorSchemeName) => () => {
-        updateTheme(theme);
-    };
 
     const headerBackgroundColor = theme.colors.colorLevel5;
 
@@ -49,34 +45,7 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => 
                     </Text>
                 </View>
             )}
-            {isShowChangeTheme &&
-                (theme.dark ? (
-                    <Octicons
-                        style={{
-                            position: 'absolute',
-                            right: 15,
-                            bottom: '25%',
-                        }}
-                        name="sun"
-                        color="#628ecb"
-                        suppressHighlighting
-                        size={25}
-                        onPress={handleChangeTheme('light')}
-                    />
-                ) : (
-                    <FontAwesome
-                        style={{
-                            position: 'absolute',
-                            right: 15,
-                            bottom: '25%',
-                        }}
-                        name="moon-o"
-                        color="#628ecb"
-                        suppressHighlighting
-                        size={25}
-                        onPress={handleChangeTheme('dark')}
-                    />
-                ))}
+            <ChangeTheme />
         </View>
     );
 };

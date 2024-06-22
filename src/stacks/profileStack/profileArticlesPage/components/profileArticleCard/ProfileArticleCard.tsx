@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Card, Text } from 'react-native-paper';
 import { Article } from '../../../../../shared/api/supaBase/models';
-import LikeArticle from '../../../../../features/likeArticle/ui/LikeArticle';
 import { StyleSheet } from 'react-native';
+import { LikeArticle } from '../../../../../features/likeArticle';
 
 interface ProfileArticleCardProps {
     article: Article;

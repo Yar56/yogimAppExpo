@@ -13,7 +13,7 @@ interface LikeArticleProps {
     liked: boolean;
     articleId?: string;
 }
-const LikeArticle: FunctionComponent<LikeArticleProps> = ({ liked: isLiked, articleId }) => {
+export const LikeArticle: FunctionComponent<LikeArticleProps> = ({ liked: isLiked, articleId }) => {
     const dispatch = useAppDispatch();
     const scale = useSharedValue(1);
     const [iconIsPressed, setIconIsPressed] = useState(isLiked);
@@ -61,5 +61,3 @@ const styles = StyleSheet.create({
         width: 50,
     },
 });
-
-export default LikeArticle;

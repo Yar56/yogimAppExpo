@@ -12,7 +12,7 @@ import { screenHeight } from '../../../shared/constants/screenSize';
 import { ArticlesScreen } from '../../../shared/routing/NavigationEntities';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import LikeArticle from '../../../features/likeArticle/ui/LikeArticle';
+import { LikeArticle } from '../../../features/likeArticle';
 
 type Props = NativeStackScreenProps<RootStackParamList, ArticlesScreen.ARTICLE>;
 // @ts-ignore
