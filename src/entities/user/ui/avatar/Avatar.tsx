@@ -7,6 +7,7 @@ import { Avatar, IconButton } from 'react-native-paper';
 import styles from './AvatarStylesheet';
 import { PROFILE_DEFAULT_AVATAR } from '../../../../shared/constants/resourses';
 import { supabase } from '../../../../shared/lib/baas/supabase';
+import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
 
 interface AvatarProps {
     size?: number;
@@ -14,7 +15,8 @@ interface AvatarProps {
     onUpload?: (filePath: string) => void;
 }
 
-export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size = 64 }) => {
+export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size = 72 }) => {
+    const theme = useAppTheme();
     const [uploading, setUploading] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const avatarSize = { height: size, width: size };
@@ -70,13 +72,15 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
             const fileExt = file?.name?.split('.').pop();
             const filePath = `${Math.random()}.${fileExt}`;
 
-            const { error } = await supabase.storage.from('avatars').upload(filePath, formData);
+            const { error, data } = await supabase.storage.from('avatars').upload(filePath, formData);
+
+            const response = supabase.storage.from('avatars').getPublicUrl(data?.path ?? '');
 
             if (error) {
                 throw error;
             }
 
-            onUpload?.(filePath);
+            onUpload?.(response.data.publicUrl);
         } catch (error) {
             if (isCancel(error)) {
                 console.warn('cancelled');
@@ -103,20 +107,24 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                     style={[avatarSize]}
                 />
             ) : (
-                <Avatar.Image
-                    // style={{ backgroundColor: theme === 'dark' ? '#323D5F' : '#6E4066' }}
-                    source={PROFILE_DEFAULT_AVATAR}
-                />
+                <Avatar.Image source={PROFILE_DEFAULT_AVATAR} />
             )}
             {onUpload && (
                 <View style={styles.buttonUpload}>
                     <IconButton
                         disabled={uploading}
                         icon={() => {
-                            return <Ionicons name="camera-outline" size={20} color="#E7E1E5" />;
+                            return (
+                                <Ionicons
+                                    name="camera-outline"
+                                    size={20}
+                                    color={theme.dark ? '#E7E1E5' : theme.colors.secondary}
+                                />
+                            );
                         }}
-                        style={{ backgroundColor: '#156392' }}
-                        size={12}
+                        containerColor={theme.colors.colorLevel4}
+                        // style={{ backgroundColor: '#156392' }}
+                        size={13}
                         onPress={uploadAvatar}
                     />
                 </View>

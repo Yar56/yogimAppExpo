@@ -3,6 +3,7 @@ import { Card, Text } from 'react-native-paper';
 import { Article } from '../../../../../shared/api/supaBase/models';
 import { StyleSheet } from 'react-native';
 import { LikeArticle } from '../../../../../features/likeArticle';
+import { useAppTheme } from '../../../../../app/providers/MaterialThemeProvider';
 
 interface ProfileArticleCardProps {
     article: Article;
@@ -10,9 +11,13 @@ interface ProfileArticleCardProps {
 }
 const ProfileArticleCard: FunctionComponent<ProfileArticleCardProps> = ({ article, likedIds }) => {
     const isLiked = Boolean(article.id && likedIds?.includes(article.id));
+    const theme = useAppTheme();
 
     return (
-        <Card>
+        <Card
+            mode="elevated"
+            style={{ backgroundColor: theme.dark ? theme.colors.colorLevel5 : theme.colors.colorLevel3 }}
+        >
             <Card.Content style={styles.contentWrapper}>
                 <Text variant="titleMedium">{article.title}</Text>
                 <LikeArticle articleId={article.id} liked={isLiked} />

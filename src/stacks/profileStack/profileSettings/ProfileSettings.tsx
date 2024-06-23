@@ -1,9 +1,7 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikConfig } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
-
 import styles from './ProfileSettingsStylesheet';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { fetchProfileDB } from '../../../entities/user/model';
@@ -11,43 +9,53 @@ import { AvatarComponent } from '../../../entities/user/ui';
 import { supaBaseApi } from '../../../shared/api';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
+import { UserSex } from '../../../shared/api/supaBase/models';
+import RNPickerSelect from 'react-native-picker-select';
+import { Ionicons } from '@expo/vector-icons';
 
 const ProfileSettings = () => {
+    const theme = useAppTheme();
     const dispatch = useAppDispatch();
     const session = useAppSelector((state) => state.userState.session);
     const profile = useAppSelector((state) => state.userState.profile);
-
+    const [sexPickerValue, setSexPickerValue] = React.useState(() => (profile ? profile.sex : null));
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const handleUpdatePhoto = (url: string) => {
         if (session && profile) {
             // eslint-disable-next-line camelcase
-            supaBaseApi.user.updateProfileDB(session, { ...profile, id: session.user.id, avatar_url: url });
+            supaBaseApi.user
+                .updateProfileDB(session, { ...profile, id: session.user.id, avatar_url: url })
+                .then(() => dispatch(fetchProfileDB(session)));
         }
     };
 
-    const formik: FormikConfig<{ email: string; userName: string; sex: string }> = {
+    const formik: FormikConfig<{ email: string; userName: string }> = {
         enableReinitialize: true,
         initialValues: {
             email: profile?.email ?? '',
             userName: profile?.username ?? '',
-            sex: profile?.sex ?? '',
         },
 
-        onSubmit: async (values, { resetForm }) => {
-            const { userName, sex } = values;
-
+        onSubmit: async (values, { resetForm, setSubmitting }) => {
+            const { userName } = values;
+            setIsLoading(true);
             try {
                 if (session && profile) {
                     supaBaseApi.user
-                        .updateProfileDB(session, { ...profile, id: session.user.id, sex, username: userName })
-                        .then(() => dispatch(fetchProfileDB(session)));
+                        .updateProfileDB(session, {
+                            ...profile,
+                            id: session.user.id,
+                            sex: sexPickerValue,
+                            username: userName,
+                        })
+                        .then(() => dispatch(fetchProfileDB(session)).then(() => setIsLoading(false)));
                 }
             } catch (error) {
                 if (error instanceof Error) {
                     const errorMessage = error.message;
                     Alert.alert(errorMessage);
                 }
-            } finally {
-                resetForm();
             }
         },
     };
@@ -68,16 +76,7 @@ const ProfileSettings = () => {
             <Spacer size={20} />
             <View>
                 <Formik {...formik}>
-                    {({
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        values: { email, userName, sex },
-                        isSubmitting,
-                        dirty,
-                        isValid,
-                        errors,
-                    }) => (
+                    {({ handleChange, handleBlur, handleSubmit, values: { email, userName }, errors }) => (
                         <View style={styles.formContainer}>
                             <TextInput
                                 disabled
@@ -88,9 +87,11 @@ const ProfileSettings = () => {
                                 onBlur={handleBlur('email')}
                                 onChangeText={handleChange('email')}
                                 error={Boolean(errors.email)}
+                                outlineStyle={{ borderColor: '#848484' }}
                             />
                             <TextInput
-                                disabled={isSubmitting}
+                                outlineStyle={{ borderColor: '#848484' }}
+                                disabled={isLoading}
                                 mode="outlined"
                                 autoCapitalize="none"
                                 label="Имя пользователя"
@@ -99,38 +100,66 @@ const ProfileSettings = () => {
                                 onChangeText={handleChange('userName')}
                                 error={Boolean(errors.userName)}
                             />
-                            <TextInput
-                                disabled={isSubmitting}
-                                mode="outlined"
-                                autoCapitalize="none"
-                                label="Пол"
-                                value={sex}
-                                onBlur={handleBlur('sex')}
-                                onChangeText={handleChange('sex')}
-                                error={Boolean(errors.sex)}
-                            />
-                            <View style={styles.authType}>
-                                <View>
-                                    <Text>Способ входа</Text>
-                                </View>
-                                <View>
-                                    <MaterialCommunityIcons name="email-outline" size={25} color="#186DA4" />
-                                </View>
+
+                            <View>
+                                <RNPickerSelect
+                                    useNativeAndroidPickerStyle={false}
+                                    style={{
+                                        inputAndroidContainer: {
+                                            backgroundColor: theme.dark ? '#1D1D22' : '#FEFBFF',
+                                            borderWidth: 0.8,
+                                            borderRadius: 5,
+                                            borderColor: '#848484',
+                                            padding: 10,
+                                        },
+                                        modalViewMiddle: {
+                                            backgroundColor: '#fff',
+                                        },
+                                        placeholder: {
+                                            color: theme.dark ? '#d5d4d7' : '#616161',
+                                        },
+                                        inputAndroid: {
+                                            color: theme.dark ? '#ecebee' : '#212121',
+                                            fontSize: 16,
+                                            opacity: isLoading ? 0.6 : 1,
+                                        },
+                                        iconContainer: {
+                                            top: 10,
+                                            right: 10,
+                                        },
+                                    }}
+                                    fixAndroidTouchableBug
+                                    darkTheme={theme.dark}
+                                    value={sexPickerValue}
+                                    disabled={isLoading}
+                                    placeholder={{ label: 'Выберите ваш пол' }}
+                                    onValueChange={(value) => {
+                                        if (!value && profile?.sex) {
+                                            setSexPickerValue(null);
+                                        } else {
+                                            setSexPickerValue(value as UserSex);
+                                        }
+                                    }}
+                                    items={[
+                                        { label: 'женский', value: UserSex.FEMALE },
+                                        { label: 'мужской', value: UserSex.MALE },
+                                    ]}
+                                    Icon={() => <Ionicons name="md-arrow-down" size={24} color="gray" />}
+                                />
                             </View>
+
                             <Button
+                                buttonColor={theme.colors.colorLevel4}
+                                dark={theme.dark}
+                                mode="contained-tonal"
                                 contentStyle={styles.button}
-                                buttonColor="#f3f2f2"
-                                mode="contained"
-                                disabled={isSubmitting}
+                                disabled={isLoading}
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore
                                 onPress={handleSubmit}
                             >
-                                <Text variant="bodyLarge" style={{ fontWeight: 'bold', color: '#111C1E' }}>
-                                    Сохранить
-                                </Text>
+                                Сохранить
                             </Button>
-                            {/*{apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}*/}
                         </View>
                     )}
                 </Formik>

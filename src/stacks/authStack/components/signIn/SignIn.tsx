@@ -105,6 +105,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                 }) => (
                     <View style={styles.formContainer}>
                         <TextInput
+                            outlineStyle={{ borderColor: '#848484' }}
                             disabled={isSubmitting}
                             mode="outlined"
                             autoCapitalize="none"
@@ -115,6 +116,7 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                             error={Boolean(errors.email)}
                         />
                         <TextInput
+                            outlineStyle={{ borderColor: '#848484' }}
                             disabled={isSubmitting}
                             mode="outlined"
                             label="Пароль"

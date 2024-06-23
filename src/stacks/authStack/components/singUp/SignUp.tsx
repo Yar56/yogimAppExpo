@@ -125,6 +125,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                         {/*</HelperText>*/}
 
                         <TextInput
+                            outlineStyle={{ borderColor: '#848484' }}
                             autoCapitalize="none"
                             disabled={isSubmitting}
                             mode="outlined"
@@ -135,6 +136,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                             error={Boolean(errors.email)}
                         />
                         <TextInput
+                            outlineStyle={{ borderColor: '#848484' }}
                             disabled={isSubmitting}
                             mode="outlined"
                             label={errors.password ? errors.password : 'Пароль'}
@@ -154,6 +156,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                             error={Boolean(errors.password)}
                         />
                         <TextInput
+                            outlineStyle={{ borderColor: '#848484' }}
                             disabled={isSubmitting}
                             mode="outlined"
                             label={errors.confirmPassword ? errors.confirmPassword : 'Подтвердите пароль'}
