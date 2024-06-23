@@ -196,12 +196,11 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
             </Formik>
 
             <View style={styles.bottomCardContent}>
-                <Text style={styles.bottomCardText}>Вы уже с нами?</Text>
-                <View style={[styles.underlineWrapper, { borderColor: theme.dark ? '#E1E0E4' : undefined }]}>
-                    <Text style={styles.underlineText} onPress={handleNavigateToSignIn}>
-                        Войти
-                    </Text>
-                </View>
+                <Text>Вы уже с нами?</Text>
+
+                <Text style={styles.underlineText} onPress={handleNavigateToSignIn}>
+                    Войти
+                </Text>
             </View>
             <Spacer size={10} />
         </LoadingWrapper>

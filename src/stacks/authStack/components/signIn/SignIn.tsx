@@ -37,10 +37,9 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     const handleNavigateToSignUp = () => {
         onNavigateTarget(AuthContent.SIGN_UP);
     };
-    // const handleRecoveryPage = () => {
-    //     // todo
-    //     // navigation.navigate('Profile');
-    // };
+    const handleRecoveryPage = () => {
+        onNavigateTarget(AuthContent.RECOVERY);
+    };
 
     const formik: FormikConfig<{ email: string; password: string }> = {
         initialValues: {
@@ -152,23 +151,21 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                 )}
             </Formik>
 
-            {/*<View style={styles.recoverPassContainer}>*/}
-            {/*    <View style={styles.underlineWrapper}>*/}
-            {/*        <Text style={styles.underlineText} onPress={handleRecoveryPage}>*/}
-            {/*            Забыли пароль?*/}
-            {/*        </Text>*/}
-            {/*    </View>*/}
-            {/*</View>*/}
-
             <View>
                 <View style={styles.bottomCardContent}>
-                    <Text style={styles.bottomCardText}>Еще не с нами?</Text>
-                    <View style={[styles.underlineWrapper, { borderColor: theme.dark ? '#fff' : undefined }]}>
-                        <Text style={styles.underlineText} onPress={handleNavigateToSignUp}>
-                            Присоединиться
-                        </Text>
-                    </View>
+                    <Text>Еще не с нами?</Text>
+
+                    <Text style={styles.underlineText} onPress={handleNavigateToSignUp}>
+                        Присоединиться
+                    </Text>
                 </View>
+            </View>
+            <Spacer size={15} />
+
+            <View style={styles.recoverPassContainer}>
+                <Text style={styles.underlineText} onPress={handleRecoveryPage}>
+                    Забыли пароль?
+                </Text>
             </View>
             <Spacer size={10} />
         </LoadingWrapper>

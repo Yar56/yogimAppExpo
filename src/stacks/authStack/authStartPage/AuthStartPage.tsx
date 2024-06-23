@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Image, LayoutAnimation, Platform, TouchableOpacity, UIManager, View } from 'react-native';
-import { Button, Divider, Text } from 'react-native-paper';
+import { Button, Dialog, Divider, Text } from 'react-native-paper';
 
 import styles from './AuthStartPageStylesheet';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
@@ -11,11 +11,13 @@ import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 import SignIn, { SignInProps } from '../components/signIn/SignIn';
 import SignUp from '../components/singUp/SignUp';
+import RecoveryPassword, { RecoveryPasswordProps } from '../components/recoveryPassword/RecoveryPassword';
+import useModalState from '../hooks/useModalState';
 
-const contentByType: Record<AuthContent, React.ElementType<SignInProps>> = {
+const contentByType: Record<AuthContent, React.ElementType<SignInProps & RecoveryPasswordProps>> = {
     [AuthContent.SIGN_IN]: SignIn,
     [AuthContent.SIGN_UP]: SignUp,
-    [AuthContent.RECOVERY]: SignIn,
+    [AuthContent.RECOVERY]: RecoveryPassword,
 };
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -30,7 +32,7 @@ const AuthStartPage = () => {
     const theme = useAppTheme();
     const isIos = Platform.OS === 'ios';
     const [activeContent, setActiveContent] = useState<AuthContent | null>(null);
-
+    const { visible, showDialog, hideDialog } = useModalState();
     const handleNavigateToDefault = () => {
         layoutAnimation();
         setActiveContent(null);
@@ -48,8 +50,7 @@ const AuthStartPage = () => {
         layoutAnimation();
         setActiveContent(AuthContent.SIGN_UP);
     };
-
-    const AuthComponent = activeContent ? contentByType[activeContent] : null;
+    const AuthComponent = useMemo(() => (activeContent ? contentByType[activeContent] : null), [activeContent]);
 
     return (
         <View style={[styles.container]}>
@@ -74,6 +75,7 @@ const AuthStartPage = () => {
                         <AuthComponent
                             onNavigateBack={handleNavigateToDefault}
                             onNavigateTarget={handleNavigateTarget}
+                            onShowDialog={showDialog}
                         />
                     ) : (
                         <View>
@@ -135,6 +137,15 @@ const AuthStartPage = () => {
                     )}
                 </View>
             </CommonLayout>
+            <Dialog visible={visible} onDismiss={hideDialog}>
+                <Dialog.Title>Письмо отправлено</Dialog.Title>
+                <Dialog.Content>
+                    <Text variant="bodyMedium">Проверьте свою почту, чтобы сбросить пароль!</Text>
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button onPress={hideDialog}>Хорошо</Button>
+                </Dialog.Actions>
+            </Dialog>
         </View>
     );
 };

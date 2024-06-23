@@ -14,14 +14,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
 
+    recoverPassContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
     underlineWrapper: { borderBottomWidth: 1.3 },
     underlineText: {
         fontWeight: 'bold',
     },
 
-    bottomCardContent: { display: 'flex', alignItems: 'center' },
-    bottomCardText: {
-        marginBottom: 5,
+    bottomCardContent: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 5,
     },
     errorText: {
         color: '#ff0000',
