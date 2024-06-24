@@ -162,12 +162,12 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
             </View>
             <Spacer size={15} />
 
-            <View style={styles.recoverPassContainer}>
-                <Text style={styles.underlineText} onPress={handleRecoveryPage}>
-                    Забыли пароль?
-                </Text>
-            </View>
-            <Spacer size={10} />
+            {/*<View style={styles.recoverPassContainer}>*/}
+            {/*    <Text style={styles.underlineText} onPress={handleRecoveryPage}>*/}
+            {/*        Забыли пароль?*/}
+            {/*    </Text>*/}
+            {/*</View>*/}
+            {/*<Spacer size={10} />*/}
         </LoadingWrapper>
     );
 };
