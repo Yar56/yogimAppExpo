@@ -38,12 +38,12 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
         if (profile?.sex) {
             return genConfig({
                 sex: profile.sex === UserSex.MALE ? 'man' : 'woman',
-                bgColor: theme.colors.colorLevel4,
+                bgColor: theme.dark ? theme.colors.colorLevel2 : theme.colors.colorLevel4,
                 hairStyle: profile.sex === UserSex.MALE ? 'thick' : 'womanLong',
                 ...staticConfig,
             });
         }
-    }, [profile, theme.colors.colorLevel4]);
+    }, [profile?.sex, theme.colors.colorLevel2, theme.colors.colorLevel4, theme.dark]);
 
     useEffect(() => {
         if (url) {
