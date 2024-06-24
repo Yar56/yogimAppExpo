@@ -1,19 +1,20 @@
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { Image, ScrollView, View } from 'react-native';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Button, Card, Text } from 'react-native-paper';
 import styles from './HomePageStylesheet';
 import MeditationList from './components/meditationList/MeditationList';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { courseModel } from '../../../entities/course';
 import { meditationModel } from '../../../entities/meditation';
-import { PROFILE_DEFAULT_AVATAR, WELCOME_CARD_WOMEN } from '../../../shared/constants/resourses';
+import { WELCOME_CARD_WOMEN } from '../../../shared/constants/resourses';
 import getCurrentHours from '../../../shared/lib/date/getCurrentHours';
 import getGreeting from '../../../shared/lib/message/getGreeting';
 import { RoutineScreen, TabName } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { AvatarComponent } from '../../../entities/user/ui';
 
 // const SUGGEST_COURSE_ID = '6aff9f2d-c7e1-4acc-9865-bc57b2099a1e';
 export const HomePage: FunctionComponent = () => {
@@ -50,16 +51,7 @@ export const HomePage: FunctionComponent = () => {
             <ScrollView contentContainerStyle={{ paddingBottom: 90 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.head}>
                     <View>
-                        {profile?.avatar_url ? (
-                            <Avatar.Image
-                                size={avatarSize.width}
-                                source={{ uri: profile?.avatar_url }}
-                                accessibilityLabel="Avatar"
-                                style={[avatarSize]}
-                            />
-                        ) : (
-                            <Avatar.Image source={PROFILE_DEFAULT_AVATAR} />
-                        )}
+                        <AvatarComponent url={profile?.avatar_url} size={avatarSize.width} />
                     </View>
                     <View style={styles.greetingWrapper}>
                         <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>

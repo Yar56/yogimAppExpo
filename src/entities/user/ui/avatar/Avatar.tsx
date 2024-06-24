@@ -1,25 +1,49 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { Alert, View } from 'react-native';
 import DocumentPicker, { isCancel, isInProgress, types } from 'react-native-document-picker';
 import { Avatar, IconButton } from 'react-native-paper';
-
 import styles from './AvatarStylesheet';
-import { PROFILE_DEFAULT_AVATAR } from '../../../../shared/constants/resourses';
 import { supabase } from '../../../../shared/lib/baas/supabase';
 import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
+import { useAppSelector } from '../../../../app/store/hooks';
+import ReactNiceAvatar, { AvatarFullConfig, genConfig } from '@zamplyy/react-native-nice-avatar';
+import { UserSex } from '../../../../shared/api/supaBase/models';
 
 interface AvatarProps {
     size?: number;
-    url: string | null;
+    url?: string | null;
     onUpload?: (filePath: string) => void;
 }
-
+const staticConfig: AvatarFullConfig = {
+    faceColor: '#FFC7B3',
+    earSize: 'big',
+    hairColor: 'brown',
+    noseStyle: 'short',
+    mouthStyle: 'smile',
+    shirtColor: '#9487FF',
+    shirtStyle: 'polo',
+    glassesStyle: 'none',
+    hatStyle: 'none',
+    eyeStyle: 'oval',
+};
 export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload, size = 72 }) => {
     const theme = useAppTheme();
     const [uploading, setUploading] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const avatarSize = { height: size, width: size };
+    const profile = useAppSelector((state) => state.userState.profile);
+
+    const config = useMemo(() => {
+        if (profile?.sex) {
+            return genConfig({
+                sex: profile.sex === UserSex.MALE ? 'man' : 'woman',
+                bgColor: theme.colors.colorLevel4,
+                hairStyle: profile.sex === UserSex.MALE ? 'thick' : 'womanLong',
+                ...staticConfig,
+            });
+        }
+    }, [profile, theme.colors.colorLevel4]);
 
     useEffect(() => {
         if (url) {
@@ -36,6 +60,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                 throw error;
             }
 
+            // eslint-disable-next-line no-undef
             const fr = new FileReader();
             fr.readAsDataURL(data);
             fr.onload = () => {
@@ -47,6 +72,21 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
             }
         }
     }
+
+    const unknownAvatar = useMemo(
+        () =>
+            profile && profile.sex ? (
+                <ReactNiceAvatar size={avatarSize.width} {...config} />
+            ) : (
+                <Avatar.Image
+                    size={avatarSize.width}
+                    source={{
+                        uri: `https://ui-avatars.com/api/?name=${profile?.username}&bold=true&size${avatarSize.width}`,
+                    }}
+                />
+            ),
+        [avatarSize.width, config, profile]
+    );
 
     async function uploadAvatar() {
         try {
@@ -107,7 +147,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                     style={[avatarSize]}
                 />
             ) : (
-                <Avatar.Image source={PROFILE_DEFAULT_AVATAR} />
+                unknownAvatar
             )}
             {onUpload && (
                 <View style={styles.buttonUpload}>
