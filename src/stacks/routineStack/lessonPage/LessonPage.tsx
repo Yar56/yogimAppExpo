@@ -2,8 +2,8 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Video } from 'expo-av';
 import { ResizeMode } from 'expo-av/src/Video.types';
-import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 
 import { useAppSelector } from '../../../app/store/hooks';
@@ -27,14 +27,8 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const bottomTabBarHeight = useBottomTabBarHeight();
     const [isVideoError, setIsVideoError] = useState<boolean>(false);
     const [isVideoLoading, setIsVideoLoading] = useState<boolean>(false);
-    const video = useRef(null);
+    const video = useRef<Video>(null);
 
-    useEffect(() => {
-        if (!courseId || !lessonId) {
-            console.error('courseId of lessonId is empty');
-        }
-        // dispatch(lessonModel.fetchAllLessonsByCourseId(courseId));
-    }, [courseId]);
     const course = useAppSelector((state) => state.courseState.courses?.find((course) => course.id === courseId));
     const lessons = course?.lessons as unknown as Lesson[];
     const lesson = lessons.find((lesson) => lesson.id === lessonId);
@@ -56,12 +50,12 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
                 navigation.navigate(RoutineScreen.LESSON, { courseId: course.id, lessonId: lessonIds[indexDirection] }); // переходим к нему
             }
         },
-        [lessonId]
+        [course?.id, lessonId, lessonIds, navigation]
     );
 
     if (!lesson || !lessonId) {
         console.warn(`lesson is undefined, lessonId=${lessonId}`);
-        // log sentry
+        // todo log sentry
         return (
             <View>
                 <Text variant="displayMedium">Что то пошло не так! Урока не существует</Text>
@@ -73,8 +67,9 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
         <Text>Произошла ошибка при загрузке видео</Text>
     ) : (
         <Video
+            key={lessonId}
             ref={video}
-            style={{ width: 'auto', height: 250, borderRadius: 12 }}
+            style={styles.video}
             source={{
                 uri: lesson.videoUrl,
             }}
@@ -82,15 +77,8 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
             resizeMode={ResizeMode.COVER}
             isLooping
             onLoadStart={() => setIsVideoLoading(true)}
-            onLoad={(status) => {
-                setIsVideoLoading(false);
-                if (status.isLoaded) {
-                }
-            }}
-            // onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-            onError={() => {
-                setIsVideoError(true);
-            }}
+            onLoad={() => setIsVideoLoading(false)}
+            onError={() => setIsVideoError(true)}
             posterSource={{ uri: lesson.photoUrl }}
             usePoster
             PosterComponent={(props) => {
@@ -103,11 +91,11 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
         <CommonLayout>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentInset={{ bottom: bottomTabBarHeight + NEXT_BUTTON_BLOCK_HEIGHT, top: 0, right: 0, left: 0 }}
+                contentInset={{ bottom: bottomTabBarHeight + NEXT_BUTTON_BLOCK_HEIGHT, ...styles.scrollView }}
             >
                 <Text variant="titleLarge">{lesson.title}</Text>
                 <Spacer size={20} />
-                <Card style={{ width: 'auto', height: 250 }}>{content}</Card>
+                <Card style={styles.card}>{content}</Card>
                 <Spacer size={20} />
                 <Text variant="bodyLarge">{lesson.description}</Text>
             </ScrollView>
@@ -120,4 +108,26 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
     );
 };
 
+const styles = StyleSheet.create({
+    scrollView: {
+        top: 0,
+        right: 0,
+        left: 0,
+    },
+    card: {
+        width: 'auto',
+        height: 250,
+    },
+    video: {
+        width: 'auto',
+        height: 250,
+        borderRadius: 12,
+    },
+    posterWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+    },
+});
 export default LessonPage;
