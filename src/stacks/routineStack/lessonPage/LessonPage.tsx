@@ -5,7 +5,7 @@ import { ResizeMode } from 'expo-av/src/Video.types';
 import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
-
+import convertToProxyURL from 'react-native-video-cache';
 import { useAppSelector } from '../../../app/store/hooks';
 import { Lesson } from '../../../shared/api/supaBase/models';
 import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
@@ -71,7 +71,7 @@ const LessonPage: FunctionComponent<Props> = ({ route }) => {
             ref={video}
             style={styles.video}
             source={{
-                uri: lesson.videoUrl,
+                uri: convertToProxyURL(lesson.videoUrl),
             }}
             useNativeControls
             resizeMode={ResizeMode.COVER}
