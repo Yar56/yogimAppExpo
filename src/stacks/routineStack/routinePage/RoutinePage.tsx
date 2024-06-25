@@ -1,10 +1,8 @@
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
-import { ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ImageBackground, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/src/styles/themes/v3/tokens';
-import Tooltip from 'react-native-walkthrough-tooltip';
-
 import styles from './RoutinePageStylesheet';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
@@ -14,11 +12,12 @@ import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { screenWidth } from '../../../shared/constants/screenSize';
+import ControlledTooltip from '../../../shared/ui/components/ControlledTooltip';
 
 export const RoutinePage = () => {
     const theme = useAppTheme();
     const dispatch = useAppDispatch();
-    const [isVisibleTooltip, setIsVisibleTooltip] = useState<boolean>(false);
 
     const navigation = useAppNavigation();
     const profile = useAppSelector((state) => state.userState.profile);
@@ -82,28 +81,18 @@ export const RoutinePage = () => {
                 <View>
                     <View style={styles.infoCoursesWrapper}>
                         <Text variant="titleLarge">Активные курсы</Text>
-
-                        <Tooltip
-                            isVisible={isVisibleTooltip}
-                            content={
+                        <ControlledTooltip
+                            popover={
                                 <Text>
                                     Активный курс - это тот курс, на который вы подписались, нажав кнопку "Вступить".
                                     Обычно это курс, который длится от нескольких дней до двух недель.
                                 </Text>
                             }
-                            placement="bottom"
-                            contentStyle={{ backgroundColor: theme.colors.colorLevel3 }}
-                            backgroundColor={"'rgba(0,0,0,0.5)'"}
-                            onClose={() => setIsVisibleTooltip(false)}
+                            width={screenWidth - 40}
+                            height={100}
                         >
-                            <TouchableHighlight
-                                style={{}}
-                                underlayColor="transparent"
-                                onPress={() => setIsVisibleTooltip(true)}
-                            >
-                                <FontAwesome5 name="question-circle" size={19} color="#6383CB" />
-                            </TouchableHighlight>
-                        </Tooltip>
+                            <FontAwesome5 name="question-circle" size={19} color="#6383CB" />
+                        </ControlledTooltip>
                     </View>
 
                     {!activeCourse && (

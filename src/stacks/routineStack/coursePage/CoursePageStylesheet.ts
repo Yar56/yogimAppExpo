@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    purchase: { display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 5 },
+    purchase: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10 },
 
     more: { textDecorationLine: 'underline', fontWeight: 'bold' },
 

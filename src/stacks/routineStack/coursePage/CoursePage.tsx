@@ -2,22 +2,22 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { ScrollView, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Button, Chip, Divider, Text } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
-import Tooltip from 'react-native-walkthrough-tooltip';
 
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppSelector } from '../../../app/store/hooks';
 import { CourseLabel, Lesson } from '../../../shared/api/supaBase/models';
-import { screenHeight } from '../../../shared/constants/screenSize';
+import { screenHeight, screenWidth } from '../../../shared/constants/screenSize';
 import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import ControlledTooltip from '../../../shared/ui/components/ControlledTooltip';
 
 // @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
@@ -94,28 +94,16 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
                     <Spacer size={15} />
                     <View style={styles.purchaseWrapper}>
                         <View style={styles.purchase}>
-                            <Text variant="headlineSmall">Доступ к курсу</Text>
-                            <Tooltip
-                                isVisible={isVisibleTooltip}
-                                content={
-                                    <Text>
-                                        Это мини-курс. Чтобы начать его, просто перейдите к нужному уроку.
-                                        {/*Чтобы сохранить его в свой личный кабинет, нажмите на сердечко выше.*/}
-                                    </Text>
+                            <Text variant="titleLarge">Доступ к курсу</Text>
+                            <ControlledTooltip
+                                popover={
+                                    <Text>Это мини-курс. Чтобы начать его, просто перейдите к нужному уроку.</Text>
                                 }
-                                placement="bottom"
-                                contentStyle={{ backgroundColor: theme.colors.colorLevel3 }}
-                                backgroundColor={"'rgba(0,0,0,0.5)'"}
-                                onClose={() => setIsVisibleTooltip(false)}
+                                width={screenWidth - 40}
+                                height={60}
                             >
-                                <TouchableHighlight
-                                    style={{}}
-                                    underlayColor="transparent"
-                                    onPress={() => setIsVisibleTooltip(true)}
-                                >
-                                    <FontAwesome5 name="question-circle" size={19} color="#6383CB" />
-                                </TouchableHighlight>
-                            </Tooltip>
+                                <FontAwesome5 name="question-circle" size={20} color="#6383CB" />
+                            </ControlledTooltip>
                         </View>
 
                         {course.isFree ? (
