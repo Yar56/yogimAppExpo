@@ -1,7 +1,6 @@
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/src/styles/themes/v3/tokens';
 import Tooltip from 'react-native-walkthrough-tooltip';
@@ -10,7 +9,7 @@ import styles from './RoutinePageStylesheet';
 import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { courseModel } from '../../../entities/course';
-import { EMPTY_ACTIVE_COURSE, ROUTINE_CARD, ROUTINE_CARD_LIGHT } from '../../../shared/constants/resourses';
+import { ROUTINE_CARD, ROUTINE_CARD_LIGHT } from '../../../shared/constants/resourses';
 import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
 import { Spacer } from '../../../shared/ui/components/Spacer';
@@ -109,12 +108,7 @@ export const RoutinePage = () => {
 
                     {!activeCourse && (
                         <View style={{ alignItems: 'center' }}>
-                            <Spacer size={20} />
-                            <Image
-                                style={styles.emptyCourseImage}
-                                source={EMPTY_ACTIVE_COURSE}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
+                            <Spacer size={30} />
                             <Text style={styles.text} variant="headlineSmall">
                                 Похоже активных курсов нет
                             </Text>

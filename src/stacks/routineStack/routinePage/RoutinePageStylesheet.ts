@@ -21,11 +21,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         gap: 8,
     },
-    emptyCourseImage: {
-        width: 200,
-        height: 200,
-        opacity: 0.9,
-    },
 
     popularButton: { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
     infoCoursesWrapper: {

@@ -5,5 +5,4 @@ export const AUTH_BACKGROUND_DARK = require('../../../assets/images/authPage/dar
 export const AUTH_BACKGROUND_LIGHT = require('../../../assets/images/authPage/light.jpeg');
 export const ROUTINE_CARD = require('../../../assets/images/routinePage/routineCard.png');
 export const ROUTINE_CARD_LIGHT = require('../../../assets/images/routinePage/routineCardLight.png');
-export const EMPTY_ACTIVE_COURSE = require('../../../assets/images/routinePage/emptyActiveCourse.png');
 export const WELCOME_CARD_WOMEN = require('../../../assets/images/homePage/welcomeCardWomen.png');
