@@ -73,7 +73,7 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
         if (buffered) {
             cached.value = buffered;
         }
-    }, [position, duration, buffered]);
+    }, [position, duration, buffered, progress, max, cached]);
 
     async function handlePlayPress() {
         if ((await TrackPlayer.getPlaybackState()).state === State.Playing) {
@@ -108,7 +108,7 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
         return () => {
             TrackPlayer.reset();
         };
-    }, []);
+    }, [meditation]);
 
     const progressFillPercent = (progress.value / max.value) * 100;
 
@@ -123,7 +123,7 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
             800,
             Easing.inOut(Easing.ease)
         );
-    }, [progressFillPercent]);
+    }, [animateSyntheticRef.circularProgress, progressFillPercent]);
 
     if (!meditation) {
         return (
@@ -216,12 +216,10 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
                                 TrackPlayer.seekTo(value);
                             }}
                             theme={{
-                                // disableMinTrackTintColor: '#fff',
                                 maximumTrackTintColor: maximumColor,
                                 minimumTrackTintColor: meditation.color,
                                 cacheTrackTintColor: cacheColor,
                                 bubbleBackgroundColor: cacheColor,
-                                // heartbeatColor: '#999',
                             }}
                             onHapticFeedback={() => {
                                 ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
