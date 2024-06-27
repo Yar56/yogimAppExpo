@@ -1,5 +1,3 @@
-// import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-
 import { Session, User } from '@supabase/supabase-js';
 
 import { Database, Tables } from './dbModels';

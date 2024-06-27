@@ -158,6 +158,4 @@ export const articleModel = createSlice({
     },
 });
 
-export const {} = articleModel.actions;
-
 export const articleReducer = articleModel.reducer;

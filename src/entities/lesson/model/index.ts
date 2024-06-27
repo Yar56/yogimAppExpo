@@ -40,6 +40,4 @@ export const lessonModel = createSlice({
     },
 });
 
-export const {} = lessonModel.actions;
-
 export const lessonReducer = lessonModel.reducer;

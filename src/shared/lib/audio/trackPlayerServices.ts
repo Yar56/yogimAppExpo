@@ -25,6 +25,7 @@ export async function setupPlayer() {
 
         isSetup = true;
     } finally {
+        // eslint-disable-next-line no-unsafe-finally
         return isSetup;
     }
 }

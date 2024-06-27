@@ -41,6 +41,4 @@ export const meditationModel = createSlice({
     },
 });
 
-export const {} = meditationModel.actions;
-
 export const meditationReducer = meditationModel.reducer;

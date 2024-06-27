@@ -13,6 +13,7 @@ import {
 } from 'react-native-paper';
 
 import { CustomColors, customDarkColors, customLightColors } from '../styles/themes';
+import { Merge } from 'type-fest';
 
 type Material3ThemeProviderProps = {
     theme: Material3Theme;
@@ -58,8 +59,5 @@ export const useMaterial3ThemeContext = () => {
     }
     return ctx;
 };
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Merge<F, S> = any;
 
 export const useAppTheme = useTheme<MD3Theme & { colors: Merge<Material3Scheme, CustomColors> }>;

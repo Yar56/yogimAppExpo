@@ -1,6 +1,7 @@
 module.exports = {
     root: true,
     extends: ['expo', 'eslint:recommended'],
+    ignorePatterns: ['src/shared/api/supaBase/dbModels.ts'],
     rules: {
         'no-console': 'off',
         'no-debugger': 'warn',

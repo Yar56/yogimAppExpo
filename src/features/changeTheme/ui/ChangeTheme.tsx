@@ -5,7 +5,7 @@ import { useAppTheme, useMaterial3ThemeContext } from '../../../app/providers/Ma
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
 
 interface LikeArticleProps {}
-export const ChangeTheme: FunctionComponent<LikeArticleProps> = ({}) => {
+export const ChangeTheme: FunctionComponent<LikeArticleProps> = () => {
     const theme = useAppTheme();
     const { updateTheme } = useMaterial3ThemeContext();
     const handleChangeTheme = (theme: ColorSchemeName) => () => {

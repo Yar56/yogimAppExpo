@@ -65,6 +65,4 @@ export const courseModel = createSlice({
     },
 });
 
-export const {} = courseModel.actions;
-
 export const courseReducer = courseModel.reducer;

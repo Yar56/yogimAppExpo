@@ -28,6 +28,7 @@ export const LikeArticle: FunctionComponent<LikeArticleProps> = ({ liked: isLike
                 await dispatch(articleModel.setLikedArticleThunk({ articleId }));
             }
         } catch (error) {
+            console.error(error);
         } finally {
             setIsLoadingLiked(false);
         }

@@ -7,22 +7,14 @@ import { LoadingStatus } from '../../shared/api/supaBase/models';
 export const signUpUserThunk = createAsyncThunk(
     'user/signUpUserThunk',
     async (userData: supaBaseApi.models.SignUpUserParams, thunkAPI): Promise<AuthResponse> => {
-        try {
-            return await supaBaseApi.user.signUpUser(userData);
-        } catch (error) {
-            throw error;
-        }
+        return await supaBaseApi.user.signUpUser(userData);
     }
 );
 
 export const signInUserThunk = createAsyncThunk(
     'user/signInUserThunk',
     async (userData: supaBaseApi.models.SignInUserParams, thunkAPI): Promise<AuthTokenResponse> => {
-        try {
-            return await supaBaseApi.user.signInUser(userData);
-        } catch (error) {
-            throw error;
-        }
+        return await supaBaseApi.user.signInUser(userData);
     }
 );
 
