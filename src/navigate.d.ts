@@ -7,6 +7,7 @@ import {
     ProfileScreen,
     RoutineScreen,
 } from './shared/routing/NavigationEntities';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 declare global {
     interface RootStackParamList extends ParamListBase {
@@ -34,9 +35,10 @@ declare global {
         [ProfileScreen.PROFILE_ARTICLES]: undefined;
     }
 
+    interface PageProps extends NativeStackScreenProps<RootStackParamList, keyof RootStackParamList> {}
     interface AppRoute {
         title?: string;
         name: keyof RootStackParamList;
-        component: ComponentType<ComponentProps<any>>;
+        component: ComponentType<ComponentProps<PageProps>>;
     }
 }

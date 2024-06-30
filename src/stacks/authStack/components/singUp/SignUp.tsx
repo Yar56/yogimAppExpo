@@ -38,7 +38,8 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [apiError, setApiError] = useState<string>('');
+    // todo обработка ошибок
+    // const [apiError, setApiError] = useState<string>('');
 
     const formik: FormikConfig<{ displayName: string; email: string; password: string; confirmPassword: string }> = {
         initialValues: {
@@ -190,7 +191,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                                 Присоединиться
                             </Text>
                         </Button>
-                        {apiError && !dirty && isValid && <div style={{ color: '#ff0000' }}>{apiError}</div>}
+                        {/*{apiError && !dirty && isValid && <div style={{ color: '#ff0000' }}>{apiError}</div>}*/}
                     </View>
                 )}
             </Formik>

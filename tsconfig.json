@@ -1,9 +1,17 @@
 {
-    "extends": "expo/tsconfig.base.json",
     "compilerOptions": {
         "strict": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "maxNodeModuleJsDepth": 0,
+        "module": "esnext",
+
+        "typeRoots": ["./node_modules/@types"]
     },
-    "exclude": ["node_modules"],
-    "include": ["**/*.ts", "**/*.tsx"]
+    "extends": "expo/tsconfig.base"
 }

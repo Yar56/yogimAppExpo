@@ -1,5 +1,5 @@
-import { uuid } from '@supabase/gotrue-js/src/lib/helpers';
 import { supabase } from '../../lib/baas/supabase';
+const uuid = require('@supabase/gotrue-js/src/lib/helpers');
 
 export const getAllArticles = () => {
     return supabase.from('articles').select('*');

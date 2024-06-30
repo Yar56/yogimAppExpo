@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Button, Chip, Divider, Text } from 'react-native-paper';
@@ -9,13 +9,13 @@ import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewO
 
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
-import { useAppSelector } from '../../../app/store/hooks';
-import { CourseLabel, Lesson } from '../../../shared/api/supaBase/models';
-import { screenHeight, screenWidth } from '../../../shared/constants/screenSize';
-import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppSelector } from '@/app/store/hooks';
+import { CourseLabel, Lesson } from '@/shared/api/supaBase/models';
+import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
+import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '../../../shared/routing/useAppNavigation';
-import { Spacer } from '../../../shared/ui/components/Spacer';
+import { Spacer } from '@/shared/ui/components/Spacer';
 import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
 import ControlledTooltip from '../../../shared/ui/components/ControlledTooltip';
 
@@ -26,7 +26,6 @@ type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE>;
 const IMG_HEIGHT = (screenHeight / 100) * 70;
 export const CoursePage: FunctionComponent<Props> = ({ route }) => {
     const theme = useAppTheme();
-    const [isVisibleTooltip, setIsVisibleTooltip] = useState<boolean>(false);
 
     const navigation = useAppNavigation();
     const courseId = route.params.courseId;

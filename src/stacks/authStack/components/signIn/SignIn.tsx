@@ -32,14 +32,15 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [apiError, setApiError] = useState<string>('');
+    // todo обработка ошибок
+    // const [apiError, setApiError] = useState<string>('');
 
     const handleNavigateToSignUp = () => {
         onNavigateTarget(AuthContent.SIGN_UP);
     };
-    const handleRecoveryPage = () => {
-        onNavigateTarget(AuthContent.RECOVERY);
-    };
+    // const handleRecoveryPage = () => {
+    //     onNavigateTarget(AuthContent.RECOVERY);
+    // };
 
     const formik: FormikConfig<{ email: string; password: string }> = {
         initialValues: {
@@ -140,13 +141,12 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                             dark
                             buttonColor="#156494"
                             disabled={isSubmitting}
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
                             onPress={handleSubmit}
                         >
                             Войти
                         </Button>
-                        {apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}
+                        {/*{apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}*/}
                     </View>
                 )}
             </Formik>

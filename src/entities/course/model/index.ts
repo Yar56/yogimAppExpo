@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { supaBaseApi } from '../../../shared/api/';
-import { CourseType } from '../../../shared/api/supaBase/models';
+import { CourseList, CourseType } from '@/shared/api/supaBase/models';
 
 export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async (arg, { dispatch, getState }) => {
     try {
@@ -12,19 +12,6 @@ export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async 
     }
 });
 
-// export const updateCourse = createAsyncThunk(
-//     'user/updateUserThunk',
-//     async (userData: fireBaseApi.models.UpdateUserParams, thunkAPI) => {
-//         try {
-//             await fireBaseApi.user.updateUser(userData);
-//             return userData;
-//         } catch (e) {
-//             console.error(e);
-//         }
-//     }
-// );
-
-type CourseList = supaBaseApi.models.CourseList;
 interface CourseModelState {
     courses?: CourseList | null;
     coursesByType?: Record<CourseType, CourseList>;
@@ -45,12 +32,11 @@ export const courseModel = createSlice({
             // @ts-ignore
             state.coursesByType = action?.payload?.reduce(
                 (acc) => {
-                    // @ts-ignore
-                    acc.RECOVERY = action.payload?.filter((item) => item.type === CourseType.RECOVERY);
-                    // @ts-ignore
-                    acc.YOGA = action.payload?.filter((item) => item.type === CourseType.YOGA);
-                    // @ts-ignore
-                    acc.MEDITATION = action.payload?.filter((item) => item.type === CourseType.MEDITATION);
+                    acc.RECOVERY = action.payload?.filter((item) => item.type === CourseType.RECOVERY) ?? [];
+
+                    acc.YOGA = action.payload?.filter((item) => item.type === CourseType.YOGA) ?? [];
+
+                    acc.MEDITATION = action.payload?.filter((item) => item.type === CourseType.MEDITATION) ?? [];
                     return acc;
                 },
                 {} as Record<CourseType, CourseList>

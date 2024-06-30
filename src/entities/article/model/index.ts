@@ -101,12 +101,11 @@ export const articleModel = createSlice({
             state.articles = action.payload;
             state.articleByType = action?.payload?.reduce(
                 (acc) => {
-                    // @ts-ignore
-                    acc.ENERGY = action.payload?.filter((item) => item.type === ArticleType.ENERGY);
-                    // @ts-ignore
-                    acc.MEAL = action.payload?.filter((item) => item.type === ArticleType.MEAL);
-                    // @ts-ignore
-                    acc.YOGA = action.payload?.filter((item) => item.type === ArticleType.YOGA);
+                    acc.ENERGY = action.payload?.filter((item) => item.type === ArticleType.ENERGY) ?? [];
+
+                    acc.MEAL = action.payload?.filter((item) => item.type === ArticleType.MEAL) ?? [];
+
+                    acc.YOGA = action.payload?.filter((item) => item.type === ArticleType.YOGA) ?? [];
                     return acc;
                 },
                 {} as Record<ArticleType, ArticleList>

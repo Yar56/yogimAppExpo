@@ -14,12 +14,12 @@ import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-
 import { AddTrack } from 'react-native-track-player/src/interfaces';
 
 import styles from './MeditationPageStylesheet';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
-import { useAppSelector } from '../../../app/store/hooks';
-import { addTracks, setupPlayer } from '../../../shared/lib/audio/trackPlayerServices';
-import { HomeScreen } from '../../../shared/routing/NavigationEntities';
-import { Spacer } from '../../../shared/ui/components/Spacer';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppSelector } from '@/app/store/hooks';
+import { addTracks, setupPlayer } from '@/shared/lib/audio/trackPlayerServices';
+import { HomeScreen } from '@/shared/routing/NavigationEntities';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, HomeScreen.MEDITATION>;
 
@@ -38,7 +38,7 @@ function format(seconds: number) {
     return parseInt(mins, 10);
 }
 
-const MeditationPage: FunctionComponent<Props> = ({ route }) => {
+export const MeditationPage: FunctionComponent<Props> = ({ route }) => {
     const theme = useAppTheme();
     const meditationId = route.params.meditationId;
 
@@ -237,5 +237,3 @@ const MeditationPage: FunctionComponent<Props> = ({ route }) => {
         </CommonLayout>
     );
 };
-
-export default MeditationPage;

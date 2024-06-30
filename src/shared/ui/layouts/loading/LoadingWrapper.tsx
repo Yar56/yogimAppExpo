@@ -2,11 +2,11 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
-interface LoadingWrapper {
+interface LoadingWrapperProps {
     isLoading: boolean;
 }
 
-export const LoadingWrapper: FunctionComponent<LoadingWrapper & PropsWithChildren> = ({ children, isLoading }) => {
+export const LoadingWrapper: FunctionComponent<LoadingWrapperProps & PropsWithChildren> = ({ children, isLoading }) => {
     if (isLoading) {
         return (
             <>
