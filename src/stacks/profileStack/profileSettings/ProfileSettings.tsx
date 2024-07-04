@@ -37,7 +37,7 @@ const ProfileSettings = () => {
             userName: profile?.username ?? '',
         },
 
-        onSubmit: async (values, {}) => {
+        onSubmit: async (values) => {
             const { userName } = values;
             setIsLoading(true);
             try {
