@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { useAppTheme } from '../../app/providers/MaterialThemeProvider';
-import { profileRoutes } from '../../shared/routing/routes';
-import CustomHeader from '../../shared/ui/components/CustomHeader';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { profileRoutes } from '@/shared/routing/routes';
+import CustomHeader from '@/shared/ui/components/CustomHeader';
 
 const ProfileStack = createNativeStackNavigator<RootStackParamList>();
 

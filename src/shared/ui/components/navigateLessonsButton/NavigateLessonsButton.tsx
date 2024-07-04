@@ -5,7 +5,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 
 import styles from './NavigateLessonButtonStylesheet';
-import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
 
 export enum Direction {
     PREVIOUS = 'PREVIOUS',

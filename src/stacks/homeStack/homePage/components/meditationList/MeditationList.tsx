@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 
-import { meditationUi } from '../../../../../entities/meditation';
-import { supaBaseApi } from '../../../../../shared/api';
-import FlatListComponent from '../../../../../shared/ui/components/flatListComponent/FlatListComponent';
+import { meditationUi } from '@/entities/meditation';
+import { supaBaseApi } from '@/shared/api';
+import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
 
 const { MeditationCard } = meditationUi;
 

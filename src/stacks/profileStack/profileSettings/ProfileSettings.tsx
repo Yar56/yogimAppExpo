@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import styles from './ProfileSettingsStylesheet';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { fetchProfileDB } from '../../../entities/user/model';
-import { AvatarComponent } from '../../../entities/user/ui';
-import { supaBaseApi } from '../../../shared/api';
-import { Spacer } from '../../../shared/ui/components/Spacer';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
-import { UserSex } from '../../../shared/api/supaBase/models';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { fetchProfileDB } from '@/entities/user/model';
+import { AvatarComponent } from '@/entities/user/ui';
+import { supaBaseApi } from '@/shared/api';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { UserSex } from '@/shared/api/supaBase/models';
 import RNPickerSelect from 'react-native-picker-select';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -37,7 +37,7 @@ const ProfileSettings = () => {
             userName: profile?.username ?? '',
         },
 
-        onSubmit: async (values, { resetForm, setSubmitting }) => {
+        onSubmit: async (values, {}) => {
             const { userName } = values;
             setIsLoading(true);
             try {

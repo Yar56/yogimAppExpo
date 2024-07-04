@@ -5,10 +5,10 @@ import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './ArticleCardStylesheet';
-import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
-import { supaBaseApi } from '../../../../shared/api';
-import { ArticlesScreen } from '../../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../../shared/routing/useAppNavigation';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { supaBaseApi } from '@/shared/api';
+import { ArticlesScreen } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
 
 interface CourseCardProps {
     article: supaBaseApi.models.Article;

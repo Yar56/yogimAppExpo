@@ -27,6 +27,7 @@
     "@supabase/supabase-js": "^2.39.0",
     "@types/node": "^20.14.9",
     "@zamplyy/react-native-nice-avatar": "^1.1.2",
+    "eslint-plugin-import": "^2.29.1",
     "expo": "~49.0.15",
     "expo-av": "~13.4.1",
     "expo-blur": "~12.4.1",

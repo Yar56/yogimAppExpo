@@ -6,15 +6,13 @@ import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 import convertToProxyURL from 'react-native-video-cache';
-import { useAppSelector } from '../../../app/store/hooks';
-import { Lesson } from '../../../shared/api/supaBase/models';
-import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../shared/routing/useAppNavigation';
-import { Spacer } from '../../../shared/ui/components/Spacer';
-import NavigateLessonsButton, {
-    Direction,
-} from '../../../shared/ui/components/navigateLessonsButton/NavigateLessonsButton';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { useAppSelector } from '@/app/store/hooks';
+import { Lesson } from '@/shared/api/supaBase/models';
+import { RoutineScreen } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import NavigateLessonsButton, { Direction } from '@/shared/ui/components/navigateLessonsButton/NavigateLessonsButton';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
 
 type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.LESSON>;
 

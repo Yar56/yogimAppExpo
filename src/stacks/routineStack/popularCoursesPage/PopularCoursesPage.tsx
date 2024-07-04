@@ -7,7 +7,7 @@ import styles from './PopularCoursesPageStylesheet';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { courseModel } from '@/entities/course';
 import { CourseCard } from '@/entities/course/ui';
-import { supaBaseApi } from '../../../shared/api';
+import { supaBaseApi } from '@/shared/api';
 import { Course, LoadingStatus } from '@/shared/api/supaBase/models';
 import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
 import CommonLayout from '@/shared/ui/layouts/CommonLayout';

@@ -14,10 +14,10 @@ import { useAppSelector } from '@/app/store/hooks';
 import { CourseLabel, Lesson } from '@/shared/api/supaBase/models';
 import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
-import useAppNavigation from '../../../shared/routing/useAppNavigation';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import ControlledTooltip from '../../../shared/ui/components/ControlledTooltip';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import ControlledTooltip from '@/shared/ui/components/ControlledTooltip';
 
 // @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);

@@ -3,10 +3,10 @@ import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 
-import { userModel } from '../../entities/user';
-import { fetchProfileDB } from '../../entities/user/model';
-import { supabase } from '../../shared/lib/baas/supabase';
+import { userModel } from '@/entities/user';
+import { supabase } from '@/shared/lib/baas/supabase';
 import { useAppDispatch } from '../store/hooks';
+const { fetchProfileDB } = userModel;
 
 SplashScreen.preventAutoHideAsync();
 

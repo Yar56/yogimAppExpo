@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthResponse, AuthTokenResponse, Session, UserAttributes } from '@supabase/supabase-js';
 
-import { supaBaseApi } from '../../shared/api';
-import { LoadingStatus } from '../../shared/api/supaBase/models';
+import { supaBaseApi } from '@/shared/api';
+import { LoadingStatus } from '@/shared/api/supaBase/models';
 
 export const signUpUserThunk = createAsyncThunk(
     'user/signUpUserThunk',

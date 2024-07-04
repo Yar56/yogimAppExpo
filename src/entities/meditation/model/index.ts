@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { supaBaseApi } from '../../../shared/api/';
+import { supaBaseApi } from '@/shared/api';
 
 export const fetchAllMeditations = createAsyncThunk(
     'meditation/fetchAllMeditations',

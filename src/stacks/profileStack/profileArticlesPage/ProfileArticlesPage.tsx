@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, Text, Title } from 'react-native-paper';
 
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { supaBaseApi } from '../../../shared/api';
-import { articleModel } from '../../../entities/article';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { supaBaseApi } from '@/shared/api';
+import { articleModel } from '@/entities/article';
 import { StyleSheet, View } from 'react-native';
-import { Spacer } from '../../../shared/ui/components/Spacer';
+import { Spacer } from '@/shared/ui/components/Spacer';
 import ProfileArticleCard from './components/profileArticleCard/ProfileArticleCard';
 
 const ProfileArticlesPage = () => {

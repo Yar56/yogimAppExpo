@@ -2,7 +2,7 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Edges, SafeAreaView } from 'react-native-safe-area-context';
 
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
 
 interface CommonLayoutProps {
     externalStyles?: ViewStyle;

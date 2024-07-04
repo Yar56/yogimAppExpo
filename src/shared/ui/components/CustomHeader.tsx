@@ -4,10 +4,10 @@ import React, { FunctionComponent } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
 import { LOGO } from '../../constants/resourses';
 import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
-import { ChangeTheme } from '../../../features/changeTheme';
+import { ChangeTheme } from '@/features/changeTheme';
 
 interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;

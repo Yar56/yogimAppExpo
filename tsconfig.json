@@ -9,8 +9,8 @@
             "@/*": ["src/*"]
         },
         "maxNodeModuleJsDepth": 0,
-        "module": "esnext",
-
+        "module": "ESNext",
+        "target": "ESNext",
         "typeRoots": ["./node_modules/@types"]
     },
     "extends": "expo/tsconfig.base"

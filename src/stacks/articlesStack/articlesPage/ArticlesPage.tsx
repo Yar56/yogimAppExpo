@@ -5,12 +5,12 @@ import { ActivityIndicator, Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 
 import styles from './ArticlesPageStylesheet';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { articleModel } from '../../../entities/article';
-import { ArticleCard } from '../../../entities/article/ui';
-import { supaBaseApi } from '../../../shared/api';
-import FlatListComponent from '../../../shared/ui/components/flatListComponent/FlatListComponent';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { articleModel } from '@/entities/article';
+import { ArticleCard } from '@/entities/article/ui';
+import { supaBaseApi } from '@/shared/api';
+import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
 
 export const ArticlesPage = () => {
     const dispatch = useAppDispatch();

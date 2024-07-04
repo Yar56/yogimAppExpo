@@ -2,9 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 
-import { CourseCard } from '../../entities/course/ui';
-import { supaBaseApi } from '../../shared/api/';
-import { screenHeight, screenWidth } from '../../shared/constants/screenSize';
+import { CourseCard } from '@/entities/course/ui';
+import { supaBaseApi } from '@/shared/api/';
+import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
 
 const loadingStatuses = supaBaseApi.models.LoadingStatus;
 interface CoursesListProps {

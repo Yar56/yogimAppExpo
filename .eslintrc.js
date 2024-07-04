@@ -2,7 +2,13 @@ module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
-    extends: ['expo', 'eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    extends: [
+        'expo',
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
+    ],
     ignorePatterns: ['src/shared/api/supaBase/dbModels.ts'],
     rules: {
         '@typescript-eslint/ban-ts-comment': 'off',
@@ -19,6 +25,37 @@ module.exports = {
             {
                 props: 'never',
                 children: 'never',
+            },
+        ],
+        'no-restricted-imports': [
+            'error',
+            {
+                patterns: [
+                    {
+                        group: [
+                            // Use public API only
+                            '@app/**',
+                            '@stacks/*/**',
+                            '@widgets/*/**',
+                            '@features/*/**',
+                            '@entities/*/**',
+                            '@shared/*/*/**',
+                        ],
+                        message: 'Use the public API of the module instead of direct imports.',
+                    },
+                    {
+                        group: [
+                            // Use public API only
+                            '../**/app',
+                            '../**/stacks',
+                            '../**/widgets',
+                            '../**/features',
+                            '../**/entities',
+                            '../**/shared',
+                        ],
+                        message: 'Avoid using relative imports for these modules. Use @layer/',
+                    },
+                ],
             },
         ],
     },

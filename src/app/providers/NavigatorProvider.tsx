@@ -6,14 +6,13 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
 import { useAppTheme } from './MaterialThemeProvider';
-import { HomeScreen, TabName } from '../../shared/routing/NavigationEntities';
-import CustomTabBarIcon from '../../shared/ui/components/CustomTabBarIcon';
-import { ArticlesStackScreen } from '../../stacks/articlesStack/ArticlesStackScreen';
-import { AuthStackScreen } from '../../stacks/authStack/AuthStackScreen';
-// import { EventsStackScreen } from '../../stacks/eventsStack/EventsStackScreen';
-import { HomeStackScreen } from '../../stacks/homeStack/HomeStackScreen';
-import { ProfileStackScreen } from '../../stacks/profileStack/ProfileStackScreen';
-import { RoutineStackScreen } from '../../stacks/routineStack/RoutineStackScreen';
+import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
+import CustomTabBarIcon from '@/shared/ui/components/CustomTabBarIcon';
+import { ArticlesStackScreen } from '@/stacks/articlesStack/ArticlesStackScreen';
+import { AuthStackScreen } from '@/stacks/authStack/AuthStackScreen';
+import { HomeStackScreen } from '@/stacks/homeStack/HomeStackScreen';
+import { ProfileStackScreen } from '@/stacks/profileStack/ProfileStackScreen';
+import { RoutineStackScreen } from '@/stacks/routineStack/RoutineStackScreen';
 import { useAppSelector } from '../store/hooks';
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +26,7 @@ const getTabBarVisibility = (route) => {
 
 export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => {
     const session = useAppSelector((state) => state.userState.session);
-    const isSignIn = session?.user;
+    const isSignIn = Boolean(session && session?.user);
     const theme = useAppTheme();
 
     const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;

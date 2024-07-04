@@ -4,16 +4,16 @@ import { ImageBackground, ScrollView, TouchableOpacity, View } from 'react-nativ
 import { Button, Card, Text } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/src/styles/themes/v3/tokens';
 import styles from './RoutinePageStylesheet';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { courseModel } from '../../../entities/course';
-import { ROUTINE_CARD, ROUTINE_CARD_LIGHT } from '../../../shared/constants/resourses';
-import { RoutineScreen } from '../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../shared/routing/useAppNavigation';
-import { Spacer } from '../../../shared/ui/components/Spacer';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import { screenWidth } from '../../../shared/constants/screenSize';
-import ControlledTooltip from '../../../shared/ui/components/ControlledTooltip';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { courseModel } from '@/entities/course';
+import { ROUTINE_CARD, ROUTINE_CARD_LIGHT } from '@/shared/constants/resourses';
+import { RoutineScreen } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { screenWidth } from '@/shared/constants/screenSize';
+import ControlledTooltip from '@/shared/ui/components/ControlledTooltip';
 
 export const RoutinePage = () => {
     const theme = useAppTheme();

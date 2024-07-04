@@ -7,14 +7,14 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignUpStylesheet';
-import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
-import { useAppDispatch } from '../../../../app/store/hooks';
-import { userModel } from '../../../../entities/user';
-import { AuthContent } from '../../../../shared/constants/AuthContent';
-import { RoutineScreen, TabName } from '../../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../../shared/routing/useAppNavigation';
-import { Spacer } from '../../../../shared/ui/components/Spacer';
-import { LoadingWrapper } from '../../../../shared/ui/layouts/loading/LoadingWrapper';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppDispatch } from '@/app/store/hooks';
+import { userModel } from '@/entities/user';
+import { AuthContent } from '@/shared/constants/AuthContent';
+import { RoutineScreen, TabName } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import { LoadingWrapper } from '@/shared/ui/layouts/loading/LoadingWrapper';
 import { SignInProps } from '../signIn/SignIn';
 
 const schema = yup.object().shape({

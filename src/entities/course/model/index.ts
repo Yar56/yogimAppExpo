@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { supaBaseApi } from '../../../shared/api/';
+import { supaBaseApi } from '@/shared/api/';
 import { CourseList, CourseType } from '@/shared/api/supaBase/models';
 
 export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async (arg, { dispatch, getState }) => {

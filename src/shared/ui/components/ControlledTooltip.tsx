@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Tooltip, TooltipProps } from '@rneui/themed';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
 
 const ControlledTooltip: React.FC<TooltipProps & PropsWithChildren> = (props) => {
     const theme = useAppTheme();

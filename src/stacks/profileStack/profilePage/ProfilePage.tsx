@@ -4,17 +4,17 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Button, Divider, List, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
-import { useAppTheme } from '../../../app/providers/MaterialThemeProvider';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { fetchProfileDB } from '../../../entities/user/model';
-import { AvatarComponent } from '../../../entities/user/ui';
-import { supaBaseApi } from '../../../shared/api';
-import { LoadingStatus } from '../../../shared/api/supaBase/models';
-import { ProfileScreen } from '../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../shared/routing/useAppNavigation';
-import { Spacer } from '../../../shared/ui/components/Spacer';
-import CommonLayout from '../../../shared/ui/layouts/CommonLayout';
-import { articleModel } from '../../../entities/article';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { fetchProfileDB } from '@/entities/user/model';
+import { AvatarComponent } from '@/entities/user/ui';
+import { supaBaseApi } from '@/shared/api';
+import { LoadingStatus } from '@/shared/api/supaBase/models';
+import { ProfileScreen } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
+import { Spacer } from '@/shared/ui/components/Spacer';
+import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { articleModel } from '@/entities/article';
 
 export const ProfilePage = () => {
     const theme = useAppTheme();

@@ -4,10 +4,10 @@ import React, { TouchableOpacity, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import styles from './LessonCardStylesheet';
-import { useAppTheme } from '../../../../app/providers/MaterialThemeProvider';
-import { Lesson } from '../../../../shared/api/supaBase/models';
-import { RoutineScreen } from '../../../../shared/routing/NavigationEntities';
-import useAppNavigation from '../../../../shared/routing/useAppNavigation';
+import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { Lesson } from '@/shared/api/supaBase/models';
+import { RoutineScreen } from '@/shared/routing/NavigationEntities';
+import useAppNavigation from '@/shared/routing/useAppNavigation';
 
 interface LessonCardProps {
     lesson: Lesson;
