@@ -5,15 +5,16 @@ import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
-import { useAppTheme } from '@/shared/lib/theme';
-import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
-import { CustomTabBarIcon } from '@/shared/ui/components';
 import { ArticlesStackScreen } from '@/stacks/articlesStack';
 import { AuthStackScreen } from '@/stacks/authStack';
 import { HomeStackScreen } from '@/stacks/homeStack';
 import { ProfileStackScreen } from '@/stacks/profileStack';
 import { RoutineStackScreen } from '@/stacks/routineStack';
+
 import { useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
+import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
+import { CustomTabBarIcon } from '@/shared/ui/components';
 
 const Tab = createBottomTabNavigator();
 

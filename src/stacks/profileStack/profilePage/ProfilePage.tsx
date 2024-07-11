@@ -3,17 +3,18 @@ import React, { useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Button, Divider, List, Text } from 'react-native-paper';
 
-import styles from './ProfilePageStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { articleModel } from '@/entities/article';
 import { userModel, userUi } from '@/entities/user';
-import { user, LoadingStatus } from '@/shared/api/supaBase';
 
+import { user, LoadingStatus } from '@/shared/api/supaBase';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { ProfileScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
-import { articleModel } from '@/entities/article';
+
+import styles from './ProfilePageStylesheet';
 
 const { fetchProfileDB } = userModel;
 const { AvatarComponent } = userUi;

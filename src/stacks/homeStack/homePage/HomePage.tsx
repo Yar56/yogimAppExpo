@@ -1,20 +1,24 @@
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
-import styles from './HomePageStylesheet';
-import { MeditationListComponent } from './components/meditationList/MeditationList';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+
 import { courseModel } from '@/entities/course';
 import { meditationModel } from '@/entities/meditation';
+import { userUi } from '@/entities/user';
+
 import { WELCOME_CARD_WOMEN } from '@/shared/constants/resourses';
 import { getCurrentHours } from '@/shared/lib/date';
 import { getGreeting } from '@/shared/lib/message';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen, TabName } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
-import { userUi } from '@/entities/user';
+
+
+import { MeditationListComponent } from './components/meditationList/MeditationList';
+import styles from './HomePageStylesheet';
 
 const { AvatarComponent } = userUi;
 

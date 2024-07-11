@@ -1,11 +1,13 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { FunctionComponent, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 
-import { ActivityIndicator } from 'react-native-paper';
-import { useAppDispatch } from '@/shared/lib/redux';
-import { Ionicons } from '@expo/vector-icons';
 import { articleModel } from '@/entities/article';
+
+import { useAppDispatch } from '@/shared/lib/redux';
+
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 

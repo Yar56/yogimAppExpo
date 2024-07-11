@@ -3,12 +3,15 @@ import { useEffect } from 'react';
 import React, { ListRenderItemInfo } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
-import styles from './PopularCoursesPageStylesheet';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+
 import { courseModel, courseUi } from '@/entities/course';
+
 import { Course, LoadingStatus } from '@/shared/api/supaBase';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
 import { FlatListComponent } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
+
+import styles from './PopularCoursesPageStylesheet';
 
 const { CourseCard } = courseUi;
 

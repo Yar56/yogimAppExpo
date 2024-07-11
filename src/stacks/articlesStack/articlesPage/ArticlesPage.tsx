@@ -4,13 +4,14 @@ import { ListRenderItemInfo, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 
-import styles from './ArticlesPageStylesheet';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
 import { articleModel, articleUi } from '@/entities/article';
 
 import { LoadingStatus, Article } from '@/shared/api/supaBase';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
 import { FlatListComponent } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
+
+import styles from './ArticlesPageStylesheet';
 
 const { ArticleCard } = articleUi;
 export const ArticlesPage = () => {

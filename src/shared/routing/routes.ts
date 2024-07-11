@@ -1,12 +1,12 @@
 import { ComponentType } from 'react';
 
-import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from './NavigationEntities';
 import { ArticlePage, ArticlesPage } from '@/stacks/articlesStack';
 import { AuthStartPage } from '@/stacks/authStack';
 import { HomePage, MeditationPage } from '@/stacks/homeStack';
-
 import { ProfilePage, ProfileSettings, ProfileArticlesPage } from '@/stacks/profileStack';
 import { PopularCoursesPage, LessonPage, CourseDetailsPage, CoursePage, RoutinePage } from '@/stacks/routineStack';
+
+import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from './NavigationEntities';
 
 export const articlesRoutes: AppRoute[] = [
     { name: ArticlesScreen.ARTICLES, component: ArticlesPage, title: '' },

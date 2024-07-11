@@ -3,11 +3,12 @@ import { FunctionComponent } from 'react';
 import React, { TouchableOpacity, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-import styles from './LessonCardStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
 import { Lesson } from '@/shared/api/supaBase';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
+
+import styles from './LessonCardStylesheet';
 
 interface LessonCardProps {
     lesson: Lesson;

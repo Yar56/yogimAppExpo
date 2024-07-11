@@ -6,13 +6,16 @@ import FastImage from 'react-native-fast-image';
 import { Text } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
 
-import styles from './ArticlePageStylesheet';
-import { useAppSelector } from '@/shared/lib/redux';
+import { LikeArticle } from '@/features/likeArticle';
+
 import { screenHeight } from '@/shared/constants/screenSize';
+import { useAppSelector } from '@/shared/lib/redux';
 import { ArticlesScreen } from '@/shared/routing/NavigationEntities';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
-import { LikeArticle } from '@/features/likeArticle';
+
+import styles from './ArticlePageStylesheet';
+
 
 type Props = NativeStackScreenProps<RootStackParamList, ArticlesScreen.ARTICLE>;
 // @ts-ignore

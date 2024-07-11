@@ -1,16 +1,21 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Formik, FormikConfig } from 'formik';
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
-import styles from './ProfileSettingsStylesheet';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import RNPickerSelect from 'react-native-picker-select';
+
 import { userModel, userUi } from '@/entities/user';
+
 import { user, UserSex } from '@/shared/api/supaBase';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
-import { useAppTheme } from '@/shared/lib/theme';
-import RNPickerSelect from 'react-native-picker-select';
-import { Ionicons } from '@expo/vector-icons';
+
+import styles from './ProfileSettingsStylesheet';
+
+
 
 const { fetchProfileDB } = userModel;
 const { AvatarComponent } = userUi;

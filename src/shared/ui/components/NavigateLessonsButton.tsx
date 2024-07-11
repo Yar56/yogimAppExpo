@@ -3,8 +3,9 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { FunctionComponent } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
-import { useAppTheme } from '@/shared/lib/theme';
+
 import { screenWidth } from '@/shared/constants/screenSize';
+import { useAppTheme } from '@/shared/lib/theme';
 
 export enum Direction {
     PREVIOUS = 'PREVIOUS',

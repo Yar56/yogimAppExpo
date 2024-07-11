@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 
 import { courseUi } from '@/entities/course';
+
 import { LoadingStatus, CourseList } from '@/shared/api/supaBase';
 import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
 

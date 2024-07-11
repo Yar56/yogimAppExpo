@@ -2,9 +2,9 @@ import { Material3Theme, useMaterial3Theme } from '@pchmn/expo-material3-theme';
 import React, { createContext, useContext, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, ProviderProps } from 'react-native-paper';
 
 import { customDarkColors, customLightColors } from '@/shared/lib/styles';
-import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, ProviderProps } from 'react-native-paper';
 
 type Material3ThemeProviderProps = {
     theme: Material3Theme;

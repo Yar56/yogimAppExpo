@@ -6,8 +6,9 @@ import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Card, Text } from 'react-native-paper';
 import convertToProxyURL from 'react-native-video-cache';
-import { useAppSelector } from '@/shared/lib/redux';
+
 import { Lesson } from '@/shared/api/supaBase';
+import { useAppSelector } from '@/shared/lib/redux';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { NavigateLessonsButton, Direction, Spacer } from '@/shared/ui/components/';

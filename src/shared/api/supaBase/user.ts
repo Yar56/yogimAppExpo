@@ -8,9 +8,10 @@ import {
 } from '@supabase/supabase-js';
 import { Alert } from 'react-native';
 
-import { SignInUserParams, SignUpUserParams } from './models';
 import { UpdateProfileDBParams, ISession } from '@/shared/api/supaBase';
 import { supabase } from '@/shared/lib/baas';
+
+import { SignInUserParams, SignUpUserParams } from './models';
 
 export const signUpUser = ({ email, password, username }: SignUpUserParams): Promise<AuthResponse> => {
     return supabase.auth.signUp({ email, password, options: { data: { username } } });

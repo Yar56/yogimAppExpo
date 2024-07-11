@@ -4,11 +4,12 @@ import { TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
-import styles from './CourseCardStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
 import { Course } from '@/shared/api/supaBase';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
+
+import styles from './CourseCardStylesheet';
 
 interface CourseCardProps {
     course: Course;

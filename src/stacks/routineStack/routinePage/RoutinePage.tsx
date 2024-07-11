@@ -3,16 +3,19 @@ import React, { useEffect } from 'react';
 import { ImageBackground, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/src/styles/themes/v3/tokens';
-import styles from './RoutinePageStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+
 import { courseModel } from '@/entities/course';
+
 import { ROUTINE_CARD, ROUTINE_CARD_LIGHT } from '@/shared/constants/resourses';
+import { screenWidth } from '@/shared/constants/screenSize';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer, ControlledTooltip } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
-import { screenWidth } from '@/shared/constants/screenSize';
+
+import styles from './RoutinePageStylesheet';
 
 export const RoutinePage = () => {
     const theme = useAppTheme();

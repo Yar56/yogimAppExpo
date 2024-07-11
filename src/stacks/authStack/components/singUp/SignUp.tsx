@@ -6,16 +6,19 @@ import { Alert, TouchableOpacity, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
-import styles from './SignUpStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppDispatch } from '@/shared/lib/redux';
 import { userModel } from '@/entities/user';
+
 import { AuthContent } from '@/shared/constants/AuthContent';
+import { useAppDispatch } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen, TabName } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer } from '@/shared/ui/components';
 import { LoadingWrapper } from '@/shared/ui/layouts';
+
 import { SignInProps } from '../signIn/SignIn';
+
+import styles from './SignUpStylesheet';
 
 const schema = yup.object().shape({
     displayName: yup.string().required('Заполните имя пользователя'),

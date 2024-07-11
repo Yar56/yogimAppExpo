@@ -1,14 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
+import ReactNiceAvatar, { AvatarFullConfig, genConfig } from '@zamplyy/react-native-nice-avatar';
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { Alert, View } from 'react-native';
 import DocumentPicker, { isCancel, isInProgress, types } from 'react-native-document-picker';
 import { Avatar, IconButton } from 'react-native-paper';
-import styles from './AvatarStylesheet';
-import { supabase } from '@/shared/lib/baas';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppSelector } from '@/shared/lib/redux';
-import ReactNiceAvatar, { AvatarFullConfig, genConfig } from '@zamplyy/react-native-nice-avatar';
+
 import { UserSex } from '@/shared/api/supaBase';
+import { supabase } from '@/shared/lib/baas';
+import { useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
+
+import styles from './AvatarStylesheet';
+
 
 interface AvatarProps {
     size?: number;

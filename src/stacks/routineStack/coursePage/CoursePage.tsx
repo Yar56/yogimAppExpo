@@ -7,16 +7,17 @@ import FastImage from 'react-native-fast-image';
 import { Button, Chip, Divider, Text } from 'react-native-paper';
 import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from 'react-native-reanimated';
 
-import styles from './CoursePageStylesheet';
-import LessonList from './components/lessonList/LessonList';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppSelector } from '@/shared/lib/redux';
 import { CourseLabel, Lesson } from '@/shared/api/supaBase';
 import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
+import { useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer, ControlledTooltip } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
+
+import LessonList from './components/lessonList/LessonList';
+import styles from './CoursePageStylesheet';
 
 // @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);

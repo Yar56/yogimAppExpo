@@ -1,5 +1,7 @@
-import { ComponentProps, ComponentType } from 'react';
 import { ParamListBase } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ComponentProps, ComponentType } from 'react';
+
 import {
     ArticlesScreen,
     EventsScreen,
@@ -7,7 +9,7 @@ import {
     ProfileScreen,
     RoutineScreen,
 } from './shared/routing/NavigationEntities';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 
 declare global {
     interface RootStackParamList extends ParamListBase {

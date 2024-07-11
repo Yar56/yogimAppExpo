@@ -13,13 +13,14 @@ import { rgbaArrayToRGBAColor } from 'react-native-reanimated/src';
 import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-track-player';
 import { AddTrack } from 'react-native-track-player/src/interfaces';
 
-import styles from './MeditationPageStylesheet';
-import { useAppTheme } from '@/shared/lib/theme';
-import { useAppSelector } from '@/shared/lib/redux';
 import { trackPlayerServices } from '@/shared/lib/audio';
+import { useAppSelector } from '@/shared/lib/redux';
+import { useAppTheme } from '@/shared/lib/theme';
 import { HomeScreen } from '@/shared/routing/NavigationEntities';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
+
+import styles from './MeditationPageStylesheet';
 
 const { addTracks, setupPlayer } = trackPlayerServices;
 

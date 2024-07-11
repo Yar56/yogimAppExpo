@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { createAppAsyncThunk } from '@/shared/lib/redux';
 import { articles, ArticleList, ArticleType, LoadingStatus } from '@/shared/api/supaBase';
+import { createAppAsyncThunk } from '@/shared/lib/redux';
 
 export const fetchAllArticles = createAppAsyncThunk('article/fetchAllArticles', async (arg, { dispatch, getState }) => {
     try {
