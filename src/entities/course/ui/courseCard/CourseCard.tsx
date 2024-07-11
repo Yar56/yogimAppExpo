@@ -5,13 +5,13 @@ import FastImage from 'react-native-fast-image';
 import { Button, Card, Text } from 'react-native-paper';
 
 import styles from './CourseCardStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { supaBaseApi } from '@/shared/api';
+import { useAppTheme } from '@/shared/lib/theme';
+import { Course } from '@/shared/api/supaBase';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
 
 interface CourseCardProps {
-    course: supaBaseApi.models.Course;
+    course: Course;
 }
 export const CourseCard: FunctionComponent<CourseCardProps> = ({ course }) => {
     const theme = useAppTheme();

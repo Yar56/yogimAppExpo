@@ -4,11 +4,11 @@ import { Image, LayoutAnimation, Platform, TouchableOpacity, UIManager, View } f
 import { Button, Dialog, Divider, Text } from 'react-native-paper';
 
 import styles from './AuthStartPageStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { AuthContent } from '@/shared/constants/AuthContent';
 import { AUTH_BACKGROUND_DARK, AUTH_BACKGROUND_LIGHT } from '@/shared/constants/resourses';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { Spacer } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
 import SignIn, { SignInProps } from '../components/signIn/SignIn';
 import SignUp from '../components/singUp/SignUp';
 import RecoveryPassword, { RecoveryPasswordProps } from '../components/recoveryPassword/RecoveryPassword';

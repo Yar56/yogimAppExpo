@@ -1,22 +1,19 @@
 import { ComponentType } from 'react';
 
 import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from './NavigationEntities';
-import { ArticlePage } from '@/stacks/articlesStack/articlePage/ArticlePage';
-import { ArticlesPage } from '@/stacks/articlesStack/articlesPage/ArticlesPage';
-import AuthStartPage from '@/stacks/authStack/authStartPage/AuthStartPage';
-import { EventsPage } from '@/stacks/eventsStack/EventsPage';
-import { HomePage } from '@/stacks/homeStack/homePage/HomePage';
+import { ArticlePage, ArticlesPage } from '@/stacks/articlesStack';
+import { AuthStartPage } from '@/stacks/authStack';
+import { HomePage, MeditationPage } from '@/stacks/homeStack';
 
-import { ProfilePage } from '@/stacks/profileStack/profilePage/ProfilePage';
-import ProfileSettings from '@/stacks/profileStack/profileSettings/ProfileSettings';
-import CourseDetailsPage from '@/stacks/routineStack/CourseDetailsPage';
-import PurchasePage from '@/stacks/routineStack/PurchasePage';
-import { CoursePage } from '@/stacks/routineStack/coursePage/CoursePage';
-import LessonPage from '@/stacks/routineStack/lessonPage/LessonPage';
-import PopularCoursesPage from '@/stacks/routineStack/popularCoursesPage/PopularCoursesPage';
-import { RoutinePage } from '@/stacks/routineStack/routinePage/RoutinePage';
-import ProfileArticlesPage from '@/stacks/profileStack/profileArticlesPage/ProfileArticlesPage';
-import { MeditationPage } from '@/stacks/homeStack/meditationPage/MeditationPage';
+import { ProfilePage, ProfileSettings, ProfileArticlesPage } from '@/stacks/profileStack';
+import {
+    PopularCoursesPage,
+    LessonPage,
+    PurchasePage,
+    CourseDetailsPage,
+    CoursePage,
+    RoutinePage,
+} from '@/stacks/routineStack';
 
 export const articlesRoutes: AppRoute[] = [
     { name: ArticlesScreen.ARTICLES, component: ArticlesPage, title: '' },
@@ -35,7 +32,7 @@ export const routineRoutes: AppRoute[] = [
     { name: RoutineScreen.COURSE_DETAILS_PAGE, component: CourseDetailsPage as ComponentType },
     { name: RoutineScreen.PURCHASE, component: PurchasePage },
 ];
-export const eventsRoutes: AppRoute[] = [{ name: 'Events', component: EventsPage, title: '' }];
+
 export const profileRoutes: AppRoute[] = [
     { name: ProfileScreen.PROFILE, component: ProfilePage, title: '' },
     { name: ProfileScreen.PROFILE_SETTINGS, component: ProfileSettings, title: '' },

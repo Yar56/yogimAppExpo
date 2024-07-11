@@ -4,17 +4,19 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Button, Divider, List, Text } from 'react-native-paper';
 
 import styles from './ProfilePageStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { fetchProfileDB } from '@/entities/user/model';
-import { AvatarComponent } from '@/entities/user/ui';
-import { supaBaseApi } from '@/shared/api';
-import { LoadingStatus } from '@/shared/api/supaBase/models';
+import { useAppTheme } from '@/shared/lib/theme';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { userModel, userUi } from '@/entities/user';
+import { user, LoadingStatus } from '@/shared/api/supaBase';
+
 import { ProfileScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { Spacer } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
 import { articleModel } from '@/entities/article';
+
+const { fetchProfileDB } = userModel;
+const { AvatarComponent } = userUi;
 
 export const ProfilePage = () => {
     const theme = useAppTheme();
@@ -33,7 +35,7 @@ export const ProfilePage = () => {
         dispatch(articleModel.fetchAllLikedArticles());
     }, [dispatch, session]);
 
-    const handleLogout = () => supaBaseApi.user.signOutUser();
+    const handleLogout = () => user.signOutUser();
 
     const navigation = useAppNavigation();
 

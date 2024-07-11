@@ -7,7 +7,7 @@ interface CustomTabBarIconProps {
     iconName: IconProps['name'];
     color: string;
 }
-const CustomTabBarIcon: FunctionComponent<CustomTabBarIconProps> = ({ iconName, color }) => {
+export const CustomTabBarIcon: FunctionComponent<CustomTabBarIconProps> = ({ iconName, color }) => {
     return (
         <View>
             {/* @ts-ignore */}
@@ -15,5 +15,3 @@ const CustomTabBarIcon: FunctionComponent<CustomTabBarIconProps> = ({ iconName, 
         </View>
     );
 };
-
-export default CustomTabBarIcon;

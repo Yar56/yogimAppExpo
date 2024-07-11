@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { ArticlesScreen } from '@/shared/routing/NavigationEntities';
 import { articlesRoutes } from '@/shared/routing/routes';
-import CustomHeader from '@/shared/ui/components/CustomHeader';
+import { CustomHeader } from '@/shared/ui/components';
 
 const CoursesStack = createNativeStackNavigator<RootStackParamList>();
 

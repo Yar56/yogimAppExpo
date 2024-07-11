@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { FontAwesome, Octicons } from '@expo/vector-icons';
-import { useAppTheme, useMaterial3ThemeContext } from '@/app/providers/MaterialThemeProvider';
+import { useMaterial3ThemeContext } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
 
 interface LikeArticleProps {}

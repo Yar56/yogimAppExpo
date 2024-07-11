@@ -14,12 +14,14 @@ import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-
 import { AddTrack } from 'react-native-track-player/src/interfaces';
 
 import styles from './MeditationPageStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { useAppSelector } from '@/app/store/hooks';
-import { addTracks, setupPlayer } from '@/shared/lib/audio/trackPlayerServices';
+import { useAppTheme } from '@/shared/lib/theme';
+import { useAppSelector } from '@/shared/lib/redux';
+import { trackPlayerServices } from '@/shared/lib/audio';
 import { HomeScreen } from '@/shared/routing/NavigationEntities';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { Spacer } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
+
+const { addTracks, setupPlayer } = trackPlayerServices;
 
 type Props = NativeStackScreenProps<RootStackParamList, HomeScreen.MEDITATION>;
 

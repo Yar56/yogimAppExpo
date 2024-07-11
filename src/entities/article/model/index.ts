@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { createAppAsyncThunk } from '@/app/store/hooks';
-import { supaBaseApi } from '@/shared/api';
-import { ArticleList, ArticleType } from '@/shared/api/supaBase/models';
+import { createAppAsyncThunk } from '@/shared/lib/redux';
+import { articles, ArticleList, ArticleType, LoadingStatus } from '@/shared/api/supaBase';
 
-export const fetchAllArticles = createAsyncThunk('article/fetchAllArticles', async (arg, { dispatch, getState }) => {
+export const fetchAllArticles = createAppAsyncThunk('article/fetchAllArticles', async (arg, { dispatch, getState }) => {
     try {
-        const { data } = await supaBaseApi.articles.getAllArticles();
+        const { data } = await articles.getAllArticles();
         return data;
     } catch (e) {
         console.error(e);
@@ -17,7 +16,7 @@ export const fetchAllArticlesByIds = createAsyncThunk(
     'article/fetchAllArticlesByIds',
     async (ids: string[], { dispatch, getState }) => {
         try {
-            const { data } = await supaBaseApi.articles.getAllArticlesByIds(ids);
+            const { data } = await articles.getAllArticlesByIds(ids);
             return data;
         } catch (e) {
             console.error(e);
@@ -35,7 +34,7 @@ export const fetchAllLikedArticles = createAppAsyncThunk(
         }
 
         try {
-            const { data } = await supaBaseApi.articles.getAllLikedArticles({ profileId });
+            const { data } = await articles.getAllLikedArticles({ profileId });
             return data;
         } catch (e) {
             console.error(e);
@@ -53,7 +52,7 @@ export const setLikedArticleThunk = createAppAsyncThunk(
         }
 
         try {
-            const { data } = await supaBaseApi.articles.setLikedArticle({ profileId, articleId });
+            const { data } = await articles.setLikedArticle({ profileId, articleId });
             console.log(data, 'data setLikedArticleThunk');
             return data;
         } catch (e) {
@@ -72,7 +71,7 @@ export const deleteLikedArticleThunk = createAppAsyncThunk(
         }
 
         try {
-            await supaBaseApi.articles.deleteLikedArticle({ articleId, profileId });
+            await articles.deleteLikedArticle({ articleId, profileId });
             return articleId;
         } catch (e) {
             console.error(e);
@@ -81,14 +80,14 @@ export const deleteLikedArticleThunk = createAppAsyncThunk(
 );
 
 interface ArticleModelState {
-    articles?: supaBaseApi.models.ArticleList | null;
-    likedArticles?: supaBaseApi.models.ArticleList | null;
+    articles?: ArticleList | null;
+    likedArticles?: ArticleList | null;
     likedArticleIds?: string[];
     articleByType?: Record<ArticleType, ArticleList>;
-    articlesLoadingStatus: supaBaseApi.models.LoadingStatus;
+    articlesLoadingStatus: LoadingStatus;
 }
 const initialState: ArticleModelState = {
-    articlesLoadingStatus: supaBaseApi.models.LoadingStatus.IDLE,
+    articlesLoadingStatus: LoadingStatus.IDLE,
 };
 
 export const articleModel = createSlice({
@@ -97,7 +96,7 @@ export const articleModel = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllArticles.fulfilled, (state, action) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.articlesLoadingStatus = LoadingStatus.SUCCEEDED;
             state.articles = action.payload;
             state.articleByType = action?.payload?.reduce(
                 (acc) => {
@@ -112,22 +111,22 @@ export const articleModel = createSlice({
             );
         });
         builder.addCase(fetchAllArticles.pending, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.articlesLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllArticles.rejected, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.articlesLoadingStatus = LoadingStatus.FAILED;
         });
 
         // region fetch all liked articles
         builder.addCase(fetchAllArticlesByIds.fulfilled, (state, action) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.articlesLoadingStatus = LoadingStatus.SUCCEEDED;
             state.likedArticles = action.payload;
         });
         builder.addCase(fetchAllArticlesByIds.pending, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.articlesLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllArticlesByIds.rejected, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.articlesLoadingStatus = LoadingStatus.FAILED;
         });
         // endregion
 
@@ -136,10 +135,10 @@ export const articleModel = createSlice({
             state.likedArticleIds = payload?.map((liked) => liked.articleId);
         });
         builder.addCase(fetchAllLikedArticles.pending, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.articlesLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllLikedArticles.rejected, (state) => {
-            state.articlesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.articlesLoadingStatus = LoadingStatus.FAILED;
         });
         // endregion
 

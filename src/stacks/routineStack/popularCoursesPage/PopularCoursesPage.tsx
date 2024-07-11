@@ -4,13 +4,13 @@ import React, { ListRenderItemInfo } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 import styles from './PopularCoursesPageStylesheet';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { courseModel } from '@/entities/course';
-import { CourseCard } from '@/entities/course/ui';
-import { supaBaseApi } from '@/shared/api';
-import { Course, LoadingStatus } from '@/shared/api/supaBase/models';
-import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { courseModel, courseUi } from '@/entities/course';
+import { Course, LoadingStatus } from '@/shared/api/supaBase';
+import { FlatListComponent } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
+
+const { CourseCard } = courseUi;
 
 const PopularCoursesPage = () => {
     const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ const PopularCoursesPage = () => {
     const isLoading = loadingStatus === LoadingStatus.LOADING;
     const isError = loadingStatus === LoadingStatus.FAILED;
 
-    const renderItem = ({ item }: ListRenderItemInfo<supaBaseApi.models.Course>) => {
+    const renderItem = ({ item }: ListRenderItemInfo<Course>) => {
         return <CourseCard course={item} />;
     };
 

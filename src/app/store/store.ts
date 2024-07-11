@@ -1,10 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import { articleReducer } from '@/entities/article/model';
-import { courseReducer } from '@/entities/course/model';
-import { lessonReducer } from '@/entities/lesson/model';
-import { meditationReducer } from '@/entities/meditation/model';
-import { userReducer } from '@/entities/user/model';
+import { articleModel } from '@/entities/article';
+import { courseModel } from '@/entities/course';
+import { lessonModel } from '@/entities/lesson';
+import { meditationModel } from '@/entities/meditation';
+import { userModel } from '@/entities/user';
+
+const { articleReducer } = articleModel;
+const { courseReducer } = courseModel;
+const { lessonReducer } = lessonModel;
+const { meditationReducer } = meditationModel;
+const { userReducer } = userModel;
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +23,8 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+declare global {
+    type RootState = ReturnType<typeof store.getState>;
+    type AppDispatch = typeof store.dispatch;
+    type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+}

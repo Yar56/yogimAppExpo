@@ -4,8 +4,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 
 import { userModel } from '@/entities/user';
-import { supabase } from '@/shared/lib/baas/supabase';
-import { useAppDispatch } from '../store/hooks';
+import { supabase } from '@/shared/lib/baas';
+import { useAppDispatch } from '@/shared/lib/redux';
 const { fetchProfileDB } = userModel;
 
 SplashScreen.preventAutoHideAsync();

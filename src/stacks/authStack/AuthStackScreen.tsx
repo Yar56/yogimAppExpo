@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { authRoutes } from '@/shared/routing/routes';
 
 const AuthStack = createNativeStackNavigator<RootStackParamList>();

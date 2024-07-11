@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 
 import { lessonUi } from '@/entities/lesson';
-import { Lesson } from '@/shared/api/supaBase/models';
-import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
+import { Lesson } from '@/shared/api/supaBase';
+import { FlatListComponent } from '@/shared/ui/components/';
 
 const { LessonCard } = lessonUi;
 
@@ -11,8 +11,6 @@ interface LessonListProps {
     lessons: Lesson[];
 }
 const LessonList: FunctionComponent<LessonListProps> = ({ lessons }) => {
-    // const lessons = useAppSelector((state) => state.lessonState.lessonsByCourseId);
-
     const renderItem = ({ item, index }: ListRenderItemInfo<Lesson>) => {
         return <LessonCard lesson={item} index={index} />;
     };

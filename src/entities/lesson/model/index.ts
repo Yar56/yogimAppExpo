@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { supaBaseApi } from '@/shared/api';
+import { lessons, LessonList, LoadingStatus } from '@/shared/api/supaBase';
 
 export const fetchAllLessonsByCourseId = createAsyncThunk(
     'lesson/fetchAllLessonsByCourseId',
     async (courseId: string) => {
         try {
-            const { data } = await supaBaseApi.lessons.getAllLessonsByCourseId(courseId);
+            const { data } = await lessons.getAllLessonsByCourseId(courseId);
             console.log(data);
             return data;
         } catch (e) {
@@ -16,11 +16,11 @@ export const fetchAllLessonsByCourseId = createAsyncThunk(
 );
 
 interface LessonModelState {
-    lessonsByCourseId?: supaBaseApi.models.LessonList | null;
-    lessonsLoadingStatus: supaBaseApi.models.LoadingStatus;
+    lessonsByCourseId?: LessonList | null;
+    lessonsLoadingStatus: LoadingStatus;
 }
 const initialState: LessonModelState = {
-    lessonsLoadingStatus: supaBaseApi.models.LoadingStatus.IDLE,
+    lessonsLoadingStatus: LoadingStatus.IDLE,
 };
 export const lessonModel = createSlice({
     name: 'lesson',
@@ -28,14 +28,14 @@ export const lessonModel = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllLessonsByCourseId.fulfilled, (state, action) => {
-            state.lessonsLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.lessonsLoadingStatus = LoadingStatus.SUCCEEDED;
             state.lessonsByCourseId = action.payload;
         });
         builder.addCase(fetchAllLessonsByCourseId.pending, (state) => {
-            state.lessonsLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.lessonsLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllLessonsByCourseId.rejected, (state) => {
-            state.lessonsLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.lessonsLoadingStatus = LoadingStatus.FAILED;
         });
     },
 });

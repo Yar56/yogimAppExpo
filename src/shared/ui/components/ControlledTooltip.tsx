@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { Tooltip, TooltipProps } from '@rneui/themed';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 
-const ControlledTooltip: React.FC<TooltipProps & PropsWithChildren> = (props) => {
+export const ControlledTooltip: React.FC<TooltipProps & PropsWithChildren> = (props) => {
     const theme = useAppTheme();
 
     const [open, setOpen] = React.useState(false);
@@ -21,4 +21,3 @@ const ControlledTooltip: React.FC<TooltipProps & PropsWithChildren> = (props) =>
         />
     );
 };
-export default ControlledTooltip;

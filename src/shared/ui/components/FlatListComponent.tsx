@@ -16,7 +16,7 @@ export interface FlatListComponentProps<T extends Item> {
     horizontal?: boolean;
     hasContentInsets?: boolean;
 }
-const FlatListComponent = <T extends Item>({
+export const FlatListComponent = <T extends Item>({
     items,
     renderItem,
     notFoundText,
@@ -61,4 +61,3 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
 });
-export default FlatListComponent;

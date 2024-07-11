@@ -4,14 +4,14 @@ import { ImageBackground, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import styles from './MeditationCardStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { supaBaseApi } from '@/shared/api';
+import { useAppTheme } from '@/shared/lib/theme';
+import { Meditation } from '@/shared/api/supaBase';
 import { HomeScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
-import { Spacer } from '@/shared/ui/components/Spacer';
+import { Spacer } from '@/shared/ui/components';
 
 interface MeditationCardProps {
-    meditation: supaBaseApi.models.Meditation;
+    meditation: Meditation;
 }
 export const MeditationCard: FunctionComponent<MeditationCardProps> = ({ meditation }) => {
     const navigation = useAppNavigation();

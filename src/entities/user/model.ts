@@ -1,26 +1,33 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthResponse, AuthTokenResponse, Session, UserAttributes } from '@supabase/supabase-js';
 
-import { supaBaseApi } from '@/shared/api';
-import { LoadingStatus } from '@/shared/api/supaBase/models';
+import {
+    LoadingStatus,
+    SignUpUserParams,
+    SignInUserParams,
+    user,
+    IUser,
+    ISession,
+    Profile,
+} from '@/shared/api/supaBase';
 
 export const signUpUserThunk = createAsyncThunk(
     'user/signUpUserThunk',
-    async (userData: supaBaseApi.models.SignUpUserParams, thunkAPI): Promise<AuthResponse> => {
-        return await supaBaseApi.user.signUpUser(userData);
+    async (userData: SignUpUserParams, thunkAPI): Promise<AuthResponse> => {
+        return await user.signUpUser(userData);
     }
 );
 
 export const signInUserThunk = createAsyncThunk(
     'user/signInUserThunk',
-    async (userData: supaBaseApi.models.SignInUserParams, thunkAPI): Promise<AuthTokenResponse> => {
-        return await supaBaseApi.user.signInUser(userData);
+    async (userData: SignInUserParams, thunkAPI): Promise<AuthTokenResponse> => {
+        return await user.signInUser(userData);
     }
 );
 
 export const updateUserThunk = createAsyncThunk('user/updateUserThunk', async (userData: UserAttributes, thunkAPI) => {
     try {
-        await supaBaseApi.user.updateUser(userData);
+        await user.updateUser(userData);
         return userData;
     } catch (e) {
         console.error(e);
@@ -31,7 +38,7 @@ export const fetchProfileDB = createAsyncThunk(
     'course/fetchProfileDB',
     async (session: Session, { dispatch, getState }) => {
         try {
-            const { data } = await supaBaseApi.user.getProfileDB(session);
+            const { data } = await user.getProfileDB(session);
             return data;
         } catch (e) {
             console.error(e);
@@ -40,9 +47,9 @@ export const fetchProfileDB = createAsyncThunk(
 );
 
 interface UserModelState {
-    user: supaBaseApi.models.IUser | null;
-    session: supaBaseApi.models.ISession | null;
-    profile?: supaBaseApi.models.Profile | null;
+    user: IUser | null;
+    session: ISession | null;
+    profile?: Profile | null;
     profileLoadingStatus: LoadingStatus;
 }
 const initialState: UserModelState = { user: null, session: null, profileLoadingStatus: LoadingStatus.IDLE };
@@ -50,10 +57,10 @@ export const userModel = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, { payload }: PayloadAction<supaBaseApi.models.IUser | null>) => {
+        setUser: (state, { payload }: PayloadAction<IUser | null>) => {
             state.user = payload;
         },
-        setSession: (state, { payload }: PayloadAction<supaBaseApi.models.ISession | null>) => {
+        setSession: (state, { payload }: PayloadAction<ISession | null>) => {
             state.session = payload;
         },
     },

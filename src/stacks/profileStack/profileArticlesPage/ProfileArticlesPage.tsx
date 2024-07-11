@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, Text, Title } from 'react-native-paper';
 
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { supaBaseApi } from '@/shared/api';
+import { CommonLayout } from '@/shared/ui/layouts';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { LoadingStatus } from '@/shared/api/supaBase';
 import { articleModel } from '@/entities/article';
 import { StyleSheet, View } from 'react-native';
-import { Spacer } from '@/shared/ui/components/Spacer';
+import { Spacer } from '@/shared/ui/components';
 import ProfileArticleCard from './components/profileArticleCard/ProfileArticleCard';
 
 const ProfileArticlesPage = () => {
@@ -23,8 +23,8 @@ const ProfileArticlesPage = () => {
     const articles = useAppSelector((state) => state.articleState.likedArticles);
     const loadingStatus = useAppSelector((state) => state.articleState.articlesLoadingStatus);
 
-    const isLoading = loadingStatus === supaBaseApi.models.LoadingStatus.LOADING;
-    const isError = loadingStatus === supaBaseApi.models.LoadingStatus.FAILED;
+    const isLoading = loadingStatus === LoadingStatus.LOADING;
+    const isError = loadingStatus === LoadingStatus.FAILED;
 
     if (isLoading && !articles) {
         return (

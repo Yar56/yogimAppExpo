@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { supaBaseApi } from '@/shared/api/';
-import { CourseList, CourseType } from '@/shared/api/supaBase/models';
+import { courses, CourseType, CourseList, LoadingStatus } from '@/shared/api/supaBase';
 
 export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async (arg, { dispatch, getState }) => {
     try {
-        const { data } = await supaBaseApi.courses.getAllCourses();
+        const { data } = await courses.getAllCourses();
         return data;
     } catch (e) {
         console.error(e);
@@ -15,10 +14,10 @@ export const fetchAllCourses = createAsyncThunk('course/fetchAllCourses', async 
 interface CourseModelState {
     courses?: CourseList | null;
     coursesByType?: Record<CourseType, CourseList>;
-    coursesLoadingStatus: supaBaseApi.models.LoadingStatus;
+    coursesLoadingStatus: LoadingStatus;
 }
 const initialState: CourseModelState = {
-    coursesLoadingStatus: supaBaseApi.models.LoadingStatus.IDLE,
+    coursesLoadingStatus: LoadingStatus.IDLE,
 };
 export const courseModel = createSlice({
     name: 'course',
@@ -26,7 +25,7 @@ export const courseModel = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllCourses.fulfilled, (state, action) => {
-            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.coursesLoadingStatus = LoadingStatus.SUCCEEDED;
             // @ts-ignore
             state.courses = action.payload;
             // @ts-ignore
@@ -43,10 +42,10 @@ export const courseModel = createSlice({
             );
         });
         builder.addCase(fetchAllCourses.pending, (state) => {
-            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.coursesLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllCourses.rejected, (state) => {
-            state.coursesLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.coursesLoadingStatus = LoadingStatus.FAILED;
         });
     },
 });

@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import styles from './ProfileSettingsStylesheet';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { fetchProfileDB } from '@/entities/user/model';
-import { AvatarComponent } from '@/entities/user/ui';
-import { supaBaseApi } from '@/shared/api';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { UserSex } from '@/shared/api/supaBase/models';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { userModel, userUi } from '@/entities/user';
+import { user, UserSex } from '@/shared/api/supaBase';
+import { Spacer } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
+import { useAppTheme } from '@/shared/lib/theme';
 import RNPickerSelect from 'react-native-picker-select';
 import { Ionicons } from '@expo/vector-icons';
+
+const { fetchProfileDB } = userModel;
+const { AvatarComponent } = userUi;
 
 const ProfileSettings = () => {
     const theme = useAppTheme();
@@ -24,9 +25,9 @@ const ProfileSettings = () => {
     const handleUpdatePhoto = (url: string) => {
         if (session && profile) {
             // eslint-disable-next-line camelcase
-            supaBaseApi.user
-                .updateProfileDB(session, { ...profile, id: session.user.id, avatar_url: url })
-                .then(() => dispatch(fetchProfileDB(session)));
+            user.updateProfileDB(session, { ...profile, id: session.user.id, avatar_url: url }).then(() =>
+                dispatch(fetchProfileDB(session))
+            );
         }
     };
 
@@ -42,14 +43,12 @@ const ProfileSettings = () => {
             setIsLoading(true);
             try {
                 if (session && profile) {
-                    supaBaseApi.user
-                        .updateProfileDB(session, {
-                            ...profile,
-                            id: session.user.id,
-                            sex: sexPickerValue,
-                            username: userName,
-                        })
-                        .then(() => dispatch(fetchProfileDB(session)).then(() => setIsLoading(false)));
+                    user.updateProfileDB(session, {
+                        ...profile,
+                        id: session.user.id,
+                        sex: sexPickerValue,
+                        username: userName,
+                    }).then(() => dispatch(fetchProfileDB(session)).then(() => setIsLoading(false)));
                 }
             } catch (error) {
                 if (error instanceof Error) {

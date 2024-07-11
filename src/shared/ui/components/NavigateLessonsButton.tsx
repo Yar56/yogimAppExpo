@@ -1,11 +1,10 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { FunctionComponent } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
-
-import styles from './NavigateLessonButtonStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
+import { screenWidth } from '@/shared/constants/screenSize';
 
 export enum Direction {
     PREVIOUS = 'PREVIOUS',
@@ -18,7 +17,7 @@ interface Props {
     onChangeLesson(direction: Direction): void;
 }
 
-const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLessonId, onChangeLesson }) => {
+export const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLessonId, onChangeLesson }) => {
     const theme = useAppTheme();
 
     const bottomTabBarHeight = useBottomTabBarHeight();
@@ -91,4 +90,14 @@ const NavigateLessonsButton: FunctionComponent<Props> = ({ lessonIds, currentLes
     );
 };
 
-export default NavigateLessonsButton;
+const styles = StyleSheet.create({
+    wrapper: {
+        position: 'absolute',
+        padding: 5,
+        display: 'flex',
+        width: screenWidth,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 65,
+    },
+});

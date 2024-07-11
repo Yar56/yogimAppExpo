@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { CommonLayout } from '@/shared/ui/layouts';
 
 type CourseDetailsPageProps = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE_DETAILS_PAGE>;
 const CourseDetailsPage: FunctionComponent<CourseDetailsPageProps> = ({ route }) => {

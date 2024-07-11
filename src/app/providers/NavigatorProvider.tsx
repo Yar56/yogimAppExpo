@@ -7,13 +7,13 @@ import { Platform, StyleSheet } from 'react-native';
 
 import { useAppTheme } from './MaterialThemeProvider';
 import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
-import CustomTabBarIcon from '@/shared/ui/components/CustomTabBarIcon';
-import { ArticlesStackScreen } from '@/stacks/articlesStack/ArticlesStackScreen';
-import { AuthStackScreen } from '@/stacks/authStack/AuthStackScreen';
-import { HomeStackScreen } from '@/stacks/homeStack/HomeStackScreen';
-import { ProfileStackScreen } from '@/stacks/profileStack/ProfileStackScreen';
-import { RoutineStackScreen } from '@/stacks/routineStack/RoutineStackScreen';
-import { useAppSelector } from '../store/hooks';
+import { CustomTabBarIcon } from '@/shared/ui/components';
+import { ArticlesStackScreen } from '@/stacks/articlesStack';
+import { AuthStackScreen } from '@/stacks/authStack';
+import { HomeStackScreen } from '@/stacks/homeStack';
+import { ProfileStackScreen } from '@/stacks/profileStack';
+import { RoutineStackScreen } from '@/stacks/routineStack';
+import { useAppSelector } from '@/shared/lib/redux';
 
 const Tab = createBottomTabNavigator();
 

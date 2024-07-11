@@ -9,8 +9,8 @@ import {
 import { Alert } from 'react-native';
 
 import { SignInUserParams, SignUpUserParams } from './models';
-import { supaBaseApi } from '..';
-import { supabase } from '../../lib/baas/supabase';
+import { UpdateProfileDBParams, ISession } from '@/shared/api/supaBase';
+import { supabase } from '@/shared/lib/baas';
 
 export const signUpUser = ({ email, password, username }: SignUpUserParams): Promise<AuthResponse> => {
     return supabase.auth.signUp({ email, password, options: { data: { username } } });
@@ -28,10 +28,10 @@ export const updateUser = (data: UserAttributes): Promise<UserResponse> => {
     return supabase.auth.updateUser(data);
 };
 
-export const getProfileDB = (session: supaBaseApi.models.ISession) => {
+export const getProfileDB = (session: ISession) => {
     return supabase.from('profiles').select(`*`).eq('id', session?.user.id).single();
 };
-export const updateProfileDB = async (session: Session, updates: supaBaseApi.models.UpdateProfileDBParams) => {
+export const updateProfileDB = async (session: Session, updates: UpdateProfileDBParams) => {
     if (!session?.user) {
         throw new Error('No user on the session!');
     }
@@ -46,10 +46,3 @@ export const updateProfileDB = async (session: Session, updates: supaBaseApi.mod
         }
     }
 };
-// export const checkAuthUser = (onChanged: (user: User | null) => void) => {
-//     onAuthStateChanged(FIREBASE_AUTH, onChanged);
-// };
-//
-// export const setToDBUser = (user: SetToDBUserParams) => {
-//     return setDoc(doc(FIREBASE_DB, 'users', `${user.userData.uid}`), user, { merge: true });
-// };

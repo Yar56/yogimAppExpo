@@ -1,19 +1,10 @@
-import { Material3Scheme, Material3Theme, useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import { Material3Theme, useMaterial3Theme } from '@pchmn/expo-material3-theme';
 import React, { createContext, useContext, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
-import {
-    MD3DarkTheme,
-    MD3LightTheme,
-    MD3Theme,
-    PaperProvider,
-    Portal,
-    ProviderProps,
-    useTheme,
-} from 'react-native-paper';
 
-import { CustomColors, customDarkColors, customLightColors } from '../styles/themes';
-import { Merge } from 'type-fest';
+import { customDarkColors, customLightColors } from '@/shared/lib/styles';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, ProviderProps } from 'react-native-paper';
 
 type Material3ThemeProviderProps = {
     theme: Material3Theme;
@@ -59,5 +50,3 @@ export const useMaterial3ThemeContext = () => {
     }
     return ctx;
 };
-
-export const useAppTheme = useTheme<MD3Theme & { colors: Merge<Material3Scheme, CustomColors> }>;

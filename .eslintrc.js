@@ -34,12 +34,12 @@ module.exports = {
                     {
                         group: [
                             // Use public API only
-                            '@app/**',
-                            '@stacks/*/**',
-                            '@widgets/*/**',
-                            '@features/*/**',
-                            '@entities/*/**',
-                            '@shared/*/*/**',
+                            '@/app/*/*/**',
+                            '@/stacks/*/**',
+                            '@/widgets/*/**',
+                            '@/features/*/**',
+                            '@/entities/*/**',
+                            '@/shared/*/*/**',
                         ],
                         message: 'Use the public API of the module instead of direct imports.',
                     },
@@ -53,7 +53,7 @@ module.exports = {
                             '../**/entities',
                             '../**/shared',
                         ],
-                        message: 'Avoid using relative imports for these modules. Use @layer/',
+                        message: 'Avoid using relative imports for these modules. Use @/layer/',
                     },
                 ],
             },

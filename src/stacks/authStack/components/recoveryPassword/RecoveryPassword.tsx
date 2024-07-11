@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Alert, KeyboardAvoidingView, ScrollView, TouchableOpacity, View } from 'react-native';
-import { LoadingWrapper } from '@/shared/ui/layouts/loading/LoadingWrapper';
+import { LoadingWrapper } from '@/shared/ui/layouts';
 import styles from '../signIn/SignInStylesheet';
 import { AntDesign } from '@expo/vector-icons';
-import { Spacer } from '@/shared/ui/components/Spacer';
+import { Spacer } from '@/shared/ui/components';
 import { Formik, FormikConfig } from 'formik';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import * as yup from 'yup';
 import { SignInProps } from '../signIn/SignIn';
 import { AuthContent } from '@/shared/constants/AuthContent';
-import { supabase } from '@/shared/lib/baas/supabase';
+import { supabase } from '@/shared/lib/baas';
 
 const schema = yup.object().shape({
     email: yup.string().email('Email некорректен').required('Заполните поле с email'),

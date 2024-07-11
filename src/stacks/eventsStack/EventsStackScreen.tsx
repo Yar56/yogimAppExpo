@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { eventsRoutes } from '@/shared/routing/routes';
-import CustomHeader from '@/shared/ui/components/CustomHeader';
+import { CustomHeader } from '@/shared/ui/components';
 
 const EventsStack = createNativeStackNavigator<RootStackParamList>();
 

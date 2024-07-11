@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { LOGO } from '../../constants/resourses';
 import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
 import { ChangeTheme } from '@/features/changeTheme';
@@ -12,7 +12,7 @@ import { ChangeTheme } from '@/features/changeTheme';
 interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;
 }
-const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => {
+export const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => {
     const isTransparentPage =
         headerProps.route.name === ArticlesScreen.ARTICLE ||
         headerProps.route.name === RoutineScreen.COURSE ||
@@ -84,5 +84,3 @@ const styles = StyleSheet.create({
         marginRight: 0,
     },
 });
-
-export default CustomHeader;

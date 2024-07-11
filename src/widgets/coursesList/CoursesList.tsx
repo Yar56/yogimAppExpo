@@ -2,14 +2,16 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 
-import { CourseCard } from '@/entities/course/ui';
-import { supaBaseApi } from '@/shared/api/';
+import { courseUi } from '@/entities/course';
+import { LoadingStatus, CourseList } from '@/shared/api/supaBase';
 import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
 
-const loadingStatuses = supaBaseApi.models.LoadingStatus;
+const { CourseCard } = courseUi;
+
+const loadingStatuses = LoadingStatus;
 interface CoursesListProps {
-    courses?: supaBaseApi.models.CourseList;
-    loadingStatus: supaBaseApi.models.LoadingStatus;
+    courses?: CourseList;
+    loadingStatus: LoadingStatus;
 }
 export const CoursesList: FunctionComponent<CoursesListProps> = ({ loadingStatus, courses }) => {
     if (loadingStatus === loadingStatuses.LOADING || !courses) {

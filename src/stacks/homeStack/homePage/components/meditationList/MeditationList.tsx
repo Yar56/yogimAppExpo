@@ -2,20 +2,20 @@ import React, { FunctionComponent } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 
 import { meditationUi } from '@/entities/meditation';
-import { supaBaseApi } from '@/shared/api';
-import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
+import { MeditationList, Meditation } from '@/shared/api/supaBase';
+import { FlatListComponent } from '@/shared/ui/components';
 
 const { MeditationCard } = meditationUi;
 
 interface MeditationListProps {
-    list?: supaBaseApi.models.MeditationList;
+    list?: MeditationList;
 }
-const MeditationList: FunctionComponent<MeditationListProps> = ({ list }) => {
-    const renderItem = ({ item }: ListRenderItemInfo<supaBaseApi.models.Meditation>) => {
+export const MeditationListComponent: FunctionComponent<MeditationListProps> = ({ list }) => {
+    const renderItem = ({ item }: ListRenderItemInfo<Meditation>) => {
         return <MeditationCard meditation={item} />;
     };
     return (
-        <FlatListComponent<supaBaseApi.models.Meditation>
+        <FlatListComponent<Meditation>
             items={list ?? []}
             renderItem={renderItem}
             notFoundText="Медитации не найдены"
@@ -25,5 +25,3 @@ const MeditationList: FunctionComponent<MeditationListProps> = ({ list }) => {
         />
     );
 };
-
-export default MeditationList;

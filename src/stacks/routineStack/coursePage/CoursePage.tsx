@@ -9,15 +9,14 @@ import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewO
 
 import styles from './CoursePageStylesheet';
 import LessonList from './components/lessonList/LessonList';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { useAppSelector } from '@/app/store/hooks';
-import { CourseLabel, Lesson } from '@/shared/api/supaBase/models';
+import { useAppTheme } from '@/shared/lib/theme';
+import { useAppSelector } from '@/shared/lib/redux';
+import { CourseLabel, Lesson } from '@/shared/api/supaBase';
 import { screenHeight, screenWidth } from '@/shared/constants/screenSize';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
-import ControlledTooltip from '@/shared/ui/components/ControlledTooltip';
+import { Spacer, ControlledTooltip } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
 
 // @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);

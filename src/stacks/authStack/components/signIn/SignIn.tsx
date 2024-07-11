@@ -7,14 +7,14 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import styles from './SignInStylesheet';
-import { useAppTheme } from '@/app/providers/MaterialThemeProvider';
-import { useAppDispatch } from '@/app/store/hooks';
+import { useAppTheme } from '@/shared/lib/theme';
+import { useAppDispatch } from '@/shared/lib/redux';
 import { userModel } from '@/entities/user';
 import { AuthContent } from '@/shared/constants/AuthContent';
 import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
-import { Spacer } from '@/shared/ui/components/Spacer';
-import { LoadingWrapper } from '@/shared/ui/layouts/loading/LoadingWrapper';
+import { Spacer } from '@/shared/ui/components';
+import { LoadingWrapper } from '@/shared/ui/layouts';
 
 const schema = yup.object().shape({
     email: yup.string().email('Email некорректен').required('Заполните поле с email'),

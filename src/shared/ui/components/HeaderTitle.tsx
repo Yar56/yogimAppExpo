@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 
 import { LOGO } from '../../constants/resourses';
 
-const HeaderTitle = () => {
+export const HeaderTitle = () => {
     return (
         <Text variant="headlineMedium" style={{ marginLeft: 110 }}>
             <Image source={LOGO} style={{ width: 100, height: 100 }} />
@@ -12,5 +12,3 @@ const HeaderTitle = () => {
         </Text>
     );
 };
-
-export default HeaderTitle;

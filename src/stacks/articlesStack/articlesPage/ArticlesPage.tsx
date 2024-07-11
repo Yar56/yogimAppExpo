@@ -5,13 +5,14 @@ import { ActivityIndicator, Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 
 import styles from './ArticlesPageStylesheet';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { articleModel } from '@/entities/article';
-import { ArticleCard } from '@/entities/article/ui';
-import { supaBaseApi } from '@/shared/api';
-import FlatListComponent from '@/shared/ui/components/flatListComponent/FlatListComponent';
-import CommonLayout from '@/shared/ui/layouts/CommonLayout';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
+import { articleModel, articleUi } from '@/entities/article';
 
+import { LoadingStatus, Article } from '@/shared/api/supaBase';
+import { FlatListComponent } from '@/shared/ui/components';
+import { CommonLayout } from '@/shared/ui/layouts';
+
+const { ArticleCard } = articleUi;
 export const ArticlesPage = () => {
     const dispatch = useAppDispatch();
 
@@ -24,10 +25,10 @@ export const ArticlesPage = () => {
     const articles = useAppSelector((state) => state.articleState.articles);
     const loadingStatus = useAppSelector((state) => state.articleState.articlesLoadingStatus);
 
-    const isLoading = loadingStatus === supaBaseApi.models.LoadingStatus.LOADING;
-    const isError = loadingStatus === supaBaseApi.models.LoadingStatus.FAILED;
+    const isLoading = loadingStatus === LoadingStatus.LOADING;
+    const isError = loadingStatus === LoadingStatus.FAILED;
 
-    const renderItem = ({ item }: ListRenderItemInfo<supaBaseApi.models.Article>) => {
+    const renderItem = ({ item }: ListRenderItemInfo<Article>) => {
         return <ArticleCard article={item} />;
     };
     return (

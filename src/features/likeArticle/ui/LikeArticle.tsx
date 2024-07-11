@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { ActivityIndicator } from 'react-native-paper';
-import { useAppDispatch } from '@/app/store/hooks';
+import { useAppDispatch } from '@/shared/lib/redux';
 import { Ionicons } from '@expo/vector-icons';
 import { articleModel } from '@/entities/article';
 
