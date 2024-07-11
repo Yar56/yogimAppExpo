@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.LESSON>;
 
 const NEXT_BUTTON_BLOCK_HEIGHT = 40;
 
-const LessonPage: FunctionComponent<Props> = ({ route }) => {
+export const LessonPage: FunctionComponent<Props> = ({ route }) => {
     const navigation = useAppNavigation();
     const courseId = route.params.courseId;
     const lessonId = route.params.lessonId;
@@ -127,4 +127,3 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
 });
-export default LessonPage;

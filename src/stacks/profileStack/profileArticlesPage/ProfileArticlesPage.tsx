@@ -9,7 +9,7 @@ import { StyleSheet, View } from 'react-native';
 import { Spacer } from '@/shared/ui/components';
 import ProfileArticleCard from './components/profileArticleCard/ProfileArticleCard';
 
-const ProfileArticlesPage = () => {
+export const ProfileArticlesPage = () => {
     const dispatch = useAppDispatch();
     const likedIds = useAppSelector((state) => state.articleState.likedArticleIds);
 
@@ -73,5 +73,3 @@ const styles = StyleSheet.create({
         width: 50,
     },
 });
-
-export default ProfileArticlesPage;

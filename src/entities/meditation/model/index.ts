@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { supaBaseApi } from '@/shared/api/supaBase';
+import { meditations, MeditationList, LoadingStatus } from '@/shared/api/supaBase';
 
 export const fetchAllMeditations = createAsyncThunk(
     'meditation/fetchAllMeditations',
     async (arg, { dispatch, getState }) => {
         try {
-            const { data } = await supaBaseApi.meditations.getAllMeditations();
+            const { data } = await meditations.getAllMeditations();
             return data;
         } catch (e) {
             console.error(e);
@@ -14,13 +14,12 @@ export const fetchAllMeditations = createAsyncThunk(
     }
 );
 
-type MeditationList = supaBaseApi.models.MeditationList;
 interface MeditationModelState {
     meditations?: MeditationList;
-    meditationsLoadingStatus: supaBaseApi.models.LoadingStatus;
+    meditationsLoadingStatus: LoadingStatus;
 }
 const initialState: MeditationModelState = {
-    meditationsLoadingStatus: supaBaseApi.models.LoadingStatus.IDLE,
+    meditationsLoadingStatus: LoadingStatus.IDLE,
 };
 export const meditationModel = createSlice({
     name: 'meditation',
@@ -28,15 +27,15 @@ export const meditationModel = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllMeditations.fulfilled, (state, action) => {
-            state.meditationsLoadingStatus = supaBaseApi.models.LoadingStatus.SUCCEEDED;
+            state.meditationsLoadingStatus = LoadingStatus.SUCCEEDED;
             // @ts-ignore
             state.meditations = action.payload;
         });
         builder.addCase(fetchAllMeditations.pending, (state) => {
-            state.meditationsLoadingStatus = supaBaseApi.models.LoadingStatus.LOADING;
+            state.meditationsLoadingStatus = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllMeditations.rejected, (state) => {
-            state.meditationsLoadingStatus = supaBaseApi.models.LoadingStatus.FAILED;
+            state.meditationsLoadingStatus = LoadingStatus.FAILED;
         });
     },
 });

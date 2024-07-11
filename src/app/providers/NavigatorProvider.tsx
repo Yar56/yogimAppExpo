@@ -5,7 +5,7 @@ import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
-import { useAppTheme } from './MaterialThemeProvider';
+import { useAppTheme } from '@/shared/lib/theme';
 import { HomeScreen, TabName } from '@/shared/routing/NavigationEntities';
 import { CustomTabBarIcon } from '@/shared/ui/components';
 import { ArticlesStackScreen } from '@/stacks/articlesStack';

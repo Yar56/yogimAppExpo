@@ -28,7 +28,7 @@ const layoutAnimation = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 };
 
-const AuthStartPage = () => {
+export const AuthStartPage = () => {
     const theme = useAppTheme();
     const isIos = Platform.OS === 'ios';
     const [activeContent, setActiveContent] = useState<AuthContent | null>(null);
@@ -149,5 +149,3 @@ const AuthStartPage = () => {
         </View>
     );
 };
-
-export default AuthStartPage;

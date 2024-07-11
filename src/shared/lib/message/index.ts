@@ -1,1 +1,1 @@
-export * as getGreeting from './getGreeting';
+export * from './getGreeting';

@@ -7,7 +7,7 @@ import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 type CourseDetailsPageProps = NativeStackScreenProps<RootStackParamList, RoutineScreen.COURSE_DETAILS_PAGE>;
-const CourseDetailsPage: FunctionComponent<CourseDetailsPageProps> = ({ route }) => {
+export const CourseDetailsPage: FunctionComponent<CourseDetailsPageProps> = ({ route }) => {
     const details = route.params.details;
 
     return (
@@ -18,5 +18,3 @@ const CourseDetailsPage: FunctionComponent<CourseDetailsPageProps> = ({ route })
         </CommonLayout>
     );
 };
-
-export default CourseDetailsPage;

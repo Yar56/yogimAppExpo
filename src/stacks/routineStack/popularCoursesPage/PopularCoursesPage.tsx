@@ -12,7 +12,7 @@ import { CommonLayout } from '@/shared/ui/layouts';
 
 const { CourseCard } = courseUi;
 
-const PopularCoursesPage = () => {
+export const PopularCoursesPage = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(courseModel.fetchAllCourses());
@@ -93,5 +93,3 @@ const PopularCoursesPage = () => {
         </CommonLayout>
     );
 };
-
-export default PopularCoursesPage;

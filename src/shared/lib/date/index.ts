@@ -1,1 +1,1 @@
-export * as getCurrentHours from './getCurrentHours';
+export * from './getCurrentHours';

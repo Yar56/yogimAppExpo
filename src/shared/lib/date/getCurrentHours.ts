@@ -1,3 +1,1 @@
-const getCurrentHours = () => new Date().getHours();
-
-export default getCurrentHours;
+export const getCurrentHours = () => new Date().getHours();

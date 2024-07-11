@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 const { fetchProfileDB } = userModel;
 const { AvatarComponent } = userUi;
 
-const ProfileSettings = () => {
+export const ProfileSettings = () => {
     const theme = useAppTheme();
     const dispatch = useAppDispatch();
     const session = useAppSelector((state) => state.userState.session);
@@ -166,5 +166,3 @@ const ProfileSettings = () => {
         </CommonLayout>
     );
 };
-
-export default ProfileSettings;
