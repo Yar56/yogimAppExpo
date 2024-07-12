@@ -1,14 +1,14 @@
 import isEmpty from 'lodash-es/isEmpty';
 import React, { useEffect } from 'react';
 import { ListRenderItemInfo, View } from 'react-native';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 
 import { articleModel, articleUi } from '@/entities/article';
 
-import { LoadingStatus, Article } from '@/shared/api/supaBase';
+import { Article, LoadingStatus } from '@/shared/api/supaBase';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
-import { FlatListComponent } from '@/shared/ui/components';
+import { FlatListComponent, Loader } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 import styles from './ArticlesPageStylesheet';
@@ -38,16 +38,10 @@ export const ArticlesPage = () => {
                 <Text variant="headlineSmall">Полезные материалы</Text>
             </View>
             {isLoading ? (
-                <ActivityIndicator
-                    style={{
-                        marginTop: 50,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                    size="large"
+                <Loader
+                    style={{ marginTop: 50, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     animating
-                    color="#635096"
+                    size="large"
                 />
             ) : (
                 <TabsProvider defaultIndex={0}>

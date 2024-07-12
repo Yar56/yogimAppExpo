@@ -4,14 +4,14 @@ import { Video } from 'expo-av';
 import { ResizeMode } from 'expo-av/src/Video.types';
 import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Card, Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 import convertToProxyURL from 'react-native-video-cache';
 
 import { Lesson } from '@/shared/api/supaBase';
 import { useAppSelector } from '@/shared/lib/redux';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
 import useAppNavigation from '@/shared/routing/useAppNavigation';
-import { NavigateLessonsButton, Direction, Spacer } from '@/shared/ui/components/';
+import { NavigateLessonsButton, Direction, Spacer, Loader } from '@/shared/ui/components/';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 type Props = NativeStackScreenProps<RootStackParamList, RoutineScreen.LESSON>;
@@ -80,7 +80,7 @@ export const LessonPage: FunctionComponent<Props> = ({ route }) => {
             posterSource={{ uri: lesson.photoUrl }}
             usePoster
             PosterComponent={(props) => {
-                return isVideoLoading ? <ActivityIndicator style={props.style} /> : null;
+                return isVideoLoading ? <Loader style={props.style} /> : null;
             }}
         />
     );

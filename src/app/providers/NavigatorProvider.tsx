@@ -69,7 +69,6 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                                 />
                             ),
                         })}
-                        // tabBar={(props) => <TabBar {...props} />}
                         initialRouteName={TabName.HOME_TAB}
                     >
                         <Tab.Screen
@@ -96,20 +95,6 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                                 tabBarIcon: ({ color }) => <CustomTabBarIcon iconName="yoga" color={color} />,
                             })}
                         />
-                        {/*<Tab.Screen*/}
-                        {/*    name={TabName.EVENTS_TAB}*/}
-                        {/*    component={EventsStackScreen}*/}
-                        {/*    options={{*/}
-                        {/*        tabBarLabel: 'События',*/}
-                        {/*        tabBarIcon: ({ focused, color }) => (*/}
-                        {/*            <CustomTabBarIcon*/}
-                        {/*                iconName="hexagon-multiple-outline"*/}
-                        {/*                focused={focused}*/}
-                        {/*                color={color}*/}
-                        {/*            />*/}
-                        {/*        ),*/}
-                        {/*    }}*/}
-                        {/*/>*/}
                         <Tab.Screen
                             name={TabName.PROFILE_TAB}
                             component={ProfileStackScreen}

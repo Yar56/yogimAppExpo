@@ -1,13 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { FunctionComponent, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { articleModel } from '@/entities/article';
 
 import { useAppDispatch } from '@/shared/lib/redux';
-
+import { Loader } from '@/shared/ui/components';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
@@ -52,7 +51,7 @@ export const LikeArticle: FunctionComponent<LikeArticleProps> = ({ liked: isLike
             />
             {isLoadingLiked && (
                 <View style={{ position: 'absolute', top: 9, right: 18 }}>
-                    <ActivityIndicator size={14} />
+                    <Loader size={14} />
                 </View>
             )}
         </TouchableOpacity>

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Text, Title } from 'react-native-paper';
+import { Text, Title } from 'react-native-paper';
 
 import { articleModel } from '@/entities/article';
 
 import { LoadingStatus } from '@/shared/api/supaBase';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
-import { Spacer } from '@/shared/ui/components';
+import { Loader, Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 import ProfileArticleCard from './components/profileArticleCard/ProfileArticleCard';
@@ -33,7 +33,7 @@ export const ProfileArticlesPage = () => {
             <CommonLayout>
                 <Title>Мои статьи</Title>
                 <Spacer size={20} />
-                <ActivityIndicator size="large" />
+                <Loader size="large" />
             </CommonLayout>
         );
     }

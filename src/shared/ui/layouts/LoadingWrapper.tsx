@@ -1,6 +1,7 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
+
+import { Loader } from '@/shared/ui/components';
 
 interface LoadingWrapperProps {
     isLoading: boolean;
@@ -10,7 +11,7 @@ export const LoadingWrapper: FunctionComponent<LoadingWrapperProps & PropsWithCh
     if (isLoading) {
         return (
             <>
-                <ActivityIndicator
+                <Loader
                     style={{
                         position: 'absolute',
                         top: '25%',
@@ -22,7 +23,6 @@ export const LoadingWrapper: FunctionComponent<LoadingWrapperProps & PropsWithCh
                     }}
                     size="large"
                     animating
-                    color="#156494"
                 />
                 <View style={{ pointerEvents: 'none', opacity: 0.5 }}>{children}</View>
             </>

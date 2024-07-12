@@ -6,3 +6,4 @@ export * from './FlatListComponent';
 export * from './NavigateLessonsButton';
 export * from './Spacer';
 export * from './TabBar';
+export * from './Loader';

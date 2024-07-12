@@ -1,14 +1,14 @@
 import isEmpty from 'lodash-es/isEmpty';
 import { useEffect } from 'react';
 import React, { ListRenderItemInfo } from 'react-native';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 
 import { courseModel, courseUi } from '@/entities/course';
 
 import { Course, LoadingStatus } from '@/shared/api/supaBase';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/redux';
-import { FlatListComponent } from '@/shared/ui/components';
+import { FlatListComponent, Loader } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 import styles from './PopularCoursesPageStylesheet';
@@ -35,7 +35,7 @@ export const PopularCoursesPage = () => {
     return (
         <CommonLayout externalStyles={styles.container}>
             {isLoading ? (
-                <ActivityIndicator
+                <Loader
                     style={{
                         marginTop: 50,
                         display: 'flex',
@@ -44,7 +44,6 @@ export const PopularCoursesPage = () => {
                     }}
                     size="large"
                     animating
-                    color="#635096"
                 />
             ) : (
                 <TabsProvider defaultIndex={0}>

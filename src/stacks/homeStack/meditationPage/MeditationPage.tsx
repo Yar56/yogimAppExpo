@@ -7,7 +7,7 @@ import { HapticModeEnum } from 'react-native-awesome-slider/src/slide';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import FastImage from 'react-native-fast-image';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { ActivityIndicator, IconButton, Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import Animated, { convertToRGBA, Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { rgbaArrayToRGBAColor } from 'react-native-reanimated/src';
 import TrackPlayer, { State, usePlaybackState, useProgress } from 'react-native-track-player';
@@ -17,7 +17,7 @@ import { trackPlayerServices } from '@/shared/lib/audio';
 import { useAppSelector } from '@/shared/lib/redux';
 import { useAppTheme } from '@/shared/lib/theme';
 import { HomeScreen } from '@/shared/routing/NavigationEntities';
-import { Spacer } from '@/shared/ui/components';
+import { Loader, Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
 
 import styles from './MeditationPageStylesheet';
@@ -142,7 +142,7 @@ export const MeditationPage: FunctionComponent<Props> = ({ route }) => {
         return (
             <CommonLayout externalStyles={styles.container} edges={['top', 'bottom']}>
                 <View style={{ flex: 1, alignItems: 'center' }}>
-                    <ActivityIndicator size="large" color="#6483CB" />
+                    <Loader size="large" />
                 </View>
             </CommonLayout>
         );

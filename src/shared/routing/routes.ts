@@ -9,7 +9,7 @@ import { PopularCoursesPage, LessonPage, CourseDetailsPage, CoursePage, RoutineP
 import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from './NavigationEntities';
 
 export const articlesRoutes: AppRoute[] = [
-    { name: ArticlesScreen.ARTICLES, component: ArticlesPage, title: '' },
+    { name: ArticlesScreen.ARTICLES, component: ArticlesPage as ComponentType, title: '' },
     { name: ArticlesScreen.ARTICLE, component: ArticlePage as ComponentType, title: '' },
 ];
 
