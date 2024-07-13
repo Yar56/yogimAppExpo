@@ -3,10 +3,9 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
 
-import { useMaterial3ThemeContext } from '@/app/providers/MaterialThemeProvider';
-
 import { useAppTheme } from '@/shared/lib/theme';
 
+import { useMaterial3ThemeContext } from '../context/ThemeProviderContext';
 
 interface LikeArticleProps {}
 export const ChangeTheme: FunctionComponent<LikeArticleProps> = () => {

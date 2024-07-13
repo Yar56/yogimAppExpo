@@ -4,4 +4,6 @@ import { Merge } from 'type-fest';
 
 import { CustomColors } from '../styles/themes';
 
-export const useAppTheme = useTheme<MD3Theme & { colors: Merge<Material3Scheme, CustomColors> }>;
+export type AppTheme = MD3Theme & { colors: Merge<Material3Scheme, CustomColors> };
+
+export const useAppTheme = useTheme<AppTheme>;

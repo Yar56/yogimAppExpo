@@ -1,29 +1,25 @@
 import { AntDesign } from '@expo/vector-icons';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { ChangeTheme } from '@/features/changeTheme';
-
-import { useAppTheme } from '@/shared/lib/theme';
+import { AppTheme } from '@/shared/lib/theme';
 
 import { LOGO } from '../../constants/resourses';
 import { ArticlesScreen, HomeScreen, RoutineScreen } from '../../routing/NavigationEntities';
 
 interface CustomHeaderProps {
     headerProps: NativeStackHeaderProps;
+    theme: AppTheme;
+    changeThemeComponent: ReactNode;
 }
-export const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps }) => {
+export const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps, theme, changeThemeComponent }) => {
     const isTransparentPage =
         headerProps.route.name === ArticlesScreen.ARTICLE ||
         headerProps.route.name === RoutineScreen.COURSE ||
         headerProps.route.name === HomeScreen.HOME ||
         headerProps.route.name === HomeScreen.MEDITATION;
-
-    // const isShowChangeTheme = headerProps.route.name === HomeScreen.MEDITATION;
-
-    const theme = useAppTheme();
 
     const headerBackgroundColor = theme.colors.colorLevel5;
 
@@ -47,7 +43,7 @@ export const CustomHeader: FunctionComponent<CustomHeaderProps> = ({ headerProps
                     </Text>
                 </View>
             )}
-            <ChangeTheme />
+            {changeThemeComponent}
         </View>
     );
 };

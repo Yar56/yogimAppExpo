@@ -5,6 +5,8 @@ import { BlurView } from 'expo-blur';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
+import { homeRoutes, articlesRoutes, routineRoutes, profileRoutes, authRoutes } from '@/app/router/routes';
+
 import { ArticlesStackScreen } from '@/stacks/articlesStack';
 import { AuthStackScreen } from '@/stacks/authStack';
 import { HomeStackScreen } from '@/stacks/homeStack';
@@ -73,39 +75,43 @@ export const TabNavigatorProvider: FunctionComponent<PropsWithChildren> = () => 
                     >
                         <Tab.Screen
                             name={TabName.HOME_TAB}
-                            component={HomeStackScreen}
                             options={{
                                 tabBarLabel: 'Домой',
                                 tabBarIcon: ({ color }) => <CustomTabBarIcon iconName="home" color={color} />,
                             }}
-                        />
+                        >
+                            {(props) => <HomeStackScreen {...props} screenRoutes={homeRoutes} />}
+                        </Tab.Screen>
                         <Tab.Screen
                             name={TabName.ARTICLES_TAB}
-                            component={ArticlesStackScreen}
                             options={{
                                 tabBarLabel: 'Статьи',
                                 tabBarIcon: ({ color }) => <CustomTabBarIcon iconName="book" color={color} />,
                             }}
-                        />
+                        >
+                            {(props) => <ArticlesStackScreen {...props} screenRoutes={articlesRoutes} />}
+                        </Tab.Screen>
                         <Tab.Screen
                             name={TabName.ROUTINE_TAB}
-                            component={RoutineStackScreen}
                             options={() => ({
                                 tabBarLabel: 'Йожить',
                                 tabBarIcon: ({ color }) => <CustomTabBarIcon iconName="yoga" color={color} />,
                             })}
-                        />
+                        >
+                            {(props) => <RoutineStackScreen {...props} screenRoutes={routineRoutes} />}
+                        </Tab.Screen>
                         <Tab.Screen
                             name={TabName.PROFILE_TAB}
-                            component={ProfileStackScreen}
                             options={{
                                 tabBarLabel: 'Профиль',
                                 tabBarIcon: ({ color }) => <CustomTabBarIcon iconName="account" color={color} />,
                             }}
-                        />
+                        >
+                            {(props) => <ProfileStackScreen {...props} screenRoutes={profileRoutes} />}
+                        </Tab.Screen>
                     </Tab.Navigator>
                 ) : (
-                    <AuthStackScreen />
+                    <AuthStackScreen screenRoutes={authRoutes} />
                 )}
             </>
         </NavigationContainer>

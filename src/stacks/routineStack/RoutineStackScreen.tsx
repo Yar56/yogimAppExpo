@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+
+import { ChangeTheme } from '@/features/changeTheme';
 
 import { useAppTheme } from '@/shared/lib/theme';
 import { RoutineScreen } from '@/shared/routing/NavigationEntities';
-import { routineRoutes } from '@/shared/routing/routes';
 import { CustomHeader } from '@/shared/ui/components';
 
 const RoutineStack = createNativeStackNavigator<RootStackParamList>();
 
-export const RoutineStackScreen = () => {
+export const RoutineStackScreen: FunctionComponent<StackScreenProps> = ({ screenRoutes }) => {
     const theme = useAppTheme();
     const baseStackColor = theme.colors.colorLevel5;
     const CourseStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
@@ -16,14 +17,15 @@ export const RoutineStackScreen = () => {
         <RoutineStack.Navigator
             screenOptions={{
                 contentStyle: { backgroundColor: baseStackColor },
-                header: (props) => <CustomHeader headerProps={props} />,
+                header: (props) => (
+                    <CustomHeader headerProps={props} theme={theme} changeThemeComponent={<ChangeTheme />} />
+                ),
             }}
         >
-            {routineRoutes.map((route) => {
+            {screenRoutes.map((route) => {
                 return (
                     <RoutineStack.Screen
                         options={{
-                            title: route.title,
                             headerTransparent: route.name === RoutineScreen.COURSE,
                             contentStyle: {
                                 backgroundColor:
@@ -31,7 +33,8 @@ export const RoutineStackScreen = () => {
                             },
                         }}
                         key={route.name}
-                        {...route}
+                        component={route.component}
+                        name={route.name}
                     />
                 );
             })}

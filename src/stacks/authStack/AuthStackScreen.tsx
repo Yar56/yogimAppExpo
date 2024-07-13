@@ -1,12 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { useAppTheme } from '@/shared/lib/theme';
-import { authRoutes } from '@/shared/routing/routes';
 
 const AuthStack = createNativeStackNavigator<RootStackParamList>();
 
-export const AuthStackScreen = () => {
+export const AuthStackScreen: FunctionComponent<StackScreenProps> = ({ screenRoutes }) => {
     const theme = useAppTheme();
     return (
         <AuthStack.Navigator
@@ -15,8 +14,8 @@ export const AuthStackScreen = () => {
                 navigationBarColor: theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2,
             }}
         >
-            {authRoutes.map((route) => {
-                return <AuthStack.Screen key={route.name} {...route} />;
+            {screenRoutes.map((route) => {
+                return <AuthStack.Screen key={route.name} name={route.name} component={route.component} />;
             })}
         </AuthStack.Navigator>
     );

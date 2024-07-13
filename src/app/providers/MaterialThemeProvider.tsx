@@ -1,23 +1,17 @@
-import { Material3Theme, useMaterial3Theme } from '@pchmn/expo-material3-theme';
-import React, { createContext, useContext, useState } from 'react';
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme';
+import React, { useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { ColorSchemeName } from 'react-native/Libraries/Utilities/Appearance';
 import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, ProviderProps } from 'react-native-paper';
 
+import { ThemeProviderContext } from '@/features/changeTheme';
+
 import { customDarkColors, customLightColors } from '@/shared/lib/styles';
-
-type Material3ThemeProviderProps = {
-    theme: Material3Theme;
-    updateTheme: (schemeName: ColorSchemeName) => void;
-};
-
-const Material3ThemeProviderContext = createContext<Material3ThemeProviderProps>({} as Material3ThemeProviderProps);
 
 export const Material3ThemeProvider = ({
     children,
     sourceColor,
     fallbackSourceColor,
-    ...otherProps
 }: ProviderProps & { sourceColor?: string; fallbackSourceColor?: string }) => {
     const colorScheme = useColorScheme();
 
@@ -35,18 +29,10 @@ export const Material3ThemeProvider = ({
             : { ...MD3LightTheme, colors: { ...theme.light, ...customLightColors } };
 
     return (
-        <Material3ThemeProviderContext.Provider value={{ theme, updateTheme }}>
-            <PaperProvider theme={paperTheme} {...otherProps}>
+        <ThemeProviderContext theme={theme} updateTheme={updateTheme}>
+            <PaperProvider theme={paperTheme}>
                 <Portal>{children}</Portal>
             </PaperProvider>
-        </Material3ThemeProviderContext.Provider>
+        </ThemeProviderContext>
     );
-};
-
-export const useMaterial3ThemeContext = () => {
-    const ctx = useContext(Material3ThemeProviderContext);
-    if (!ctx) {
-        throw new Error('useMaterial3ThemeContext must be used inside Material3ThemeProvider');
-    }
-    return ctx;
 };

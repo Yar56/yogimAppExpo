@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+
+import { ChangeTheme } from '@/features/changeTheme';
 
 import { useAppTheme } from '@/shared/lib/theme';
 import { ArticlesScreen } from '@/shared/routing/NavigationEntities';
-import { articlesRoutes } from '@/shared/routing/routes';
 import { CustomHeader } from '@/shared/ui/components';
-
 const CoursesStack = createNativeStackNavigator<RootStackParamList>();
 
-export const ArticlesStackScreen = () => {
+export const ArticlesStackScreen: FunctionComponent<StackScreenProps> = ({ screenRoutes }) => {
     const theme = useAppTheme();
     const baseStackColor = theme.colors.colorLevel5;
     const ArticleStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
@@ -17,22 +17,23 @@ export const ArticlesStackScreen = () => {
         <CoursesStack.Navigator
             screenOptions={{
                 contentStyle: { backgroundColor: baseStackColor },
-                header: (props) => <CustomHeader headerProps={props} />,
+                header: (props) => (
+                    <CustomHeader headerProps={props} theme={theme} changeThemeComponent={<ChangeTheme />} />
+                ),
             }}
         >
-            {articlesRoutes.map((route) => {
+            {screenRoutes.map((route) => {
                 return (
                     <CoursesStack.Screen
                         options={{
-                            title: route.title,
                             headerTransparent: route.name === ArticlesScreen.ARTICLE,
                             contentStyle: {
                                 backgroundColor:
                                     route.name === ArticlesScreen.ARTICLE ? ArticleStackColor : baseStackColor,
                             },
                         }}
-                        key={route.name}
-                        {...route}
+                        name={route.name}
+                        component={route.component}
                     />
                 );
             })}

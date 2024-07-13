@@ -1,6 +1,6 @@
 import { ParamListBase } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ComponentProps, ComponentType } from 'react';
+import { FunctionComponent } from 'react';
 
 import {
     ArticlesScreen,
@@ -9,7 +9,6 @@ import {
     ProfileScreen,
     RoutineScreen,
 } from './shared/routing/NavigationEntities';
-
 
 declare global {
     interface RootStackParamList extends ParamListBase {
@@ -32,15 +31,17 @@ declare global {
         [EventsScreen.EVENTS]: undefined;
 
         // ProfileTab
-        [ProfileScreen.Profile]: undefined;
+        [ProfileScreen.PROFILE]: undefined;
         [ProfileScreen.PROFILE_SETTINGS]: undefined;
         [ProfileScreen.PROFILE_ARTICLES]: undefined;
     }
 
     interface PageProps extends NativeStackScreenProps<RootStackParamList, keyof RootStackParamList> {}
     interface AppRoute {
-        title?: string;
         name: keyof RootStackParamList;
-        component: ComponentType<ComponentProps<PageProps>>;
+        component: FunctionComponent;
+    }
+    interface StackScreenProps {
+        screenRoutes: AppRoute[];
     }
 }

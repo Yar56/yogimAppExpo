@@ -59,7 +59,7 @@ module.exports = {
             },
         ],
         'import/order': [
-            'error',
+            'warn',
             {
                 alphabetize: { order: 'asc', caseInsensitive: true },
                 'newlines-between': 'always',
@@ -97,6 +97,102 @@ module.exports = {
                 ],
                 pathGroupsExcludedImportTypes: ['builtin'],
                 groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type', 'object', 'unknown'],
+            },
+        ],
+        'import/no-restricted-paths': [
+            'error',
+            {
+                zones: [
+                    // stacks
+                    {
+                        target: 'src/stacks',
+                        from: 'src/app',
+                    },
+                    // Cross import
+                    {
+                        target: 'src/stacks/*/**/*',
+                        from: 'src/stacks/*/index.ts',
+                    },
+
+                    // widgets
+                    {
+                        target: 'src/widgets',
+                        from: 'src/app',
+                    },
+                    {
+                        target: 'src/widgets',
+                        from: 'src/stacks',
+                    },
+                    // Cross import
+                    {
+                        target: 'src/widgets/*/**/*',
+                        from: 'src/widgets/*/index.ts',
+                    },
+
+                    // features
+                    {
+                        target: 'src/features',
+                        from: 'src/app',
+                    },
+                    {
+                        target: 'src/features',
+                        from: 'src/stacks',
+                    },
+                    {
+                        target: 'src/features',
+                        from: 'src/widgets',
+                    },
+                    // Cross import
+                    {
+                        target: 'src/features/*/**/*',
+                        from: 'src/features/*/index.ts',
+                    },
+
+                    // entities
+                    {
+                        target: 'src/entities',
+                        from: 'src/app',
+                    },
+                    {
+                        target: 'src/entities',
+                        from: 'src/stacks',
+                    },
+                    {
+                        target: 'src/entities',
+                        from: 'src/widgets',
+                    },
+                    {
+                        target: 'src/entities',
+                        from: 'src/features',
+                    },
+                    // Cross import
+                    {
+                        target: 'src/entities/*/**/*',
+                        from: 'src/entities/*/index.ts',
+                    },
+
+                    // shared
+                    {
+                        target: 'src/shared',
+                        from: 'src/app',
+                    },
+                    {
+                        target: 'src/shared',
+                        from: 'src/stacks',
+                    },
+                    {
+                        target: 'src/shared',
+                        from: 'src/widgets',
+                    },
+                    {
+                        target: 'src/shared',
+                        from: 'src/features',
+                    },
+                    {
+                        target: 'src/shared',
+                        from: 'src/entities',
+                    },
+                ],
             },
         ],
     },

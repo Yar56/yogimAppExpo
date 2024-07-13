@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+
+import { ChangeTheme } from '@/features/changeTheme';
 
 import { useAppTheme } from '@/shared/lib/theme';
 import { HomeScreen } from '@/shared/routing/NavigationEntities';
-import { homeRoutes } from '@/shared/routing/routes';
 import { CustomHeader } from '@/shared/ui/components';
 
 const HomeStack = createNativeStackNavigator<RootStackParamList>();
 
-export const HomeStackScreen = () => {
+export const HomeStackScreen: FunctionComponent<StackScreenProps> = ({ screenRoutes }) => {
     const theme = useAppTheme();
     const baseStackColor = theme.colors.colorLevel5;
     const HomeStackColor = theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2;
@@ -17,14 +18,15 @@ export const HomeStackScreen = () => {
         <HomeStack.Navigator
             screenOptions={{
                 contentStyle: { backgroundColor: baseStackColor },
-                header: (props) => <CustomHeader headerProps={props} />,
+                header: (props) => (
+                    <CustomHeader headerProps={props} theme={theme} changeThemeComponent={<ChangeTheme />} />
+                ),
             }}
         >
-            {homeRoutes.map((route) => {
+            {screenRoutes.map((route) => {
                 return (
                     <HomeStack.Screen
                         options={{
-                            title: route.title,
                             headerTransparent: route.name === HomeScreen.HOME || route.name === HomeScreen.MEDITATION,
                             contentStyle: {
                                 backgroundColor:
@@ -34,7 +36,8 @@ export const HomeStackScreen = () => {
                             },
                         }}
                         key={route.name}
-                        {...route}
+                        name={route.name}
+                        component={route.component}
                     />
                 );
             })}
