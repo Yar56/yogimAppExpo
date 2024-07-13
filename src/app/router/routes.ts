@@ -4,7 +4,13 @@ import { HomePage, MeditationPage } from '@/stacks/homeStack';
 import { ProfileArticlesPage, ProfilePage, ProfileSettings } from '@/stacks/profileStack';
 import { CourseDetailsPage, CoursePage, LessonPage, PopularCoursesPage, RoutinePage } from '@/stacks/routineStack';
 
-import { ArticlesScreen, HomeScreen, ProfileScreen, RoutineScreen } from '@/shared/routing/NavigationEntities';
+import {
+    ArticlesScreen,
+    AuthScreen,
+    HomeScreen,
+    ProfileScreen,
+    RoutineScreen,
+} from '@/shared/routing/NavigationEntities';
 
 export const articlesRoutes: AppRoute[] = [
     { name: ArticlesScreen.ARTICLES, component: ArticlesPage },
@@ -29,4 +35,4 @@ export const profileRoutes: AppRoute[] = [
     { name: ProfileScreen.PROFILE_ARTICLES, component: ProfileArticlesPage },
 ];
 
-export const authRoutes: AppRoute[] = [{ name: 'AuthStart', component: AuthStartPage }];
+export const authRoutes: AppRoute[] = [{ name: AuthScreen.AUTHSTART, component: AuthStartPage }];

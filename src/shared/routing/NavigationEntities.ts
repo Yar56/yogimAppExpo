@@ -2,7 +2,6 @@ export enum TabName {
     HOME_TAB = 'HOME_TAB',
     ARTICLES_TAB = 'ARTICLES_TAB',
     ROUTINE_TAB = 'ROUTINE_TAB',
-    EVENTS_TAB = 'EVENTS_TAB',
     PROFILE_TAB = 'PROFILE_TAB',
 }
 
@@ -22,7 +21,6 @@ export enum RoutineScreen {
     COURSE = 'COURSE',
     LESSON = 'LESSON',
     COURSE_DETAILS_PAGE = 'COURSE_DETAILS_PAGE',
-    PURCHASE = 'PURCHASE',
 }
 export enum EventsScreen {
     EVENTS = 'EVENTS',
@@ -32,4 +30,8 @@ export enum ProfileScreen {
     PROFILE = 'PROFILE',
     PROFILE_SETTINGS = 'PROFILE_SETTINGS',
     PROFILE_ARTICLES = 'PROFILE_ARTICLES',
+}
+
+export enum AuthScreen {
+    AUTHSTART = 'AUTHSTART',
 }

@@ -1,4 +1,10 @@
-import TrackPlayer, { AppKilledPlaybackBehavior, Capability, RepeatMode } from 'react-native-track-player';
+import TrackPlayer, {
+    AppKilledPlaybackBehavior,
+    Capability,
+    RepeatMode,
+    Event,
+    Track,
+} from 'react-native-track-player';
 import { AddTrack } from 'react-native-track-player/src/interfaces';
 
 export async function setupPlayer() {
@@ -31,10 +37,12 @@ export async function setupPlayer() {
 }
 
 export async function addTracks(track: AddTrack) {
-    await TrackPlayer.add([track]);
+    await TrackPlayer.add([track as Track]);
     await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 }
 
 export async function playbackService() {
-    // TODO: Attach remote event handlers
+    TrackPlayer.addEventListener(Event.RemotePlay, () => TrackPlayer.play());
+
+    TrackPlayer.addEventListener(Event.RemotePause, () => TrackPlayer.pause());
 }

@@ -2,14 +2,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TrackPlayer from 'react-native-track-player';
 
-import { AuthProvider } from './src/app/providers/AuthProvider';
-import { Material3ThemeProvider } from './src/app/providers/MaterialThemeProvider';
-import { TabNavigatorProvider } from './src/app/providers/NavigatorProvider';
-import { ReduxProvider } from './src/app/providers/ReduxProvider';
-import { playbackService } from './src/shared/lib/audio/trackPlayerServices';
+import { AuthProvider } from '@/app/providers/AuthProvider';
+import { Material3ThemeProvider } from '@/app/providers/MaterialThemeProvider';
+import { TabNavigatorProvider } from '@/app/providers/NavigatorProvider';
+import { ReduxProvider } from '@/app/providers/ReduxProvider';
+
+import { trackPlayerServices } from '@/shared/lib/audio';
 
 try {
-    TrackPlayer.registerPlaybackService(() => playbackService);
+    TrackPlayer.registerPlaybackService(() => trackPlayerServices.playbackService);
 } catch (e) {
     console.error(e);
 }
