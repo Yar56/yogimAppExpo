@@ -8,7 +8,7 @@ import {
     HomeScreen,
     ProfileScreen,
     RoutineScreen,
-} from './shared/routing/NavigationEntities';
+} from '@/shared/routing/NavigationEntities';
 
 declare global {
     interface RootStackParamList extends ParamListBase {

@@ -11,7 +11,7 @@
         "maxNodeModuleJsDepth": 0,
         "module": "ESNext",
         "target": "ESNext",
-        "typeRoots": ["./node_modules/@types"]
+        "typeRoots": ["./node_modules/@types", "./src/app/globalTypes"]
     },
     "extends": "expo/tsconfig.base"
 }
