@@ -32,6 +32,7 @@ export const ArticlesStackScreen: FunctionComponent<StackScreenProps> = ({ scree
                                     route.name === ArticlesScreen.ARTICLE ? ArticleStackColor : baseStackColor,
                             },
                         }}
+                        key={route.name}
                         name={route.name}
                         component={route.component}
                     />
