@@ -12,7 +12,6 @@ import { useAppTheme } from '@/shared/lib/theme';
 
 import styles from './AvatarStylesheet';
 
-
 interface AvatarProps {
     size?: number;
     url?: string | null;
@@ -59,7 +58,7 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
 
             const { data, error } = await supabase.storage.from('avatars').download(originalpath);
 
-            if (error) {
+            if (error || !data) {
                 throw error;
             }
 

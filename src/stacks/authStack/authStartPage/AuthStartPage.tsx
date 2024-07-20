@@ -117,7 +117,6 @@ export const AuthStartPage = () => {
                                         dark
                                         disabled
                                         buttonColor="#156494"
-                                        onPress={() => console.log('Pressed')}
                                     >
                                         Войти с Apple
                                     </Button>
@@ -128,7 +127,6 @@ export const AuthStartPage = () => {
                                         dark
                                         disabled
                                         buttonColor="#156494"
-                                        onPress={() => console.log('Pressed')}
                                     >
                                         Войти с Google
                                     </Button>

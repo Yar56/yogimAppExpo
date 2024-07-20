@@ -7,7 +7,6 @@ export const fetchAllLessonsByCourseId = createAsyncThunk(
     async (courseId: string) => {
         try {
             const { data } = await lessons.getAllLessonsByCourseId(courseId);
-            console.log(data);
             return data;
         } catch (e) {
             console.error(e);

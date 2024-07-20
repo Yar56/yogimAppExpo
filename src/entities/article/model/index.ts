@@ -53,7 +53,6 @@ export const setLikedArticleThunk = createAppAsyncThunk(
 
         try {
             const { data } = await articles.setLikedArticle({ profileId, articleId });
-            console.log(data, 'data setLikedArticleThunk');
             return data;
         } catch (e) {
             console.error(e);
