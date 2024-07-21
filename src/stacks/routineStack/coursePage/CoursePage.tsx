@@ -62,7 +62,6 @@ export const CoursePage: FunctionComponent<Props> = ({ route }) => {
 
     if (!course) {
         console.warn(`article is undefined, courseId=${courseId}`);
-        // log sentry
         return (
             <View>
                 <Text variant="displayMedium">Что то пошло не так! Курса не существует</Text>

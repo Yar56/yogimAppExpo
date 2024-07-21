@@ -16,7 +16,6 @@ import useAppNavigation from '@/shared/routing/useAppNavigation';
 import { Spacer } from '@/shared/ui/components';
 import { CommonLayout } from '@/shared/ui/layouts';
 
-
 import { MeditationListComponent } from './components/meditationList/MeditationList';
 import styles from './HomePageStylesheet';
 
@@ -35,7 +34,6 @@ export const HomePage: FunctionComponent = () => {
 
     useEffect(() => {
         if (!session) {
-            // log sentry error
             throw new Error('Сессия не активна');
         }
         dispatch(courseModel.fetchAllCourses());
@@ -47,7 +45,6 @@ export const HomePage: FunctionComponent = () => {
     const handleMoveToSuggestCourse = () => {
         navigation.navigate(TabName.ROUTINE_TAB, {
             screen: RoutineScreen.POPULAR_COURSES,
-            // params: { courseId: SUGGEST_COURSE_ID },
         });
     };
 

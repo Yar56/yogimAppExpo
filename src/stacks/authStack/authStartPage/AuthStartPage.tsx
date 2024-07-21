@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
-import React, { useMemo, useState } from 'react';
-import { Image, LayoutAnimation, Platform, TouchableOpacity, UIManager, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, Keyboard, LayoutAnimation, Platform, TouchableOpacity, UIManager, View } from 'react-native';
 import { Button, Dialog, Divider, Text } from 'react-native-paper';
 
 import { AuthContent } from '@/shared/constants/AuthContent';
@@ -54,6 +54,20 @@ export const AuthStartPage = () => {
     };
     const AuthComponent = useMemo(() => (activeContent ? contentByType[activeContent] : null), [activeContent]);
 
+    const [commonLayoutHeight, setCommonLayoutHeight] = useState<number>(20);
+
+    // KeyboardAvoidingView doesn't work
+    useEffect(() => {
+        Keyboard.addListener('keyboardDidShow', (event) => {
+            setCommonLayoutHeight(event.endCoordinates.height);
+            layoutAnimation();
+        });
+        Keyboard.addListener('keyboardDidHide', () => {
+            setCommonLayoutHeight(0);
+            layoutAnimation();
+        });
+    }, []);
+
     return (
         <View style={[styles.container]}>
             <Image
@@ -62,7 +76,7 @@ export const AuthStartPage = () => {
                 resizeMode="cover"
             />
 
-            <CommonLayout externalStyles={styles.authContainer}>
+            <CommonLayout externalStyles={[styles.authContainer, { paddingBottom: commonLayoutHeight }]}>
                 <View style={styles.titleWrapper}>
                     <Text variant="headlineMedium" style={styles.title}>
                         Изучайте йогу вместе с Йожим
@@ -72,7 +86,7 @@ export const AuthStartPage = () => {
                         Лучшие практики на вашем коврике
                     </Text>
                 </View>
-                <View style={{ position: 'relative' }}>
+                <View style={styles.authComponentWrapper}>
                     {activeContent && AuthComponent ? (
                         <AuthComponent
                             onNavigateBack={handleNavigateToDefault}

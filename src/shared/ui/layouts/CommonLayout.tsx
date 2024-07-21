@@ -1,11 +1,11 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Edges, SafeAreaView } from 'react-native-safe-area-context';
 
 import { useAppTheme } from '@/shared/lib/theme';
 
 interface CommonLayoutProps {
-    externalStyles?: ViewStyle;
+    externalStyles?: StyleProp<ViewStyle>;
     showBackButton?: boolean;
     edges?: Edges;
 }
@@ -18,7 +18,7 @@ export const CommonLayout: FunctionComponent<CommonLayoutProps & PropsWithChildr
     const theme = useAppTheme();
     return (
         <SafeAreaView
-            edges={edges}
+            edges={edges as Edges}
             style={[
                 styles.container,
                 { backgroundColor: theme.dark ? theme.colors.colorLevel6 : theme.colors.colorLevel2 },

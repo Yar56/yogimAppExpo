@@ -29,7 +29,6 @@ export const ProfilePage = () => {
 
     useEffect(() => {
         if (!session) {
-            // log sentry error
             throw new Error('Сессия не активна');
         }
         dispatch(fetchProfileDB(session));

@@ -46,18 +46,6 @@ const RecoveryPassword: FunctionComponent<RecoveryPasswordProps> = ({ onNavigate
                     const errorMessage = error.message;
                     Alert.alert(errorMessage);
                 }
-
-                // const typedError = error as FirebaseError;
-                // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
-                //     setApiError('Такого email не существует');
-                // } else if (typedError.message === AuthErrorMessages.INVALID_PASSWORD) {
-                //     setApiError('Неверный пароль');
-                // } else if (typedError.message === AuthErrorMessages.USER_DISABLED) {
-                //     setApiError('Юзер был отключен');
-                // } else {
-                //     setApiError('Непредвиденная ошибка!');
-                //     console.error('Unknown Error', error);
-                // }
             } finally {
                 resetForm();
                 setIsLoading(false);

@@ -3,7 +3,7 @@ import { AuthTokenResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { FunctionComponent, useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, HelperText, Text, TextInput } from 'react-native-paper';
 import * as yup from 'yup';
 
 import { userModel } from '@/entities/user';
@@ -34,16 +34,10 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
     const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // todo обработка ошибок
-    // const [apiError, setApiError] = useState<string>('');
 
     const handleNavigateToSignUp = () => {
         onNavigateTarget(AuthContent.SIGN_UP);
     };
-    // const handleRecoveryPage = () => {
-    //     onNavigateTarget(AuthContent.RECOVERY);
-    // };
-
     const formik: FormikConfig<{ email: string; password: string }> = {
         initialValues: {
             email: '',
@@ -69,18 +63,6 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                     const errorMessage = error.message;
                     Alert.alert(errorMessage);
                 }
-
-                // const typedError = error as FirebaseError;
-                // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
-                //     setApiError('Такого email не существует');
-                // } else if (typedError.message === AuthErrorMessages.INVALID_PASSWORD) {
-                //     setApiError('Неверный пароль');
-                // } else if (typedError.message === AuthErrorMessages.USER_DISABLED) {
-                //     setApiError('Юзер был отключен');
-                // } else {
-                //     setApiError('Непредвиденная ошибка!');
-                //     console.error('Unknown Error', error);
-                // }
             } finally {
                 setIsLoading(false);
                 resetForm();
@@ -101,9 +83,8 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                     handleSubmit,
                     values: { email, password },
                     isSubmitting,
-                    dirty,
-                    isValid,
                     errors,
+                    isValid,
                 }) => (
                     <View style={styles.formContainer}>
                         <TextInput
@@ -137,6 +118,11 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                             onChangeText={handleChange('password')}
                             error={Boolean(errors.password)}
                         />
+                        {!isValid && (
+                            <HelperText type="error" visible={Boolean(errors)} padding="normal">
+                                Заполните все поля чтобы войти
+                            </HelperText>
+                        )}
                         <Button
                             style={styles.button}
                             mode="contained-tonal"
@@ -148,7 +134,6 @@ const SignIn: FunctionComponent<SignInProps> = ({ onNavigateBack, onNavigateTarg
                         >
                             Войти
                         </Button>
-                        {/*{apiError && !dirty && isValid && <div style={styles.errorText}>{apiError}</div>}*/}
                     </View>
                 )}
             </Formik>

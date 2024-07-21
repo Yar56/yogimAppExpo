@@ -3,7 +3,7 @@ import { AuthResponse } from '@supabase/supabase-js';
 import { Formik, FormikConfig } from 'formik';
 import React, { FunctionComponent, useState } from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, Text, TextInput, HelperText } from 'react-native-paper';
 import * as yup from 'yup';
 
 import { userModel } from '@/entities/user';
@@ -41,8 +41,6 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     const navigation = useAppNavigation();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // todo обработка ошибок
-    // const [apiError, setApiError] = useState<string>('');
 
     const formik: FormikConfig<{ displayName: string; email: string; password: string; confirmPassword: string }> = {
         initialValues: {
@@ -67,23 +65,11 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                 }
 
                 navigation.navigate(TabName.ROUTINE_TAB, { screen: RoutineScreen.ROUTINE });
-                // dispatch(userModel.setCachedDisplayName(displayName));
             } catch (error) {
                 if (error instanceof Error) {
                     const errorMessage = error.message;
                     Alert.alert(errorMessage);
                 }
-                // const typedError = error as FirebaseError;
-                // if (typedError.message === AuthErrorMessages.EMAIL_NOT_FOUND) {
-                //     setApiError('Такого email не существует');
-                // } else if (typedError.message === AuthErrorMessages.INVALID_PASSWORD) {
-                //     setApiError('Неверный пароль');
-                // } else if (typedError.message === AuthErrorMessages.USER_DISABLED) {
-                //     setApiError('Юзер был отключен');
-                // } else {
-                //     setApiError('Непредвиденная ошибка!');
-                //     console.error('Unknown Error', error);
-                // }
             } finally {
                 setIsLoading(false);
                 resetForm();
@@ -96,6 +82,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
     };
 
     const handleNavigateToStart = () => onNavigateBack();
+
     return (
         <LoadingWrapper isLoading={isLoading}>
             <TouchableOpacity activeOpacity={0.5} onPress={handleNavigateToStart} style={styles.backButton}>
@@ -124,10 +111,6 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                             error={Boolean(errors.displayName)}
                             autoCapitalize="none"
                         />
-                        {/*<HelperText type="error" visible={Boolean(errors.displayName)} padding="normal">*/}
-                        {/*    {errors.displayName}*/}
-                        {/*</HelperText>*/}
-
                         <TextInput
                             outlineStyle={{ borderColor: '#848484' }}
                             autoCapitalize="none"
@@ -179,6 +162,12 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                             }
                             error={Boolean(errors.confirmPassword)}
                         />
+                        {!isValid && (
+                            <HelperText type="error" visible={Boolean(errors)} padding="normal">
+                                Заполните все поля для продолжения регистрации
+                            </HelperText>
+                        )}
+
                         <Button
                             contentStyle={styles.button}
                             style={styles.buttonRegistration}
@@ -194,7 +183,6 @@ const SignUp: FunctionComponent<SignUpProps> = ({ onNavigateTarget, onNavigateBa
                                 Присоединиться
                             </Text>
                         </Button>
-                        {/*{apiError && !dirty && isValid && <div style={{ color: '#ff0000' }}>{apiError}</div>}*/}
                     </View>
                 )}
             </Formik>

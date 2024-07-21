@@ -16,7 +16,6 @@ import { CommonLayout } from '@/shared/ui/layouts';
 
 import styles from './ArticlePageStylesheet';
 
-
 type Props = NativeStackScreenProps<RootStackParamList, ArticlesScreen.ARTICLE>;
 // @ts-ignore
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
@@ -49,7 +48,6 @@ export const ArticlePage: FunctionComponent<Props> = ({ route }) => {
 
     if (!article) {
         console.warn(`article is undefined, articleId=${articleId}`);
-        // log sentry
         return (
             <View>
                 <Text variant="displayMedium">Что то пошло не так! Статьи не существует</Text>

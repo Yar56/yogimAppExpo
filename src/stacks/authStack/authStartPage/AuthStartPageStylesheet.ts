@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { screenWidth } from '@/shared/constants/screenSize';
 
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     authContainer: {
         flex: 0,
         marginTop: -25,
-        paddingBottom: Platform.OS === 'android' ? 20 : 0,
     },
     titleWrapper: {
         position: 'absolute',
@@ -23,6 +22,7 @@ const styles = StyleSheet.create({
         width: 300,
         paddingLeft: 20,
     },
+    authComponentWrapper: { position: 'relative' },
     title: { fontWeight: 'bold' },
     buttonsSocialAuth: {
         display: 'flex',
