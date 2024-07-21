@@ -2,6 +2,10 @@
     "name": "yogimappexpo",
     "version": "1.0.0",
     "main": "./node_modules/expo/AppEntry.js",
+    "keywords": [
+        "Feature-Sliced Design",
+        "React Native"
+    ],
     "scripts": {
         "prepare": "git config core.hooksPath .git-hooks || echo 'Not in a git repo'",
         "start": "expo start",
