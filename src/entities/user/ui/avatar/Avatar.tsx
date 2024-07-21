@@ -62,7 +62,6 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                 throw error;
             }
 
-            // eslint-disable-next-line no-undef
             const fr = new FileReader();
             fr.readAsDataURL(data);
             fr.onload = () => {
@@ -165,7 +164,6 @@ export const AvatarComponent: FunctionComponent<AvatarProps> = ({ url, onUpload,
                             );
                         }}
                         containerColor={theme.colors.colorLevel4}
-                        // style={{ backgroundColor: '#156392' }}
                         size={13}
                         onPress={uploadAvatar}
                     />
